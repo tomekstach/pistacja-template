@@ -1,0 +1,71 @@
+.pie-chalk-select {
+  display: inline-block; }
+  .pie-chalk-select .active {
+    text-align: left;
+    position: relative; }
+    .pie-chalk-select .active::after {
+      top: 10px;
+      right: 10px;
+      content: "";
+      display: block;
+      font-size: 27px;
+      width: 18px;
+      height: 18px;
+      background-image: url(../images/icons.svg);
+      background-repeat: no-repeat;
+      background-position: -18px 0;
+      background-size: cover;
+      position: absolute; }
+  .pie-chalk-select.open div.chalk-droplist {
+    opacity: 1;
+    visibility: visible;
+    transform: scale(1) translateZ(0);
+    transition: opacity .3s ease, transform .3s ease, visibility 0s; }
+
+div.chalk-droplist {
+  width: 260px;
+  padding: 5px;
+  z-index: 200;
+  margin-top: 10px;
+  text-align: left;
+  overflow: hidden;
+  list-style: none;
+  background: white;
+  border-radius: 8px;
+  position: absolute;
+  border: 1px solid #eee;
+  opacity: 0;
+  overflow: hidden;
+  visibility: hidden;
+  box-sizing: border-box;
+  transform: scale(0.95) translateZ(0);
+  transition: visibility 0s linear 0.5s, opacity .3s ease, transform .3s ease; }
+  div.chalk-droplist a,
+  div.chalk-droplist button {
+    width: 100%;
+    margin: 1px 0;
+    font-size: 16px;
+    border-radius: 30px;
+    transition: background .3s ease; }
+    div.chalk-droplist a:focus,
+    div.chalk-droplist button:focus {
+      outline: none; }
+    div.chalk-droplist a:hover,
+    div.chalk-droplist button:hover {
+      background: rgba(170, 127, 185, 0.4); }
+    div.chalk-droplist a.selected,
+    div.chalk-droplist button.selected {
+      background: rgba(170, 127, 185, 0.4); }
+      div.chalk-droplist a.selected::before,
+      div.chalk-droplist button.selected::before {
+        content: "";
+        font-size: 22px;
+        line-height: 18px;
+        margin-right: 5px;
+        width: 20px;
+        height: 20px;
+        background-image: url(../images/icons.svg);
+        background-repeat: no-repeat;
+        background-position: -40px 0;
+        background-size: cover; }
+

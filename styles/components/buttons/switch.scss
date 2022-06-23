@@ -1,0 +1,79 @@
+.pie-switch {
+  width: 48px;
+  height: 26px;
+  margin-left: 10px;
+  position: relative;
+  display: inline-block;
+
+  & input {
+    width: 0;
+    height: 0;
+    opacity: 0;
+
+    &:focus {
+      outline: none;
+    }
+
+    &:checked + .slider {
+      // // FIXME: color?
+    }
+
+    &:checked + .slider:before {
+      transform: translateX(20px);
+    }
+
+    &:checked + .slider:after {
+      opacity: 1;
+      transform: translateX(20px);
+    }
+  }
+
+  & .slider {
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    transition: .4s;
+    cursor: pointer;
+    position: absolute;
+    background-repeat: no-repeat;
+    background-image: url(~images/switch.svg);
+
+    &::before {
+      content: "";
+      left: 6px;
+      width: 18px;
+      bottom: 4px;
+      height: 18px;
+      transition: .4s;
+      position: absolute;
+      background-image: url(~images/switch.svg);
+      background-size: cover;
+      background-position: -53px;
+      background-repeat: no-repeat;
+    }
+
+    &::after {
+      content: "";
+      left: 6px;
+      opacity: 0;
+      width: 18px;
+      bottom: 4px;
+      height: 18px;
+      transition: .4s;
+      position: absolute;
+      background-image: url(~images/switch.svg);
+      background-size: cover;
+      background-position: -34px;
+      background-repeat: no-repeat;
+    }
+
+    /* Rounded sliders */
+    &.round {
+      border-radius: 26px;
+      &::before {
+        border-radius: 50%;
+      }
+    }
+  }
+}

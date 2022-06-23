@@ -1,0 +1,62 @@
+
+.pie-pagination {
+  display: flex;
+  margin-bottom: 30px;
+  justify-content: center;
+
+  @media(max-width: 600px) {
+    width: 100%;
+    height: 30px;
+    overflow: hidden;
+  }
+
+  .pie-pagination__list {
+    padding: 0;
+    display: flex;
+    margin: 0 auto;
+    list-style: none;
+
+    @media(max-width: 600px) {
+      width: 100%;
+      height: 100%;
+      overflow-x: auto;
+      overflow-y: hidden;
+    }
+
+    li {
+      display: flex;
+      flex-shrink: 0;
+      min-width: 25px;
+      margin-right: 10px;
+      align-items: center;
+      border-radius: 15px;
+      justify-content: center;
+
+      & > i {
+        display: flex;
+      }
+
+      & > a {
+        display: flex;
+        padding: 0 12px;
+        text-decoration: none;
+        text-transform: capitalize;
+        @include var(color, font-color);
+        &:hover {
+          @include var(color, font-color-darken);
+        }
+      }
+
+      &.active {
+        @include var(background, math-color);
+        & > a {
+          color: white;
+        }
+      }
+
+      &.disabled {
+        display: none;
+      }
+    }
+  }
+}

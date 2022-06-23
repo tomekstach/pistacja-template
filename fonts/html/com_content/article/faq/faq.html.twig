@@ -1,0 +1,14 @@
+
+{% do jdoc.addScript(jhash("templates/pistacja/modules/faq.js")) %}
+
+<div class="pie-content" itemscope itemtype="https://schema.org/Article">
+  <meta itemprop="inLanguage" content="{{ jlang.getTag() }}" />
+  <div itemprop="articleBody" class="pie-faq">
+    {% if params.get("show_title", 1) %}
+      <h1 class="pie-faq-title" itemprop="name">
+        {{ view.escape(item.title) }}
+      </h1>
+    {% endif %}
+    {{ item.text|raw }}
+  </div>
+</div>

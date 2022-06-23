@@ -1,0 +1,32 @@
+{ { params } }
+{{ dump(params) }}
+
+{ { pageclass_sfx } }
+{{ pageclass_sfx }}
+
+{ { category } }
+{{ dump(category) }}
+
+{{ afterDisplayTitle }}, {{ beforeDisplayContent }}, {{ afterDisplayContent }}
+
+{ { intro_items } }
+{% for item in intro_items %}
+  {{ dump(item) }}
+{% endfor %}
+
+{ { lead_items } }
+{% for item in lead_items %}
+  {{ dump(item) }}
+{% endfor %}
+
+{ { pagination } }
+{{ dump(pagination) }}
+
+{% if (params.def('show_pagination', 1) == 1 or params.get('show_pagination') == 2) and pagination.get('pages.total') > 1 %}
+<div class="pie-pagination">
+  {% if params.def('show_pagination_results', 1) %}
+    <p class="counter pull-right">{{ pagination.getPagesCounter() }}</p>
+  {% endif %}
+  {{ pagination.getPagesLinks()|raw }}
+</div>
+{% endif %}

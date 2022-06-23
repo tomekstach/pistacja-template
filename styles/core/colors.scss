@@ -1,0 +1,135 @@
+/* COLOR UTILITIES */ 
+
+.text {
+  &-white {
+    color: white;
+  }
+
+  &-green {
+    @include var(color, primary-color);
+  }
+  
+  &-violet {
+    @include var(color, secondary-color);
+  }
+
+  &-pink {
+    @include var(color, math-color);
+  }
+
+  &-blue {
+    @include var(color, chem-color);
+  }
+ 
+  &-deep-green {
+    @include var(color, biol-color);
+  }
+  
+  &-lite-blue {
+    @include var(color, phis-color);
+  }
+  
+  &-dark-blue {
+    @include var(color, exams-eight-blue);
+  }
+
+  &-gray-blue {
+    @include var(color, exams-eight-gray);
+  }
+  
+  &-deep-blue {
+    @include var(color, exams-mex-blue);
+  }
+  
+  &-soft-blue {
+    @include var(color, exams-mex-gray);
+  }
+  
+  &-red {
+    @include var(color, error-color);
+  }
+  
+  &-yellow {
+    @include var(color, warning-color);
+  }
+
+  &-gray {
+    @include var(color, pie-gray-400);
+  }
+  
+  &-lite-gray {
+    @include var(color, pie-gray-200);
+  }
+
+  &-dark {
+    @include var(color, pie-gray-700);
+  }
+}
+
+
+
+.bg {
+  &-white {
+    background-color: white;
+  }
+
+  &-green {
+    @include var(background-color, primary-color);
+  }
+  
+  &-violet {
+    @include var(background-color, secondary-color);
+  }
+
+  &-pink {
+    @include var(background-color, math-color);
+  }
+
+  &-blue {
+    @include var(background-color, chem-color);
+  }
+ 
+  &-deep-green {
+    @include var(background-color, biol-color);
+  }
+  
+  &-lite-blue {
+    @include var(background-color, phis-color);
+  }
+  
+  &-dark-blue {
+    @include var(background-color, exams-eight-blue);
+  }
+
+  &-gray-blue {
+    @include var(background-color, exams-eight-gray);
+  }
+  
+  &-deep-blue {
+    @include var(background-color, exams-mex-blue);
+  }
+  
+  &-soft-blue {
+    @include var(background-color, exams-mex-gray);
+  }
+  
+  &-red {
+    @include var(background-color, error-color);
+  }
+  
+  &-yellow {
+    @include var(background-color, warning-color);
+  }
+  
+  &-gray {
+    @include var(background-color, pie-gray-400);
+  }
+
+  &-lite-gray {
+    @include var(background-color, pie-gray-200);
+  }
+ 
+  &-dark {
+    @include var(background-color, pie-gray-700);
+  }
+}

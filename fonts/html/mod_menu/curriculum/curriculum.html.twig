@@ -1,0 +1,36 @@
+{% do jdoc.addScript(jhash("templates/pistacja/modules/curriculum.js")) %}
+
+<div class="pie-curriculum">
+	<div class="pie-curriculum-header">
+		<div class="pie-note">
+			Kliknij na poziom edukacyjny, aby rozwinąć.
+		</div>
+	</div>
+
+	<ul class="collapse-list">
+		{% for item in data.list %}
+			<li class="{{ "pie-curriculum-lvl-" ~ item.level }}">
+				{% if item.title != "Wszystkie" %}
+					<a href="{{ item.flink }}" class="{{ data.class_sfx }} {{ not item.deeper and item.level != 5 ? 'disabled' : '' }}" title="{{ item.anchor_title }}">
+						{% if item.level == 3 %}
+							<i class="pie-icon-seed-18"></i>
+						{% elseif item.level == 4 %}
+							<i class="material-icons">notes</i>
+						{% elseif item.level == 5 %}
+							<i class="material-icons">play_arrow</i>
+						{% endif %}
+						<span>{{ item.title }}</span>
+					</a>
+				{% endif %}
+				{% if item.deeper %}
+					<ul class="pie-cc-list">
+					{% elseif item.shallower %}
+						{% for i in range(1, item.level_diff) %}
+						</ul>
+					</li>
+				{% endfor %}
+		{% else %}
+			</li>
+		{% endif %}
+	{% endfor %}
+</ul></div>

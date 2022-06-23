@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE install PUBLIC "-//Joomla! 2.5//DTD template 1.0//EN" "http://www.joomla.org/xml/dtd/2.5/template-install.dtd">
+<extension version="3.1" type="template" client="site" method="upgrade">
+	<name>pistacja</name>
+	<version><!-- %_VERSION_% --></version>
+	<creationDate><!-- %_CREATION_DATE_% --></creationDate>
+	<author>Wojciech Ludwin, Tomasz Stach</author>
+	<authorEmail>kontakt@katalysteducation.org</authorEmail>
+	<authorUrl>http://katalysteducation.org</authorUrl>
+	<copyright>Copyright (C) Katalyst Education 2015. Wszystkie prawa zastrzeżone.</copyright>
+	<description>TPL_PISTACJA_XML_DESCRIPTION</description>
+	<files><!-- %_FILES_% --></files>
+	<positions>
+		<position>navigation-menu</position>
+		<position>navigation-search</position>
+		<position>navigation-message</position>
+
+		<position>landing-intro</position>
+		<position>landing-banners</position>
+		<position>landing-portals</position>
+		<position>landing-searchbox</position>
+
+		<position>newsletter-modal</position>
+		<position>breadcrumbs</position>
+		<position>curriculum</position>
+		<position>debug</position>
+		<position>footer</position>
+	</positions>
+	<languages folder="language">
+		<language tag="en-GB">en-GB/en-GB.tpl_pistacja.ini</language>
+		<language tag="en-GB">en-GB/en-GB.tpl_pistacja.sys.ini</language>
+	</languages>
+	<config>
+		<fields name="params">
+			<fieldset name="advanced">
+				<field
+					name="tracking"
+					type="radio"
+					label="TPL_PISTACJA_TRACKING_LABEL"
+					description="TPL_PISTACJA_TRACKING_DESC"
+					class="btn-group btn-group-yesno"
+					default="0"
+					>
+					<option value="1">JYES</option>
+					<option value="0">JNO</option>
+				</field>
+
+				<field
+					name="trackingID"
+					type="text"
+					label="TPL_PISTACJA_TRACKING_ID_LABEL"
+					description="TPL_PISTACJA_TRACKING_ID_DESC"
+					default=""
+					filter="string"
+				/>
+			</fieldset>
+		</fields>
+	</config>
+</extension>

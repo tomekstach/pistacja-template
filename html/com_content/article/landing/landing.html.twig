@@ -1,0 +1,34 @@
+{% do jdoc.addScript(jhash("templates/pistacja/modules/landing.js")) %}
+
+<div class="pie-content">
+  {# LANDING INTRO #}
+  {{ jposition("landing-intro") }}
+
+  {# USER PORTALS: Dla ucznia, Dla nauczyciela, Dla rodzica 
+  <div class="pie-user-portals">
+    {{ jposition("landing-portals") }}
+  </div>
+  #}
+
+  <div class="pie-bubbles">
+    {{ jposition("landing-bubbles") }}
+  </div>
+</div>
+
+{# SEARCHBOX #}
+{{ jposition("landing-searchbox") }}
+
+{# BANNERS: Czym jest Pi-stacja?, Ciekawostki, Pi-stacja Live #}
+{{ jposition("landing-banners") }}
+
+
+{# BOTTOM: STATISTICS MODULE #}
+<div class="pie-content">
+  <div itemscope itemtype="https://schema.org/Article">
+    <meta itemprop="inLanguage" content="{{ jlang.getTag() }}" />
+    <div itemprop="articleBody">
+      {{ jposition("landing-stats") }}
+      {{ item.text|raw }}
+    </div>
+  </div>
+</div>

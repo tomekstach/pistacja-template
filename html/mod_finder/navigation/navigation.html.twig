@@ -1,0 +1,10 @@
+{% do jdoc.addScript(jhash("templates/pistacja/modules/navigation.js")) %}
+{% do jdoc.addStyleSheet(jhash("templates/pistacja/css/navigation.css")) %}
+
+<div id="pie-navigation-search" class="pie-navigation-search">
+  <form class="pie-navigation-search-form" action="{{ jroute(data.route) }}" method="get" autocomplete="off">
+    <input type="text" name="q" value="" placeholder="Szukaj..." tabindex="-1" >
+    <button class="pie-navigation-search-button pie-icon-right-arrow-18" type="submit"></button>
+  </form>
+  <button class="pie-navigation-search-toggle"></button>
+</div>

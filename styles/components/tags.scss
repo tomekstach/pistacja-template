@@ -1,0 +1,25 @@
+.pie-tags {
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  list-style: none;
+  line-height: 15px;
+  margin: 0 0 15px !important;
+
+  &__label {
+    color: white;
+    margin-top: 5px;
+    padding: 4px 6px;
+    margin-right: 5px;
+    border-radius: 2px;
+    align-items: center;
+    font-weight: normal;
+    display: inline-flex;
+    text-decoration: none;
+    @include var(background, primary-color);
+
+    &:last-child {
+      margin-right: 0;
+    }
+  }
+}

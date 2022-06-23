@@ -1,0 +1,302 @@
+{% do jdoc.addScript("https://www.youtube.com/player_api") %}
+{% do jdoc.addScript(jhash("templates/pistacja/modules/prep.js")) %}
+{% do jdoc.addStyleSheet(jhash("templates/pistacja/css/prep.css")) %}
+
+{% set isEightGradeExam = item.level_title == "Egzamin ósmoklasisty" %}
+
+<div class="pie-content pie-exams-prep {{ isEightGradeExam ? " eight-theme " : " mex-theme " }} stack">
+
+  {# INTRO #}
+
+  <div class="rail">
+    <div class="stack">
+      <div class="stack --small">
+        <h1 class="KGSolid font-3xl text-dark-blue">{{ item.title }}</h1>
+        <h2 class="KGSolid font-2xl text-dark-blue">{{ item.subject_title }}</h2>
+      </div>
+      <div class="stack --small">
+        {{ item.description|raw }}
+      </div>
+    </div>
+    <a href="{{ item.examURL }}" class="pie-exams-bubble pie-target-exam">
+      <div class="tagline">Próbny egzamin<br>z Pi-stacją<br>2022</div>
+      <img src="./templates/pistacja/images/{{ isEightGradeExam ? "bubble-eight.svg" : "bubble-matura.svg" }}" alt="bubble">
+    </a>
+  </div>
+
+  {% if item.calendar|length > 0 %}  
+  <div>
+    <div class="rail --space-t --space-b-2x">
+      <svg class="icon" width="2em" height="2em">
+        <use href="./templates/pistacja/images/icons/pie-icons-sprite.svg#ex-calendar"/>
+      </svg>
+      <a href="{{ item.calendar }}" class="as-text underline--animated green" target="_blank">Pobierz kalendarz powtórek (PDF)</a>
+    </div>
+  </div>
+  {% endif %}
+  
+
+  {# INCOMMING EVENTS #}
+
+  {% if item.nearestWebinar != NULL %}
+  <div class="stack --small">
+    <div class="KGSolid font-xl">Najbliższy webinar</div>
+      
+    <div class="pie-exams-prep-next">
+      
+      {# COUNTER #}
+      
+      <div class="pie-new-player exams">
+        {% if item.nearestWebinar.yt_id|length > 0 %}
+          <iframe width="100%" height="100%" src="https://www.youtube.com/embed/{{ item.nearestWebinar.yt_id }}" title="{{ item.nearestWebinar.title }}" frameborder="0" allowfullscreen></iframe>
+        {% else %}
+          <div id="countdown-timer" data-time="{{ item.nearestWebinar.date }}"></div>
+        {% endif %}            
+      </div>
+      
+
+      {# NEXT #}
+
+      <div class="stack">
+        
+        <div class="font-2xl KGSolid">
+          <a class="as-text" href="{{ item.nearestWebinar.route }}">
+            <span>{{ item.nearestWebinar.title }} </span>
+            <span>{{ item.nearestWebinar.date|date("d.m.Y / H:i") }}</span>
+          </a>
+        </div>          
+
+        <ul class="no-style stack --medium">
+          <li class="rail">
+            <svg class="icon" width="2.1em" height="2.1em">
+              <use href="./templates/pistacja/images/icons/pie-icons-sprite.svg#ex-doc"/>
+            </svg>
+            {% if item.nearestWebinar.item_file|length > 0 %}
+              <a href="{{ item.nearestWebinar.item_file }}" class="as-text underline--animated green" target="_blank">Pobierz zadanie do webinaru (PDF)</a>
+            {% else %}
+              <span>Pobierz zadanie do webinaru (wkrótce)</span>
+            {% endif %}
+          </li>
+          <li class="rail">
+            <svg class="icon" width="2.1em" height="2.1em">
+              <use href="./templates/pistacja/images/icons/pie-icons-sprite.svg#ex-ex"></use>
+            </svg>
+             <button class="as-text underline--animated green" data-pie-modal-trigger="newsletter">Nie przegap webinaru! Zapisz się na Newsletter</button>
+          </li>
+          <li class="rail">
+            <svg class="icon" width="2.1em" height="2.1em">
+              <use href="./templates/pistacja/images/icons/pie-icons-sprite.svg#ex-share"></use>
+            </svg>
+
+            {# SHARE DROPDOWN #}
+
+            <div>
+              <button class="as-text underline--animated green" data-rct-trigger="share" data-rct-toggle="show">Udostępnij</button>  
+              <div class="pie-share-dropdown" data-rct-target="share">
+                <a class="share-button" href="https://classroom.google.com/share?url={{ item.nearestWebinar.route }}" target="_blank" >
+                  <svg class="icon xl">
+                    <use href="./templates/pistacja/images/icons/pie-icons-sprite.svg#sm-classroom" />
+                  </svg>
+                  <span>Google Classroom</span>
+                </a>
+
+                <a class="share-button" href="https://teams.microsoft.com/share?href={{ item.nearestWebinar.route }}" target="_blank">
+                  <svg class="icon xl">
+                    <use href="./templates/pistacja/images/icons/pie-icons-sprite.svg#sm-teams" />
+                  </svg>
+                  <span>Microsoft Teams</span>
+                </a>
+
+                <button class="share-button" data-copy="{{ item.nearestWebinar.route }}">
+                  <svg class="icon xl">
+                      <use href="./templates/pistacja/images/icons/pie-icons-sprite.svg#sm-copy" />
+                    </svg>
+                    <span>Link do tej strony</span>
+                  </button>	
+                  
+                  <button class="share-button" data-copy="https://www.youtube.com/embed/{{ item.nearestWebinar.yt_id }}">
+                    <svg class="icon xl">
+                      <use href="./templates/pistacja/images/icons/pie-icons-sprite.svg#sm-yt" />
+                    </svg>
+                    <span>Link do YouTube</span>
+                  </button>		
+              </div>
+            </div>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  {% else %}
+    <div class="pie-exams-prep-next-end">Cykl webinarów zakończony</div>
+  {% endif %}
+
+  <hr class="space medium">
+
+  {# TABS NAVIGATION #}
+
+    <div class="pie-tabs">        
+
+      <a href="{{ item.examURL }}" class="button pie-target-exam">
+        <svg class="icon md">
+          <use href="./templates/pistacja/images/icons/pie-icons-sprite.svg#ex-doc"></use>
+        </svg>
+        <span>Próbny egzamin 2022</span>
+      </a>    
+
+      <button data-tab-target="webinars" class="active">
+        <svg class="icon md">
+          <use href="./templates/pistacja/images/icons/pie-icons-sprite.svg#ex-doc"></use>
+        </svg>
+       <span>Webinary powtórkowe</span>
+      </button>
+      
+      {% if item.pastExams|length > 0 %}
+      <button data-tab-target="archive">
+        <svg class="icon md">
+          <use href="./templates/pistacja/images/icons/pie-icons-sprite.svg#ex-doc"/>
+        </svg>
+        <span>Archiwalne arkusze i webinary</span>
+      </button>
+      {% endif %}     
+      
+      <button data-tab-target="prep">
+        <svg class="icon md">
+          <use href="./templates/pistacja/images/icons/pie-icons-sprite.svg#ex-doc"/>
+        </svg>
+        <span>Jak się przygotować?</span>
+      </button>
+
+      <div class="pie-social-media-tabs"> 
+        <a href="https://pistacja.tv/podstawa-programowa/matematyka" class="matematyka subject-menu-button" title="Matematyka"></a> 
+        <a href="https://www.facebook.com/PistacjaMatematyka/" target="_blank" rel="noopener noreferrer" class="fb-menu-button">Facebook</a>
+        <a href="https://www.youtube.com/c/pistacjamatematyka" target="_blank" rel="noopener noreferrer" class="yt-menu-button">YouTube</a>
+      </div>
+    </div>
+
+
+    {# TABS CONTENT #}
+
+    <div class="pie-tabs-container">
+
+      {% if item.webinars|length > 0 %}
+      <div data-tab="webinars" class="active">
+        <div class="rail --h-spread --v-start --space-i --space-b-2x pie-tabs-hide-on-desktop">
+          <h3 class="KGSolid font-2xl">Webinary powtórkowe</h3>    
+          <button data-tab-close="true">
+            <svg class="icon sm">
+              <use href="./templates/pistacja/images/icons/pie-icons-sprite.svg#ui-close" />
+            </svg>
+          </button>
+        </div>
+
+        <div class="pie-rounded-list webinars-list">
+          {% for webinar in item.webinars %}
+            {% set isNext = webinar.date|date("d.m.Y") == item.nearestWebinar.date|date("d.m.Y") %}
+            {% if isNext %}
+            <a class="webinars-list as-text pie-list-row --h-spread" href="{{ webinar.route }}">
+              <div class="rail">
+                <svg class="icon sm">                  
+                  <use href="./templates/pistacja/images/icons/pie-icons-sprite.svg#pl-play-blue"/>            
+                </svg>
+                <strong>{{ webinar.title }}</strong>
+              </div>
+              <div class="pie-badge bg-dark-blue text-white">{{ webinar.date|date("d.m.Y | H:i") }}</div>
+            </a>
+            {% else %}
+            {% set isEnded = webinar.date|date("U") < date|date("U") %}
+            <a class="webinars-list as-text pie-list-row --h-spread {{ isEnded ? " --opacity-05" : "" }}" href="{{ webinar.route }}">
+              <div class="rail">
+                <svg class="icon sm">                  
+                  <use href="./templates/pistacja/images/icons/pie-icons-sprite.svg#pl-play-blue"/>            
+                </svg>
+                <span>{{ webinar.title }}</span>
+              </div>
+              <div class="pie-badge bg-gray-blue" }}">{{ isEnded ? "ZAKOŃCZONY" : webinar.date|date("d.m.Y | H:i") }}</div>
+            </a>
+            {% endif %}
+          {% endfor %}
+        </div>
+      </div>
+      {% endif %}
+
+      {% if item.pastExams|length > 0 %}
+      <div data-tab="archive">
+
+        <div class="rail --h-spread --v-start --space-i --space-b-2x pie-tabs-hide-on-desktop">
+          <h3 class="KGSolid font-2xl">Archiwalne arkusze i webinary</h3>    
+          <button data-tab-close="true">
+            <svg class="icon sm">
+              <use href="./templates/pistacja/images/icons/pie-icons-sprite.svg#ui-close" />
+            </svg>
+          </button>
+        </div>
+
+        <div class="pie-rounded-list">
+          {% for exam in item.pastExams %}
+          <a class="as-text pie-list-row --h-spread" href="{{ exam.route }}">
+            <div class="rail">
+              <svg class="icon md">
+                <use href="./templates/pistacja/images/icons/pie-icons-sprite.svg#ex-ex"/>
+              </svg>
+              <span>{{ exam.title }}</span>
+            </div>
+          </a>
+          {% endfor %}
+        </div>
+      </div>
+      {% endif %}
+
+      {% if item.howToPrep|length > 0 %}
+      <div data-tab="prep">
+        <div class="rail --h-spread --v-start --space-i --space-b-2x pie-tabs-hide-on-desktop">
+          <h3 class="KGSolid font-2xl">Jak się przygotować?</h3>    
+          <button data-tab-close="true">
+            <svg class="icon sm">
+              <use href="./templates/pistacja/images/icons/pie-icons-sprite.svg#ui-close" />
+            </svg>
+          </button>
+        </div>
+
+        <div class="--space-i stack classic-list-style">
+          {{ item.howToPrep|raw }}
+        </div>
+
+      </div>
+      {% endif %}
+    </div>
+
+    <div class="pie-social-media">
+      <a href="https://www.facebook.com/PistacjaMatematyka/" target="_blank" rel="noopener noreferrer" class="fb-menu-button">Facebook</a>
+      <a href="https://www.youtube.com/c/pistacjamatematyka" target="_blank" rel="noopener noreferrer" class="yt-menu-button">YouTube</a>
+      <a href="https://pistacja.tv/podstawa-programowa/matematyka" class="matematyka subject-menu-button" title="Matematyka"></a>
+    </div>
+    <hr class="space medium">
+</div>
+
+
+{# NEWSLETTER MODAL #}
+
+<div data-pie-modal="newsletter" class="pie-newsletter-modal">
+  <h3 class="KGSolid font-xl rail --h-spread --v-start">
+    <span>Zapis na newsletter</span>
+    <button class="ghost" data-pie-modal-close="true">
+      <svg class="icon sm --space-t">
+        <use href="./templates/pistacja/images/icons/pie-icons-sprite.svg#ui-close">
+      </svg>
+    </button>
+  </h3>
+  <hr class="space small">
+  <div class="scroll-content stack --medium">
+    {% if isEightGradeExam == true %}
+      {{ jposition("newsletter-modal") }}
+    {% else %}
+      {{ jposition("newsletter-modal-1") }}    
+    {% endif %}
+  </div>
+</div>
+
+{# <pre>
+{{ dump(item) }}
+</pre> #}

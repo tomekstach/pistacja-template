@@ -1,0 +1,51 @@
+{% do jdoc.addScript(jhash("templates/pistacja/modules/curriculum.js")) %}
+
+{# Check if there are empty elements in the curriculum tree #}
+{% set noDeeper = true %}
+{% for item in data.list %}
+    {% if not item.deeper and item.level != 5 %}
+      {% set noDeeper = false %}
+    {% endif %}
+{% endfor %}
+
+<div class="pie-curriculum">
+
+  <div class="stack --medium">
+    <div>
+      <h3 class="font-xl">Podstawa programowa</h3>
+      <p class="text-gray">{{ jtext("MOD_MENU_CURRICULUM_DESCRIPTION1") }}</p>
+    </div>
+    {% if not noDeeper %}
+      <p>{{ jtext("MOD_MENU_CURRICULUM_DESCRIPTION2")|raw }}</p>
+    {% endif %}
+  </div>     
+
+	<ul class="curriculum-list">
+		{% for item in data.list %}
+				<li class="{{ "nest-" ~ item.level }}">
+				{% if item.title != "Wszystkie" %}
+					<a href="{{ item.flink }}" class="as-text pie-list-row rail --medium {{ data.class_sfx }} {{ not item.deeper and item.level != 5 ? ' disabled' : '' }} {{ item.level == 3 or item.level == 4 ? ' collapse' : '' }}" title="{{ item.anchor_title }}">
+						{% if item.level == 3 %}
+							<i class="pie-icon-seed-18"></i>
+						{% elseif item.level == 4 %}
+							<i class="material-icons">notes</i>
+						{% elseif item.level == 5 %}
+							<i class="material-icons">play_arrow</i>
+						{% endif %}
+						<span class="ellipsis">{{ item.title }}</span>
+					</a>
+				{% endif %}
+				
+        {% if item.deeper %}
+					<ul>
+					  {% elseif item.shallower %} {% for i in range(1, item.level_diff) %}
+					</ul>
+			  </li>
+		    {% endfor %}
+		  {% else %}
+			</li>
+		  {% endif %}
+    {% endfor %}
+  </ul>
+
+</div>

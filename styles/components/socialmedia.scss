@@ -1,0 +1,137 @@
+
+// Large Screen.
+
+.pie-social-media {
+  top: 5em;
+  left: 3em;
+  z-index: 200;
+  padding: 0.8em 0.5em;
+  display: flex;
+  position: fixed;
+  border-radius: 4px;
+  align-items: center;
+  flex-direction: column;
+  border-radius: 0.5em 1em;
+  background-color: white;
+  justify-content: space-between;
+  box-shadow: 0px 2px 14px -6px rgba(0, 0, 0, 0.8);
+
+  @media (max-width: 1280px) {
+    display: none;
+  }
+  
+  & > * + * {
+    margin-top: 0.8em;
+  }
+
+  // Tabs version.
+  &-tabs {
+    display: none;
+    font-size: 0.75em;
+    margin-left: auto;
+    align-items: center;
+    justify-content: space-between;
+
+    @media (max-width: 1280px) {
+      display: flex;
+    }
+
+
+    & > .yt-menu-button,  
+    & > .fb-menu-button  {
+      display: flex;
+      margin-right: 0.5em;      
+      background-size: contain;
+      background-position: center; 
+    }
+
+    & > .subject-menu-button {
+      margin-right: 0.5em;      
+    }
+  }
+}
+
+@mixin social-media-small ($pie-social-media-mobile: 860px) {
+  .pie-social-media-tabs {
+    @media (max-width: $pie-social-media-mobile) {
+      width: 100%;
+      font-size: 1em;
+      margin: 1em 0 0;
+      
+      justify-content: space-around;
+    }
+  }
+}
+
+
+/* SOCIAL BUTTONS */
+
+.yt-menu-button {
+  width: 2.8em;
+  height: 2.8em;
+  overflow: hidden;
+  display: inline-block;
+  background-repeat: no-repeat;
+  color: transparent !important;
+  background-image: url(~images/yt.svg);
+  background-size: contain;
+  transition: opacity .3s ease;
+  opacity: .8;
+
+  &:hover {
+    opacity: 1;
+  }
+}
+
+.fb-menu-button {
+  width: 2.8em;
+  height: 2.8em;
+  overflow: hidden;
+  display: inline-block;
+  background-repeat: no-repeat;
+  color: transparent !important;
+  background-image: url(~images/fb.svg);
+  background-size: contain;
+  transition: opacity .3s ease;
+  opacity: .8;
+
+  &:hover {
+    opacity: 1;
+  }
+}
+
+.subject-menu-button {
+  width: 2.6em;
+  height: 2.6em;
+  overflow: hidden;
+  display: inline-block;
+  background-size: contain;
+  background-repeat: no-repeat;
+  color: transparent !important;
+  transition: opacity .3s ease;
+  opacity: .8;
+
+  &:hover {
+    opacity: 1;
+  }
+
+  &.matematyka {
+    @include var(color, math-color);
+    background-image: url(~images/icons/math.svg);
+  }
+
+  &.fizyka {
+    @include var(color, phis-color);
+    background-image: url(~images/icons/fiz.svg);
+  }
+
+  &.chemia {
+    @include var(color, chem-color);
+    background-image: url(~images/icons/chem.svg);
+  }
+
+  &.biologia {
+    @include var(color, biol-color);
+    background-image: url(~images/icons/biol.svg);
+  }
+}

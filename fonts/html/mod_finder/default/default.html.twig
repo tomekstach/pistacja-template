@@ -1,0 +1,53 @@
+{% do jdoc.addScript(jhash("templates/pistacja/modules/finder.js")) %}
+{% do jdoc.addStyleSheet(jhash("templates/pistacja/css/finder.css")) %}
+
+<div class="pie-landing-search">
+	<form class="pie-content" action="{{ jroute(data.route) }}" method="get">
+
+		<h2>Wyszukaj
+			<em>filmy, playlisty i ćwiczenia</em>
+		</h2>
+		<div class="pie-landing-search-box">
+			<div class="pie-landing-search-input">
+				<input type="text" name="q" value="{{ data.search }}" placeholder="np.: twierdzenie Pitagorasa">
+			</div>
+			<button class="pie-landing-search-button bubble-button black slim" type="submit">SZUKAJ</button>
+		</div>
+
+		<div class="pie-landing-search-options">
+			<div>
+				<h4>Poziom edukacyjny</h4>
+				<div class="pie-chalk-select" data-custom-select="tlevel" data-selected-index="0">
+					<button data-option="0" type="button">Wszystkie</button>
+					{% for item in data.levels %}
+						<button data-option="{{ item.id }}" type="button">
+							{{ item.level_title }}
+						</button>
+					{% endfor %}
+				</div>
+			</div>
+			<div>
+				<h4>Typ mediów</h4>
+				<div class="pie-chalk-select" data-custom-select="ttype" data-selected-index="0">
+					<button data-option="0" type="button">Wszystkie</button>
+					{% for item in data.types %}
+						<button data-option="{{ item.id }}" type="button">
+							{{ item.type_title }}
+						</button>
+					{% endfor %}
+				</div>
+			</div>
+			<div>
+				<h4>Przedmiot</h4>
+				<div class="pie-chalk-select" data-custom-select="tsubject" data-selected-index="0">
+					<button data-option="0" type="button">Wszystkie</button>
+					{% for item in data.subjects %}
+						<button data-option="{{ item.id }}" type="button">
+							{{ item.subject_title }}
+						</button>
+					{% endfor %}
+				</div>
+			</div>
+		</div>
+	</form>
+</div>

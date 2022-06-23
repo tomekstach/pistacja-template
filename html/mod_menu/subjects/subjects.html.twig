@@ -1,0 +1,18 @@
+{% set codes =  {
+		"Szkoła Ponadpodstawowa": "SPP",
+		"Szkoła Podstawowa IV-VI": "SP IV-VI",
+		"Szkoła Podstawowa VII-VIII": "SP VII-VIII"
+	}
+%}
+
+<div id="search-subjects" style="display:none;">
+	{% for item in data.list %}
+	{% set code = item.level == 3 ? codes[item.title] : code %}
+	{% if item.level > 3 and item.title != "Wszystkie" %}
+		<div class="search-subject">
+			<a href="{{ item.flink }}">{{ item.title }}</a>
+			<span class="search-subject-code">{{ code }}</span>
+		</div>
+	{% endif %}
+	{% endfor %}
+</div>

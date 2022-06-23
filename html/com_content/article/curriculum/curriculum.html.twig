@@ -1,0 +1,11 @@
+<div class="pie-content" itemscope itemtype="https://schema.org/Article">
+
+	<meta itemprop="inLanguage" content="{{ jlang.getTag() }}"/>
+
+  <div itemprop="articleBody" class="stack {{ item.params.pageclass_sfx }}">
+    <h1 class="KGSolid text-green font-3xl" itemprop="name">{{ view.escape(item.title) }}</h1>	
+		{{ jposition("curriculum") }}		
+    {{ item.text|raw }}
+	</div>
+
+</div>

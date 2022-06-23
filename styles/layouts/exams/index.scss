@@ -1,0 +1,110 @@
+@import "./themes.scss";
+@import "./webinars.scss";
+@import "./intro.scss";
+@import "./prep.scss";
+@import "./exam.scss";
+
+
+// ---- Newsletter Modal  --------------------
+
+
+.pie-newsletter-modal {
+  
+  // ---- OVERRIDE ----------------
+
+  // Hide freshmail_module default header.
+  & label.freshmail_subscribe_wrapper {
+    display: none;
+  }
+
+  // Styles for modal window.
+  & .freshmail_subscribe {
+    border: none;
+    border-radius: 0;
+    margin-bottom: 0;
+    background: no-repeat;
+
+    & .thankyou {
+      text-align: center;
+      border-radius: 0.5em; 
+      background-color: var(--pie-gray-100);
+
+      & h2 {
+        margin-top: 1.5em;
+      }
+
+      & > * + * {
+        margin-top: 0.5em;
+      }
+    }
+  }
+
+  .freshmail_subscribe_trigger:checked ~ #freshmail-form {
+    padding: 0.5em;
+    
+    & .freshmail-form-inputs{
+      flex-direction: column;
+
+      & > * {
+        margin-bottom: 1em;
+        margin-left: 0;
+      }    
+    }
+  }
+
+  @media (max-width: 990px) {
+    .freshmail_subscribe {
+      margin: 0.5em;
+    }
+
+    #freshmail-form {
+      max-height: 100% !important;
+    }
+  }
+  
+}
+
+
+// ---- Share dropdown -----------------------
+
+.pie-share-dropdown {
+  z-index: 100;
+  display: none;
+  padding: 0.5em;
+  margin-top: 0.5em;
+  position: absolute;
+  border-radius: 0.5em;
+  flex-direction: column;
+  align-items: flex-start;
+  background-color: white;
+  border: 1px solid var(--border-color);
+  box-shadow: 0px 2px 14px -6px rgba(0,0,0,0.6);
+
+  &.show {
+    display: flex;
+  }
+
+  & > a, 
+  & > button {
+    width: 100%;
+    display: flex;  
+    align-items: center;
+    border-radius: 0.5em;
+    padding: 0.2em 0.5em;
+    text-decoration: none;
+    color:var(--text-color);
+
+    &:hover {
+      color:var(--text-color);
+      background-color: var(--secondary-color-lite);
+    }
+
+    &:not(:last-child) {
+      margin-bottom: 0.5em;
+    }
+
+    & svg {
+      margin-right: 1em;
+    }
+  } 
+}

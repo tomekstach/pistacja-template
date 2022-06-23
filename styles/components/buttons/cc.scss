@@ -1,0 +1,20 @@
+.cc-button {
+  opacity: 1;
+  padding: 0;
+  width: 126px;
+  height: 21px;
+  font-size: 14px;
+  align-items: center;
+  display: inline-flex;
+  text-decoration: none;
+  justify-content: center;
+  background-image: url(~images/code.svg);
+  background-repeat: no-repeat;
+  background-size: cover;
+  transition: opacity .3s ease;
+  @include var(color, font-color);
+
+  &:hover {
+    @include var(color, label-color);
+  }
+}

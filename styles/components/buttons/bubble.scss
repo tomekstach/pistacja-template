@@ -1,0 +1,80 @@
+/* CHALK UNDERLINE BUBBLE */
+
+.bubble-button {
+  z-index: 0;
+  color: inherit;
+  position: relative;
+  text-decoration: none;
+
+  &:focus {
+    outline: none;
+  }
+
+  // Bubble.
+  &::after {
+    top: 0;
+    left: 0;
+    opacity: 0;
+    content: "";
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+    position: absolute;
+    border-radius: 30px;
+    transform: scale(.3);
+    background-color: rgba(142, 186, 92, 0.32);
+    transition: opacity .4s ease, transform .4s cubic-bezier(.17,.67,.41,1.5);
+  }
+
+  &:hover, &.active {
+    color: inherit;
+
+    &::after {
+      opacity: 1;
+      transform: scale(1);
+    }
+  }
+
+  // ---- Modifiers ----------------
+
+  &.dark::after {
+    background-color: rgba(0,0,0,.2);
+  }
+
+  &.black {
+    @include var(color, primary-color);
+    &::after {
+      background-color: rgba(0,0,0,.8);
+    }
+  }
+ 
+  &.green {
+    color: white;   
+    text-align: center;
+    border-radius: 2em;
+    @include var(background-color, primary-color);
+    
+    &:hover {
+      color: white;      
+    }
+
+    &::after {
+      background-color: rgba(0,0,0,.8);
+    }
+  }
+
+  &.liquid {
+    border-radius: 13px;
+    border-bottom-left-radius: 25px;
+    border-top-right-radius: 25px;
+    &::after {
+      border-radius: 13px;
+      border-bottom-left-radius: 25px;
+      border-top-right-radius: 25px;
+    }
+  }
+
+  &.slim {
+    padding: 0.2em 0.5em;
+  }
+}

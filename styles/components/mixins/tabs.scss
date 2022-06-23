@@ -1,0 +1,112 @@
+// Tabs Navigation.
+
+
+/*
+// USAGE: 
+// Inside local container calss use:
+
+.my-page-container {
+  @include pie-tabs(  
+    $pie-tabs-mobile: 860px, 
+    $pie-tabs-active-btn-text: inherit,  
+    $pie-tabs-active-btn: var(--primary-color),
+    $pie-tabs-bg: var(--secondary-color-lite),
+  );
+}
+
+*/
+ 
+
+@mixin pie-tabs (
+  $pie-tabs-mobile: 860px, 
+  $pie-tabs-active-btn-text: inherit,  
+  $pie-tabs-active-btn: var(--primary-color),
+  $pie-tabs-bg: var(--secondary-color-lite),
+) {
+
+  .pie-tabs {
+    
+    z-index: 1;
+    display: flex;
+    position: relative;
+    align-items: center;
+    justify-content: flex-start;
+  
+    padding: 0.4rem 0.8rem;
+    border-radius: 0.8rem 1.5rem;
+  
+    background-color: $pie-tabs-bg;
+  
+  
+    & button, & .button {
+      position: relative;
+      color: inherit;
+      margin-right: 0.3em;
+      white-space: nowrap;
+  
+      & svg.icon {
+        display: none;
+      }
+        
+      &::after {
+        top: 0;
+        left: 0;
+        opacity: 0;
+        content: "";
+        z-index: -1;
+        width: 100%;
+        height: 100%;
+        position: absolute;      
+        transform: scale(.3);
+        border-radius: 0.8rem 1.5rem;
+        background-color: rgba(0,0,0,.2);
+        transition: opacity .4s ease, transform .4s cubic-bezier(.17,.67,.41,1.5);
+      }
+  
+      &:hover {
+        color: inherit;  
+        &::after {
+          opacity: 1;
+          transform: scale(1);
+        }
+      }
+  
+      &.active {
+        color: $pie-tabs-active-btn-text;
+        &::after {
+          opacity: 1;
+          transform: scale(1);
+          background-color: $pie-tabs-active-btn;
+        }      
+      }
+    }
+  
+    // Mobile.  
+    @media (max-width: $pie-tabs-mobile) {
+      padding: 0;
+      margin: 0 -1.5em;
+      border-radius: 0;
+      flex-direction: column;
+      background-color: transparent;
+      border-top: 1px solid var(--border-color);
+  
+      & button, & .button {
+        width: 100%;
+        min-height: 3em;
+        border-bottom: 1px solid var(--border-color);
+  
+        & svg.icon {
+          display: inline-block;
+          margin-right: 0.5em;
+        }
+        
+        &::after {
+          border-radius: 0;
+        }
+      }
+    }
+  
+  }
+  
+}
+

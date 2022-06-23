@@ -1,0 +1,139 @@
+/* GLOBAL SETTINGS */
+
+:root {  
+  font-size: 16px;  
+  line-height: 1.4em;
+  scroll-behavior: smooth;
+}
+
+/* Box sizing rules */
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+/* LOCAL FONTS */
+
+@font-face {
+  font-family: "KGSolid";
+  src: url("~fonts/KGSolid.ttf") format("truetype");
+}
+
+.KGSolid {
+  font-family: "KGSolid", sans-serif;
+}
+
+body {
+  overflow-x: hidden;
+  text-rendering: optimizeSpeed;
+  font-family: "Roboto", sans-serif;
+  transition: background-color .3s ease;
+  
+  @include var(color, font-color);
+
+  @page  {
+    size: auto;
+    margin: 15mm 10mm;
+  }
+
+  @media print {
+    h2 {
+      page-break-before: always;
+    }
+    h3, h4 {
+      page-break-after: avoid;
+    }
+    pre, blockquote {
+      page-break-inside: avoid;
+    }
+  }
+  
+}
+
+/* Remove default margin */
+body, h1, h2, h3, h4, h5, h6, p, ul, ol,
+li, figure, figcaption, blockquote, dl, dd {
+  margin: 0;
+  font-size: 1em;
+}
+
+/* Remove default padding */
+ul, ol {
+  padding: 0;
+  list-style: none;
+}
+
+strong {
+  font-weight: 600;
+}
+
+/* Make images easier to work with */
+img {
+  max-width: 100%;
+  display: block;
+}
+
+/* Inherit fonts for inputs and buttons */
+input,
+button,
+textarea,
+select {
+  font: inherit;
+}
+
+input, textarea {
+  padding: 0.8em;
+  border: 1px solid;
+  font-family: "Roboto", sans-serif;
+  @include var(border-color, border-color);
+
+  &:focus {
+    @include var(outline-color, primary-color);
+  }
+}
+
+/* Natural flow and rhythm in articles by default */
+article > * + * {
+  margin-top: 1em;
+}
+
+/* Links */
+
+a {
+  @include var(color, primary-color);
+  transition: color .3s ease;
+
+  &:hover {
+    @include var(color, primary-color-dark);
+  }
+}
+
+
+/* Tables */
+
+table {
+  width: 100%;
+  overflow: hidden;
+  font-size: 0.9rem;  
+  line-height: 1.1rem;
+  margin: 0.8em 0 1.2em;
+  border-radius: 0.2em;
+  border-collapse: collapse;
+}
+
+table.bold-first-column tr > td:first-child {
+  font-weight: 600;
+}
+
+td, th {
+  text-align: left;  
+  padding: 0.8em 0.4em;
+  border-bottom: 1px solid var(--pie-gray-200);
+}
+
+th {  
+  font-weight: 600;  
+  background-color: #f3f3f3;
+}

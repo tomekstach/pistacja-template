@@ -1,0 +1,33 @@
+<div class="pie-content" itemscope itemtype="https://schema.org/Article">
+  <meta itemprop="inLanguage" content="{{ jlang.getTag() }}" />
+
+  <div itemprop="articleBody" class="pie-article {{ item.params.pageclass_sfx }}">
+
+    {% if images.image_fulltext %}
+      <div class="pie-article-cover">
+        <img src="{{ images.image_fulltext }}" title="{{ images.image_fulltext_caption }}" alt="{{ images.image_fulltext_alt }}" itemprop="image"/>
+      </div>
+    {% endif %}
+
+    {% if params.get("show_title", 1) %}
+      <h1 class="pie-article-title" itemprop="name">
+        {{ view.escape(item.title) }}
+      </h1>
+    {% endif %}
+
+    {% if params.get("show_tags", 1) and tags.itemTags %}
+      {{ jlayout_render("joomla.content.tags", tags.itemTags) }}
+    {% endif %}
+
+    {% if item.params.get("show_intro", 0) and item.intro %}
+      {{ item.intro|raw }}
+      {{ item.fulltext|raw }}
+    {% else %}
+      {{ item.text|raw }}
+    {% endif %}
+  </div>
+
+  {% if item.pagination and item.pagination and item.paginationposition and item.paginationrelative %}
+		{{ item.pagination }}
+  {% endif %}
+</div>

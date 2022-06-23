@@ -1,0 +1,26 @@
+.pie-curriculum {
+
+  $mobile-breakpoint: 990px;
+
+  & .collapse + ul {
+    height: 0;
+    overflow: hidden;
+    transition: height .5s ease;
+  }
+  
+  & .nest-4 a {
+    padding-left: 2em;
+  }
+  
+  & .nest-5 a {
+    padding-left: 3em;
+  }
+
+  & .curriculum-list {
+    margin: 1.5em 0;
+    @media (max-width: $mobile-breakpoint) {
+      margin: 1.5em -1.5em;
+    }
+  }
+
+}

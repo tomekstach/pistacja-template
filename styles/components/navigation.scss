@@ -1,0 +1,346 @@
+$mobile: 1170px;
+
+// Navigation.
+.pie-top-navigation {
+
+
+  // Open submenu.
+  & .drop-trigger:focus-within+.submenu {
+    display: block;
+
+    @media (max-width: $mobile) {
+      display: flex;
+      max-height: 300px;
+    }
+  }
+
+  &-wrapper {
+    height: 80px;
+    z-index: 500;
+    display: flex;
+    padding: 0 20px;
+    position: relative;
+    align-items: center;
+    justify-content: space-between;
+
+    @media (max-width: $mobile) {
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 54px;
+      padding: 0 10px;
+      position: fixed;
+      background: white;
+      box-shadow: 0px -1px 7px 1px rgba(0, 0, 0, 0.2);
+
+      & .nav-social-buttons {
+        display: none;
+      }
+    }
+  }
+
+  &-message {
+    z-index: 20;
+    background: #ab7fba;
+    position: relative;
+
+    @media (max-width: 640px) {
+      position: fixed;
+      bottom: 0;
+    }
+  }
+
+  &-controlls {
+    display: flex;
+    // overflow: hidden;
+    align-items: center;
+    justify-content: flex-end;
+
+    & button {
+      padding: 0;
+    }
+  }
+
+  // UA icon 
+  & a.ua-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: row-reverse;
+
+    &::before {
+      content: "";
+      width: 25px;
+      height: 16px;
+      margin-left: 0.5em;
+      display: inline-block;
+      background-image: url(~images/icons/ua.svg);
+    }
+  }
+
+  // Main Menu.
+  &-menu {
+    display: flex;
+    align-items: center;
+
+    @media (max-width: $mobile) {
+      flex-direction: column;
+    }
+
+    &>ul {
+      margin: 0;
+      padding: 0;
+      display: flex;
+      list-style: none;
+
+      &>li {
+        font-size: 1em;
+        max-height: 45px;
+        margin-right: 35px;
+
+        &:last-of-type {
+          margin-right: 0;
+        }
+
+        &>a {
+          text-decoration: none;
+          @include var(color, font-color);
+        }
+      }
+
+      &:last-of-type li:last-child {
+        margin-right: 0;
+      }
+    }
+
+    @media (max-width: $mobile) {
+      left: 0;
+      top: 54px;
+      width: 100%;
+      max-height: 0px;
+      overflow: hidden;
+      background: white;
+      position: absolute;
+      border-top: 1px solid #ddd;
+      transition: max-height .4s ease !important;
+
+      &.active {
+        max-height: 710px;
+      }
+
+      &>ul {
+        width: 100%;
+        flex-direction: column;
+
+        &>li {
+          margin: 0;
+          max-height: none;
+          border-bottom: 1px solid #ddd;
+
+          &>a,
+          &>button {
+            margin: 0;
+            width: 100%;
+            padding: 12px;
+            display: block;
+            text-align: center;
+          }
+
+          &>button {
+            padding: 15px;
+          }
+        }
+      }
+    }
+  }
+
+  // Submenu
+
+  & .submenu {
+    padding: 0;
+    display: none;
+    list-style: none;
+    border-radius: 4px;
+    border: 1px solid #ddd;
+    background-color: white;
+    box-shadow: 0px 2px 14px -6px rgba(0, 0, 0, 0.6);
+
+    position: absolute;
+    min-width: 130px;
+    top: 150%;
+
+    &:hover {
+      display: block;
+    }
+
+    & a {
+      display: flex;
+      padding: 0.5em;
+      justify-content: center;
+    }
+
+    @media (max-width: $mobile) {
+      display: flex;
+      position: relative;
+      flex-direction: column;
+      box-shadow: none;
+      border: none;
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height .4s ease;
+      @include var(background-color, secondary-color-lite);
+
+      & li {
+        border-bottom: 1px solid #ccc;
+
+        &:last-of-type {
+          border: none;
+        }
+
+        &>a {
+          padding: 12px;
+        }
+      }
+    }
+  }
+
+
+  // ---- Mobile Menu Button ----------------
+
+  .pie-mobile-menu-button {
+    @media (min-width: $mobile) {
+      display: none;
+    }
+  }
+
+  // ---- Pi-stacja Logo ----------------
+
+  & .pie-logo {
+    width: 140px;
+    flex-shrink: 0;
+    display: inline-flex;
+
+    &>.full-logo {
+      display: block;
+    }
+
+    &>.icon {
+      display: none;
+    }
+
+    @media (max-width: 515px) {
+      width: 36px;
+      margin-right: 8px;
+
+      &>.full-logo {
+        display: none;
+      }
+
+      &>.icon {
+        display: block;
+        margin: 0 auto;
+      }
+    }
+  }
+
+  // ---- Search Box ----------------
+
+  & .pie-navigation-search {
+    display: flex;
+    margin-right: 0;
+    margin-left: 20px;
+    align-items: center;
+    justify-content: flex-end;
+
+    @media (max-width: $mobile) {
+      margin-left: 0px;
+      margin-right: 10px;
+    }
+
+    &-button {
+      top: 0;
+      right: 0;
+      margin: 4px;
+      width: 32px;
+      height: 32px;
+      padding: 1px;
+      border: none;
+      display: flex;
+      overflow: hidden;
+      position: absolute;
+      align-items: center;
+      border-radius: 30px;
+      box-sizing: border-box;
+      justify-content: center;
+      @include var(background-color, primary-color);
+
+      &:hover,
+      &:focus {
+        @include var(background-color, primary-color-dark);
+      }
+    }
+
+    // Search button.
+    &-toggle {
+      z-index: 20;
+      padding: 5px;
+
+      &:focus {
+        outline: none;
+        background: #eee;
+        border-radius: 50%;
+      }
+
+      // Icon search.
+      &::before {
+        content: "";
+        width: 1.5em;
+        height: 1.5em;
+        display: block;
+        pointer-events: none;
+        background-image: url(~images/icons/search.svg);
+        background-repeat: no-repeat;
+        background-size: cover;
+      }
+
+      // Icon close.
+      &.active {
+        &::before {
+          background-image: url(~images/icons/close.svg);
+        }
+      }
+    }
+
+    &-form {
+      width: 0;
+      opacity: 0;
+      margin-right: 0;
+      overflow: hidden;
+      position: relative;
+      transition: width .3s ease, margin-right .3s ease, opacity .3s ease, left .3s ease;
+
+      &.show-form {
+        opacity: 1;
+        width: 260px;
+        margin-right: 15px;
+
+        @media (max-width: 430px) {
+          width: 100%;
+        }
+      }
+
+      &>input {
+        width: 100%;
+        background: #f5f5f5;
+        border-radius: 30px;
+        padding: 0.45em 0.6em;
+        border: 2px solid $pie-green;
+
+        &:focus {
+          outline: none;
+        }
+      }
+    }
+  }
+
+}

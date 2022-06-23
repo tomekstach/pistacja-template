@@ -1,0 +1,138 @@
+{% do jdoc.addScript(jhash("templates/pistacja/modules/playlist.js")) %}
+
+<div class="pie-content pie-playlist-preview">
+	
+  <div class="pie-playlist-preview-intro">
+    <div class="pie-playlist-preview-description stack">
+      <h1 class="KGSolid font-2xl text-green --space-t-3x">{{item.item_title}}</h1>
+      <div class="text">{{ item.item_description|raw }}</div>
+      <a class="as-text chalk-button--thin cta-button" href="{{ item.playlist[0].route }}">OBEJRZYJ FILMY</a>
+    </div>
+    <img class="intro-cover" src="./templates/pistacja/images/playlist.svg" alt="okładka" >
+    <img class="intro-cover-mobile" src="./templates/pistacja/images/playlist-small.svg" alt="okładka">
+  </div>
+
+  
+  <div class="pie-playlist-preview-tabs rail">
+    <button class="rail --h-spread underline--animated green thick active"  data-tab-target="videos">
+      <span>Zasoby</span>
+      <strong class="pie-badge">{{ item.playlist|length }}</strong>
+    </button>
+
+    <button class="rail --h-spread underline--animated green thick" data-tab-target="prep">
+      <span>Materiały przygotowujące</span>
+      <strong class="pie-badge">{{ item.required|length }}</strong>
+    </button>
+
+    <button class="rail --h-spread  underline--animated green thick" data-tab-target="curriculum">
+      <span>Podstawa programowa</span>
+    </button>  
+  </div>
+
+		<!-- TABS CONTENT -->
+		<div class="pie-tabs-container hide --space-t-4x">
+
+			<!-- VIDEOS -->
+
+			<div data-tab="videos" class="active">
+
+        <div class="header">
+          <h3 class="KGSolid font-2xl">Zasoby</h3>    
+          <button data-tab-close="true">
+            <svg class="icon sm">
+              <use href="./templates/pistacja/images/icons/pie-icons-sprite.svg#ui-close" />
+            </svg>
+          </button>
+        </div>
+
+        {% for video in item.playlist %}
+          {% if video.type == "Zadanie" %}            
+            <a class="as-text pie-list-row --h-spread" href="{{ video.route }}">
+              <div class="rail">
+                <svg class="icon sm">
+                  <use href="./templates/pistacja/images/icons/pie-icons-sprite.svg#pl-task"/>
+                </svg>
+                <span>{{ video.item_title }}</span>
+              </div>
+              <div class="pie-badge bg-lite-gray font-xs">{{ video.duration }}</div>
+            </a>
+          {% else %}
+            <a class="as-text pie-list-row --h-spread" href="{{ video.route }}">
+              <div class="rail">
+                <svg class="icon sm">
+                  <use href="./templates/pistacja/images/icons/pie-icons-sprite.svg#pl-play"/>
+                </svg>
+                <span>{{ video.item_title }}</span>
+              </div>
+              <div class="pie-badge bg-lite-gray font-xs">{{ video.duration }}</div>
+            </a>
+          {% endif %}
+        {% endfor %}
+        
+			</div>
+
+			<!-- PREPARATION -->
+
+			<div data-tab="prep">
+
+        <div class="header">
+          <h3 class="KGSolid font-2xl">{{ jtext("COM_VIDEOS_PLAYLIST_PREPARATION_HEADER") }}</h3>        
+          <button data-tab-close="true">
+            <svg class="icon sm">
+              <use href="./templates/pistacja/images/icons/pie-icons-sprite.svg#ui-close" />
+            </svg>
+          </button>
+        </div>
+
+				<div class="content stack">
+          <p class="text-gray">{{ jtext("COM_VIDEOS_PLAYLIST_PREPARATION_DESC") }}</p>
+
+          <div class="grid">
+            {% for required in item.required %}
+              <a href="{{ required.route }}" title="{{ required.item_title }}" class="pie-playlist-preparation-link">
+                <div class="{{ item.subject.subject_title|lower }} pie-thumbnail ">
+                  <img src="{{ required.item_image }}" alt="{{ required.item_title }}">
+                </div>
+              </a>
+            {% endfor %}
+          </div>
+				</div>
+			</div>
+
+      <!-- CURRICULUM -->
+
+			<div data-tab="curriculum">
+      
+       <div class="header">
+          <h3 class="KGSolid font-2xl">Podstawa programowa</h3>    
+          <button data-tab-close="true">
+            <svg class="icon sm">
+              <use href="./templates/pistacja/images/icons/pie-icons-sprite.svg#ui-close" />
+            </svg>
+          </button>
+        </div>
+
+        <div class="content stack">
+
+          {# Breadcrumbs module #}
+          {{jposition("breadcrumbs")}}
+        
+          <h4>Kody podstawy</h4>
+          <div id="uspp-codes" class="pie-player-codes rail-wrap">
+            {% for ppp in item.codes %}
+              <button data-uspp-id="{{ppp.id}}" class="cc-button">{{ ppp.ppp_title }}</button>
+            {% endfor %}
+          </div>
+
+        </div>
+      </div>
+
+		</div> 
+
+	</div>
+
+  {# Dynamic content #}
+  
+  <div id="uspp-popup" data-pie-modal="uspp" class="uspp-popup"></div>
+  <hr class="space large">	
+</div>

@@ -1,0 +1,63 @@
+.pie-faq {
+
+  @media (max-width: 990px) {
+    padding: 0 1em;
+  }
+
+  &-title {
+    font-size: 1.5em;
+    margin: 1em 0 1.5em;  
+    font-family: "KGSolid", sans-serif;
+    @include var(color, primary-color);
+  }
+
+  & h3 {
+    display: flex;
+    margin: 0.8em 0 0 0;
+    font-size: 1.2rem;
+    align-items: center;
+    padding-bottom: 0.2em;
+
+    // Icon.
+    &::before {
+      width: 20px;
+      height: 20px;
+      flex-shrink: 0;
+      margin-right: 0.5em;
+      content: "";
+      pointer-events: none;
+      display: inline-block;
+      background-image: url(~images/icons/seed.svg);
+      background-repeat: no-repeat;
+      background-size: cover;
+    }
+
+    & a {
+      text-decoration: none;
+      transition: opacity .3s ease;
+      @include var(color, text-color);
+
+      &:hover {
+        opacity: 0.65;
+      }
+
+      &[data-open="true"] {
+        @include var(color, primary-color);
+      }
+    }
+  }
+
+  &-content {
+    height: 0;
+    padding: 0.2em 1.8em;
+    overflow: hidden;
+    border-bottom: 1px solid;
+    transition: height .4s ease;
+    @include var(border-color, border-color);
+
+    @media (max-width: 990px) {
+      margin: 0 -1em;
+      padding: 0.2em 30px;
+    }
+  }
+}

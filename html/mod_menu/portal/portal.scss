@@ -1,0 +1,178 @@
+.pie-user-portals {
+
+  display: flex;
+  margin-top: 40px;
+  justify-content: space-between;
+
+
+  @media (max-width: 990px) {
+    flex-direction: column;
+    align-items: center;
+    margin-top: 0;
+  }
+
+  .pie-user-portal {
+    width: 290px;
+
+    h3 {
+      margin: 15px 0;
+      font-size: 32px;
+      text-align: center;
+      font-family: "KGSolid";
+    }
+
+    &-collapse {
+      max-height: 0px;
+      overflow: hidden;
+      transition: max-height .3s ease;
+    }
+  }
+
+  & li {
+    margin: 20px 0;
+    list-style: none;
+    font-size: 16px;
+
+    & > a {
+      @include var(color, font-color);
+
+      display: flex;
+      font-weight: 500;
+      position: relative;
+      text-decoration: none;
+      align-items: flex-start;
+      font-family: "Roboto", sans-serif;
+
+      &::before {
+        width: 12px;
+        height: 12px;
+        flex-shrink: 0;
+        margin-top: 6px;
+        margin-right: 5px;
+        display: inline-block;
+        background-size: 12px 12px;
+        background-image: url(~images/bullet.svg);
+        content: "";
+        opacity: .8;
+      }
+
+      &::after {
+        left: 0%;
+        top: 100%;
+        opacity: 0;
+        right: 100%;
+        content: "";
+        height: 4px;
+        position: absolute;
+        background-repeat: repeat-x;
+        transition: opacity .2s ease, right .4s ease;
+        background-image: url(~images/underline-thin-dark.svg);
+      }
+
+      &:hover::after {
+        opacity: 1;
+        right: 0%;
+      }
+    }
+  }
+}
+
+
+.students-portal {
+  z-index: 1;
+  position: relative;
+  padding: 70px 0 20px;
+  background-repeat: no-repeat;
+  background-position: top center;
+  background-image: url(~images/hat.svg);
+
+  &::before {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    transition: opacity .3s ease;
+    background-repeat: no-repeat;
+    background-position: top center;
+    background-image: url(~images/green-spot.svg);
+
+    content: "";
+    z-index: -1;
+    opacity: .4;
+    margin-top: 10px;
+  }
+
+  &:hover::before {
+    opacity: .1;
+  }
+
+  @media (max-width: 990px) and (min-width: 520px) {
+    margin-right: 40%;
+  }
+
+}
+
+.teachers-portal {
+  z-index: 2;
+  position: relative;
+  padding: 70px 0 20px;
+  background-repeat: no-repeat;
+  background-position: top center;
+  background-image: url(~images/apple.svg);
+
+  &::before {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    transition: opacity .3s ease;
+    background-repeat: no-repeat;
+    background-position: top center;
+    background-image: url(~images/red-spot.svg);
+
+    content: "";
+    z-index: -1;
+    opacity: .4;
+  }
+
+  &:hover::before {
+    opacity: .1;
+  }
+
+
+  @media (max-width: 990px) and (min-width: 520px) {
+    margin-top: -15%;
+    margin-left: 40%;
+  }
+}
+
+.parents-portal {
+  z-index: 3;
+  padding-top: 72px;
+  position: relative;
+  background-repeat: no-repeat;
+  background-position: top center;
+  background-image: url(~images/parents.svg);
+
+  &::before {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    transition: opacity .3s ease;
+    background-repeat: no-repeat;
+    background-position: top center;
+    background-image: url(~images/purple-spot.svg);
+
+    content: "";
+    z-index: -1;
+    opacity: .4;
+    margin-top: 10px;
+  }
+
+  &:hover::before {
+    opacity: .1;
+  }
+
+  @media (max-width: 990px) and (min-width: 520px) {
+    margin-top: -10%;
+    margin-right: 40%;
+  }
+}

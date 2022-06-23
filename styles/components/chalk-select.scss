@@ -1,0 +1,86 @@
+.pie-chalk-select {
+  width: 260px;
+  text-align: left;
+  @extend .chalk-button--thin;
+
+  // Display icon.
+  &::after {
+    top: 10px;
+    right: 10px;
+    content: "";
+    display: block;
+    font-size: 27px;
+
+    // Icon.
+    width: 18px;
+    height: 18px;
+    background-image: url(~images/icons/down-arrow.svg);
+    background-repeat: no-repeat;
+    background-size: cover;
+    position: absolute;
+  }
+
+  // Dropdown list.
+  & + .custom-list-style {
+    width: 100%;
+    padding: 0.5em;
+    border-radius: 0.5em;
+    background-color: white;
+    box-shadow: 0px 2px 14px -6px rgba(0, 0, 0, 0.6);
+
+  // Option buttons.
+  & a,
+  & button {
+    width: 100%;
+    margin: 1px 0;
+    font-size: 16px;
+    border-radius: 30px;
+    white-space: nowrap;
+    transition: background-color .3s ease;
+
+    &::first-letter {
+      text-transform: uppercase;
+    }
+
+    &:focus {
+      outline: none;
+    }
+
+    &:hover {
+      background-color: rgba(170, 127, 185, 0.4);
+    }
+
+    &.selected {
+      background-color: rgba(170, 127, 185, 0.4);
+
+      &::before {
+        content: "";
+        font-size: 22px;
+        line-height: 18px;
+        margin-right: 5px;
+
+        // Icon.
+        width: 20px;
+        height: 20px;
+        background-image: url(~images/icons/circle-check.svg);
+        background-repeat: no-repeat;
+        background-size: cover;
+      }
+    }
+  }
+  }
+
+  & input {
+    &:focus + button {
+      background-image: url(~images/bframe2-green.png);
+    }
+
+    &:focus + button::before {
+      background-image: url(~images/bshadow2-green.png);
+    }
+
+    &:required:focus + button::after {
+      background-image: url(~images/icons/error.svg);
+    }
+  }
+}

@@ -1,0 +1,11 @@
+<div class="pie-content" itemscope itemtype="https://schema.org/Article">
+  <meta itemprop="inLanguage" content="{{ jlang.getTag() }}" />
+
+  <div itemprop="articleBody" class="{{ item.params.pageclass_sfx }}">
+    {{ item.text|raw }}
+  </div>
+
+  {% if item.pagination and item.pagination and item.paginationposition and item.paginationrelative %}
+		{{ item.pagination }}
+  {% endif %}
+</div>

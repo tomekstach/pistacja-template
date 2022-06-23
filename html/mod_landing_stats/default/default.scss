@@ -1,0 +1,142 @@
+
+/* LANDING-INFOGRAPHICS-MODULE */
+
+/* HTML for Landing Infographics Module:
+
+<div class="pie-infographics">
+  <div class="pie-infographics-yellow">
+    <img src="./templates/pistacja/images/yellow.svg" alt="filmy">
+    <div class="pie-infographics-text">
+      <h3><em>560</em>FILMÓW</h3>
+      <h6>Dostepnych w każdym miejscu</h6>
+    </div>
+  </div>
+
+  <div class="pie-infographics-pink">
+    <img src="./templates/pistacja/images/pink.svg" alt="wyświetlenia">
+    <div class="pie-infographics-text">
+      <h3><em>1M+</em>WYŚWIETLEŃ</h3>
+    </div>
+  </div>
+
+  <div class="pie-infographics-green">
+    <img src="./templates/pistacja/images/green.svg" alt="postęp">
+    <div class="pie-infographics-text">
+      <h3><em>75%</em>UKOŃCZENIA</h3>
+      <h6>Podstawy programowj z matematyki</h6>
+    </div>
+  </div>
+</div>
+
+*/
+
+.pie-infographics {
+  height: 560px;
+  margin-top: 60px;
+  position: relative;
+  font-family: "KGSolid", sans-serif;
+
+  @media (max-width: 720px) {
+    height: auto;
+    display: flex;
+    margin-top: 0;
+    align-items: center;
+    flex-direction: column;
+    justify-content: center;
+  }
+
+  h3 > em {
+    display: block;
+    font-size: 2.4em;
+    font-style: normal;
+    margin-bottom: 0.2em;
+  }
+
+  h6 {
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 16px;
+    font-family: "Roboto", sans-serif;
+  }
+
+  & > div {
+    position: absolute;
+
+    @media (max-width: 720px) {
+      position: relative;
+    }
+
+    @media (max-width: 490px) {
+      margin: 0;
+      margin-bottom: 20px;
+    }
+  }
+
+  &-text {
+    position: absolute;
+  }
+
+  &-yellow {
+    width: 40%;
+    left: 20px;
+    & .pie-infographics-text {
+      bottom: 40px;
+      @media (max-width: 490px) {
+        width: 100%;
+      }
+    }
+
+    @media (max-width: 720px) and (min-width: 490px) {
+      width: 50%;
+      margin-right: 25%;
+    }
+
+    @media (max-width: 490px) {
+      left: 0;
+      width: 90%;
+    }
+  }
+
+  &-pink {
+    top: 28%;
+    left: 35%;
+    width: 33%;
+    & .pie-infographics-text {
+      left: 20px;
+      bottom: 35px;
+    }
+
+    @media (max-width: 720px) {
+      left: 0;
+      width: 45%;
+      margin-left: 40%;
+      margin-top: -10%;
+    }
+
+    @media (max-width: 490px) {
+      width: 70%;
+    }
+  }
+
+  &-green {
+    top: 10%;
+    width: 27%;
+    right: 20px;
+    & .pie-infographics-text {
+      left: -10px;
+      bottom: 20px;
+    }
+
+    @media (max-width: 720px) and (min-width: 490px) {
+      right: 0;
+      width: 40%;
+      margin-top: -10%;
+      margin-right: 35%;
+    }
+
+    @media (max-width: 490px) {
+      right: 0;
+      width: 60%;
+    }
+  }
+}

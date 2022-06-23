@@ -1,0 +1,33 @@
+<div class="pie-breadcrumbs" aria-label="{{ data.module.name }}" role="navigation">
+	<h3 class="pie-breadcrumbs-header"> Podstawa programowa </h3>
+	<ul itemscope itemtype="https://schema.org/BreadcrumbList" class="breadcrumb{{ data.class_sfx }}">
+
+    {% for key, item in data.list %}
+      	{% if key != data.last_item_key %}
+		  	{% if key > 1 %}
+				<li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+					{% if item.link %}
+						<a itemprop="item" href="{{ item.link }}" class="pathway">
+						{% if key > 2 %}
+							<i class="material-icons">subdirectory_arrow_right</i>
+						{% endif %}
+							<span itemprop="name">{{ item.name }}</span>
+						</a>
+					{% else %}
+						<span itemprop="name">
+							{{ item.name }}
+						</span>
+					{% endif %}
+
+					{% if key != data.penult_item_key or params.get('showLast', 1) %}
+						<span class="divider">
+							{{ data.separator|raw }}
+						</span>
+					{% endif %}
+					<meta itemprop="position" content="{{ key + 1 }}">
+				</li>
+			{% endif %}
+		{% endif %}
+	{% endfor %}
+	</ul>
+</div>

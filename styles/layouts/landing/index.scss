@@ -1,0 +1,332 @@
+@import "./banners.scss";
+@import "./searchbox.scss";
+@import "./statistics.scss";
+
+
+/* LANDING-INTRO-MODULE */
+
+/* HTML for Landing Intro Module:
+
+<div class="pie-intro">
+  <div class="pie-intro-wrapper">
+    <h1 class="pie-intro-header">
+      <span class="pie-intro-head">
+        Darmowe <br />
+        wideolekcje
+      </span>
+      <span class="pie-intro-animate" data-typewriter="z matematyki;z fizyki;z chemi">
+        z matematyki
+      </span>
+      <span class="pie-intro-tail">
+        zgodne z podstawą <br />
+        programową
+      </span>
+    </h1>
+    <div class="pie-intro-graphic">
+      <img class="full" src="./templates/pistacja/images/intro-1.svg" alt="Darmowe wideolekcje z matematyki, fizyki i chemii zgodne z podstawą programową" />
+      <img class="blank" src="./templates/pistacja/images/intro-blank-1.svg" alt="Darmowe wideolekcje z matematyki, fizyki i chemii zgodne z podstawą programową" />
+    </div>
+  </div>
+</div>
+
+*/
+
+.pie-intro {
+  display: flex;
+  position: relative;
+  font-family: "KGSolid";
+  justify-content: center;
+
+  width: 100vw;
+  margin-left: 50%;
+  transform: translateX(-50%);
+  min-height: calc(8 * (1.1em + (2.8 - 1.1) * ((100vw - 20em)/(60 - 20))));
+
+  &-wrapper {
+    width: 85vw;
+    display: flex;
+    position: relative;
+    justify-content: flex-end;
+
+    @media (max-width: 730px) {
+      width: 100vw;
+      margin-top: -1rem;
+    }
+  }
+
+
+  &-header {
+    top: 6%;
+    left: 3vw;
+    position: absolute;
+
+    @media (max-width: 730px) {
+      top: 1em;
+      left: 10vw;
+    }
+
+    &::before {
+      content: "";
+      top: 10%;
+      left: -10%;
+      width: 100%;
+      height: 110%;
+      position: absolute;
+      background-size: contain;
+      background-repeat: no-repeat;
+      background-image: url(~images/intro-line.svg);
+    }
+  }
+
+  &-graphic {
+    z-index: -1;
+    width: 45vw;
+    position: relative;
+
+    & > .blank {
+      display: none;
+    }
+
+    @media (max-width: 730px) {
+      width: 55vw;
+
+      & > .blank {
+        display: block;
+      }
+
+      & > .full {
+        display: none;
+      }
+    }
+  }
+
+  &-head {
+    display: block;
+    font-size: calc(1.1em + (2.8 - 1.1) * ((100vw - 20em)/(60 - 20)));
+    line-height: 1.1em;
+    font-weight: normal;
+  }
+
+  &-animate {
+    display: block;
+    font-size: calc(1.1em + (2.8 - 1.1) * ((100vw - 20em)/(60 - 20)));
+    line-height: 1.1em;
+    font-weight: normal;
+  }
+
+  &-tail {
+    display: block;
+    font-weight: normal;
+    font-size: calc(0.8em + (1.8 - 0.8) * ((100vw - 20em)/(60 - 20)));
+    line-height: 1em;
+    margin-top: 0.2em;
+    margin-right: 1.5em;
+    @include var(color, primary-color);
+  }
+
+}
+
+
+/* LANDING-BUBBLES-MODULE */
+
+/* HTML for Landing Bubbles Module:
+  <div class="pie-bubbles-wrapper">
+    <a href="./wyniki-wyszukiwania?tlevel=0&tsubject=0&ttype=6" class="pie-landing-bubble wideolekcje"> 
+      <img class="color-bubble" src="./images/bubbles/purple-bubble.png" />
+      <img class="pie-landing-bubble-tail" src="./images/bubbles/wideolekcje.png" />
+      <h2 class="pie-landing-bubble-header">Wideolekcje</h2>
+      <p class="pie-landing-bubble-lead">Kolekcja wszystkich filmów z chemii, fizyki i matematyki.</p>
+    </a>
+
+    <a href="./inspiracje/24-koronawirus-webinary-powtorkowe-z-matematyki" class="pie-landing-bubble webinary"> 
+      <img class="color-bubble" src="./images/bubbles/pink-bubble.png" />
+      <img class="pie-landing-bubble-tail" src="./images/bubbles/webinary.png" />
+      <h2 class="pie-landing-bubble-header">Webinary</h2>
+      <p class="pie-landing-bubble-lead">Powtórki przed egzaminami z matematyki.</p>
+    </a>
+
+    <a href="./wyniki-wyszukiwania?tlevel=0&tsubject=0&ttype=8" class="pie-landing-bubble cwiczenia"> 
+      <img class="color-bubble" src="./images/bubbles/green-bubble.png" />
+      <img class="pie-landing-bubble-tail" src="./images/bubbles/cwiczenia.png" />
+      <h2 class="pie-landing-bubble-header">Ćwiczenia</h2>
+      <p class="pie-landing-bubble-lead">Interaktywne zadanie na różnych poziomach trudności.</p>
+    </a>
+
+    <a href="https://pomoce.pistacja.tv/" class="pie-landing-bubble pomoce"> 
+      <img class="color-bubble" src="./images/bubbles/yellow-bubble.png" />
+      <img class="pie-landing-bubble-tail" src="./images/bubbles/pomoce.png" />
+      <h2 class="pie-landing-bubble-header">Pomoce</h2>
+      <p class="pie-landing-bubble-lead">Materiały dodatkowe do nauki chemii i fizyki.</p>
+    </a>
+  </div>
+*/
+
+.pie-bubbles > .custom > .pie-bubbles-wrapper {
+  padding: 2em 4em;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  
+  @media (max-width: 880px) {
+    
+    flex-direction: column;
+    flex-wrap: nowrap;
+    align-items: center;
+    justify-content: center;
+        
+    & > * + * {
+      margin-top: 3em !important;        
+    }
+  }
+
+  @media (max-width: 510px) {
+    padding: 0;
+  }
+  
+  @media (max-width: 460px) {    
+    & > a.pie-landing-bubble {
+      flex-basis: 275px;   
+      width: 100%;         
+    }
+
+    .pie-landing-bubble-header::after {
+      display: none !important;        
+    }
+  }
+
+  .pie-landing-bubble {    
+    z-index: 1;
+    display: flex;
+    flex-shrink: 1;
+    max-width: 360px;
+    flex-basis: 340px;
+    position: relative;
+    text-decoration: none;
+    flex-direction: column;
+    @include var(color, font-color);
+
+    img {
+      width: 100%;
+      height: auto;
+    }
+
+    img.color-bubble {
+      opacity: 0.5;     
+      transform: rotate(-10deg) scale(0.85);
+      transition: opacity .3s ease, transform .3s ease;
+    }
+
+    &:hover img.color-bubble {
+      opacity: 0.9;
+      transform: rotate(0deg) scale(1);
+    }
+    
+    &-header {
+      display: flex;
+      padding: 0.1em;
+      font-size: 2.1em;
+      margin: 0.5em 0 0;       
+      align-items: center;
+      transition: color .3s ease;
+      justify-content: space-between;
+      font-family: "KGSolid", sans-serif;
+      
+      &::after {
+        content: "";
+        width: 34px;
+        height: 34px;
+        display: block;        
+        background-size: 100%;
+        background-image: url("~images/arrows.png");        
+      }
+    }
+
+    &-lead {
+      margin: 0.3em 0 0; 
+      padding: 0.1em;
+      line-height: 1.3em;
+    }
+  
+
+    // Modifiers.
+
+    &.wideolekcje {
+      margin-top: 2em;
+
+      &:hover h2 {
+        color: #d9a3fc;
+      }
+
+      h2::after {
+        background-position-y: -36px;
+      }
+
+      & > img.color-bubble {
+        position: absolute;
+        z-index: -1;
+        width: 100%;
+        left: -15%;
+        top: -10%;
+      }
+    }
+
+    &.webinary {
+      margin-top: 10em;
+
+      &:hover h2 {
+        color: #ed7067;
+      }
+
+      
+      h2::after {        
+        background-position-y: 0;
+      }
+
+      & > img.color-bubble {
+        position: absolute;
+        z-index: -1;
+        width: 120%;
+        left: -10%;
+        top: 5%;
+      }
+    }
+
+    &.cwiczenia {
+
+      &:hover h2 {
+        color: #a8d07d;
+      }
+
+      h2::after {
+        background-position-y: -72px;
+      }
+
+      & > img.color-bubble {
+        position: absolute;
+        z-index: -1;
+        width: 130%;
+        left: -10%;
+        top: 0%;
+      }
+    }
+
+    &.pomoce {
+      margin-top: 10em;
+
+      &:hover h2 {
+        color: #fcf093;
+      }
+
+      h2::after {
+        background-position-y: -107px;
+      }
+      & > img.color-bubble {
+        position: absolute;
+        z-index: -1;
+        width: 120%;
+        left: -10%;
+        top: -5%;
+      }
+    }
+  }
+}

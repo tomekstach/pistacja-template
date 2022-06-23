@@ -1,0 +1,410 @@
+{% do jdoc.addScript("https://www.youtube.com/player_api") %}
+{% do jdoc.addScript(jhash("templates/pistacja/modules/exam.js")) %}
+
+{% set isEightGradeExam = item.level_title == "Egzamin ósmoklasisty" %}
+
+<div class="pie-content pie-exams-exam {{ isEightGradeExam ? " eight-theme " : " mex-theme " }} stack">
+
+  {# INTRO #}
+
+  <div class="stack --space-t-2x">
+    {% if item.past == true %}
+      <div>
+        <span class="pie-badge text-white bg-dark-blue">ARCHIWUM</span>
+      </div>
+      <div class="stack --small">
+        <h1 class="KGSolid font-3xl">{{ item.title }}</h1>
+        <h2 class="KGSolid font-2xl">{{ item.subject_title }}</h2>
+      </div>    
+    {% else %}
+      <div class="stack --small">
+        <h1 class="KGSolid font-3xl text-dark-blue">{{ item.title }}</h1>
+        <h2 class="KGSolid font-2xl text-dark-blue">{{ item.subject_title }}</h2>
+      </div>   
+    {% endif %}
+
+    <div class="stack --small">
+      {{ item.description|raw }}
+    </div>
+  </div>   
+
+  {# MEDIA CONTAINER #}
+
+  <div class="rail-wrap --large --space-t-4x">
+    {% if item.calendar|length > 0 %}
+    <div class="rail">
+      <svg class="icon" width="2em" height="2em">
+        <use href="./templates/pistacja/images/icons/pie-icons-sprite.svg#ex-calendar"/>
+      </svg>
+      <a href="{{ item.calendar }}" class="as-text underline--animated green" target="_blank">Pobierz kalendarz powtórek (PDF)</a>
+    </div>
+    {% endif %}
+    
+    {# SHARE DROPDOWN #}
+
+    <div>
+    
+      <div class="rail">
+        <svg class="icon" width="2em" height="2em">
+          <use href="./templates/pistacja/images/icons/pie-icons-sprite.svg#ex-share"/>
+        </svg>
+        <button class="as-text underline--animated green" data-rct-trigger="share" data-rct-toggle="show">Udostępnij</button>  
+      </div>
+    
+      <div class="pie-share-dropdown" data-rct-target="share">
+        <a class="share-button" href="https://classroom.google.com/share?url={{ item.route }}" target="_blank" >
+          <svg class="icon xl">
+            <use href="./templates/pistacja/images/icons/pie-icons-sprite.svg#sm-classroom" />
+          </svg>
+          <span>Google Classroom</span>
+        </a>
+
+        <a class="share-button" href="https://teams.microsoft.com/share?href={{ item.route }}" target="_blank">
+          <svg class="icon xl">
+            <use href="./templates/pistacja/images/icons/pie-icons-sprite.svg#sm-teams" />
+          </svg>
+          <span>Microsoft Teams</span>
+        </a>
+
+        <button class="share-button" data-copy="{{ item.route }}">
+          <svg class="icon xl">
+              <use href="./templates/pistacja/images/icons/pie-icons-sprite.svg#sm-copy" />
+            </svg>
+            <span>Link do tej strony</span>
+          </button>	
+          
+          <button class="share-button" data-copy="https://www.youtube.com/embed/{{ item.live.yt_id }}">
+            <svg class="icon xl">
+              <use href="./templates/pistacja/images/icons/pie-icons-sprite.svg#sm-yt" />
+            </svg>
+            <span>Link do YouTube</span>
+          </button>		
+      </div>
+    </div>
+  </div>
+
+  {% if item.live.date != NULL  %}
+  <div class="stack --small">
+    <div class="pie-player-wrapper">
+
+      {# PLAYER #}
+      
+      <div class="pie-new-player exams">
+        {% if item.live.yt_id|length > 0 %}
+          <iframe width="100%" height="100%" src="https://www.youtube.com/embed/{{ item.live.yt_id }}" title="{{ item.title }}" frameborder="0" allowfullscreen></iframe>
+        {% else %}
+          <div id="countdown-timer" data-time="{{ item.live.date }}"></div>
+        {% endif %}
+      </div>
+
+      {# SIDEBAR CURRENR #}
+
+      {% if item.past == false %}
+
+      <div class="stack">        
+        <h3 class="font-2xl KGSolid">Harmonogram</h3>
+
+        <ul class="stack">
+          <li>
+            <strong class="KGSolid text-dark-blue">{{ item.sheet.date|date("d.m.Y / H:i") }}</strong>
+            <ul class="no-style stack --medium --space-t-2x --space-l">
+              <li class="rail">
+                <svg class="icon md">
+                  <use href="./templates/pistacja/images/icons/pie-icons-sprite.svg#ex-doc"/>
+                </svg>
+                {% if item.sheet.URL|length > 0 %}
+                  <a class="as-text underline--animated green" href="{{ item.sheet.URL }}" target="_blank">Arkusz egzaminacyjny</a>
+                {% else %}
+                  <span>Arkusz egzaminacyjny</span>
+                {% endif %}
+              </li>
+              <li class="rail">
+                <svg class="icon md">
+                  <use href="./templates/pistacja/images/icons/pie-icons-sprite.svg#ex-check"/>
+                </svg>
+                {% if item.answerForm.URL|length > 0 %}
+                  <a class="as-text underline--animated green" href="{{ item.answerForm.URL }}" target="_blank">Formularz odpowiedzi do pytań zamkniętych</a>
+                {% else %}                  
+                  <span>Formularz odpowiedzi do pytań zamkniętych</span>
+                {% endif %}
+              </li>            
+            </ul>
+          </li>
+          
+          <li>
+            <strong class="KGSolid text-dark-blue">{{ item.live.date|date("d.m.Y / H:i") }}</strong>
+            <ul class="no-style stack --medium --space-t-2x --space-l">
+              <li class="rail">
+                <svg class="icon md">
+                  <use href="./templates/pistacja/images/icons/pie-icons-sprite.svg#ex-play"/>
+                </svg>
+                {% if item.live.yt_id|length > 0 %}
+                  <a class="as-text underline--animated green" href="https://www.youtube.com/watch?v={{ item.live.yt_id }}" target="_blank">Rozwiązania zadań na żywo</a>
+                {% else %}                  
+                  <span>Rozwiązania zadań na żywo</span>
+                {% endif %}
+              </li>                      
+            </ul>
+          </li>
+          
+          <li>
+            <strong class="KGSolid text-dark-blue">{{ item.key.date|date("d.m.Y / H:i") }}</strong>
+            <ul class="no-style stack --medium --space-t-2x --space-l">
+              <li class="rail">
+                <svg class="icon md">
+                  <use href="./templates/pistacja/images/icons/pie-icons-sprite.svg#ex-key"/>
+                </svg>
+                {% if item.key.URL|length > 0 %}
+                  <a class="as-text underline--animated green" href="{{ item.key.URL }}" target="_blank">Klucz odpowiedzi</a>
+                {% else %}                  
+                  <span>Klucz odpowiedzi</span>
+                {% endif %}
+              </li>                     
+            </ul>
+          </li>        
+        </ul>          
+      </div>   
+
+      {# SIDEBAR ARCHIVE #}
+      
+      {% else %}
+      
+      <div clsss="stack --medium">
+        <h3 class="font-2xl KGSolid">Materiały</h3>
+        <ul class="stack --space-t-2x">
+          
+          {% if item.sheet.URL|length > 0 %}
+          <li class="rail">
+            <svg class="icon md">
+              <use href="./templates/pistacja/images/icons/pie-icons-sprite.svg#ex-doc"/>
+            </svg>
+            <a class="as-text underline--animated green" href="{{ item.sheet.URL }}" target="_blank">Arkusz egzaminacyjny</a>           
+          </li>
+          {% endif %}
+
+          {% if item.answerForm.URL|length > 0 %}
+          <li class="rail">
+            <svg class="icon md">
+              <use href="./templates/pistacja/images/icons/pie-icons-sprite.svg#ex-check"/>
+            </svg>
+            <a class="as-text underline--animated green" href="{{ item.answerForm.URL }}" target="_blank">Formularz odpowiedzi do pytań zamkniętych</a>
+          </li> 
+          {% endif %}
+
+          {% if item.key.URL|length > 0 %}
+          <li class="rail"> 
+            <svg class="icon md">
+              <use href="./templates/pistacja/images/icons/pie-icons-sprite.svg#ex-key"/>
+            </svg>
+              <a class="as-text underline--animated green" href="{{ item.key.URL }}" target="_blank">Klucz odpowiedzi</a> 
+          </li>                 
+          {% endif %}
+
+        </ul>  
+      </div>
+      {% endif %}
+    </div>
+  </div>
+  <hr class="space">
+  {% endif %}
+
+  {# TABS NAVIGATION #}
+
+  <div class="pie-tabs">                     
+    
+    <button data-tab-target="webinars" class="active">
+      <svg class="icon md">
+        <use href="./templates/pistacja/images/icons/pie-icons-sprite.svg#ex-doc"/>
+      </svg>
+      <span class="rail --small">
+        <span>Webinary powtórkowe </span>
+        <span>{{ item.past == true ? item.date|date("Y") : "" }}</span>
+      </span>
+    </button>
+    
+    {% if item.pastExams|length > 0 and item.past == false %}
+    <button data-tab-target="archive">
+      <svg class="icon md">
+        <use href="./templates/pistacja/images/icons/pie-icons-sprite.svg#ex-doc"/>
+      </svg>
+      <span>Archiwalne arkusze i webinary</span>
+    </button>
+    {% endif %}
+
+    {% if item.cke|length > 0 and item.past == true %}
+    <button data-tab-target="cke">
+      <svg class="icon md">
+        <use href="./templates/pistacja/images/icons/pie-icons-sprite.svg#ex-doc"></use>
+      </svg>
+      <span>Interaktywne arkusze</span>
+    </button>
+    {% endif %}
+
+    {% if item.requirements|length %}
+    <button data-tab-target="prep">
+      <svg class="icon md">
+        <use href="./templates/pistacja/images/icons/pie-icons-sprite.svg#ex-doc"/>
+      </svg>
+      <span>Wymagania</span>
+    </button>
+    {% endif %}
+
+    {% if item.howToPrep|length > 0 and item.past == false %}
+    <button data-tab-target="prep">
+      <svg class="icon md">
+        <use href="./templates/pistacja/images/icons/pie-icons-sprite.svg#ex-doc"/>
+      </svg>
+      <span>Jak się przygotować?</span>
+    </button>
+    {% endif %}
+
+    <div class="pie-social-media-tabs"> 
+      <a href="https://pistacja.tv/podstawa-programowa/matematyka" class="matematyka subject-menu-button" title="Matematyka"></a> 
+      <a href="https://www.facebook.com/PistacjaMatematyka/" target="_blank" rel="noopener noreferrer" class="fb-menu-button">Facebook</a>
+      <a href="https://www.youtube.com/c/pistacjamatematyka" target="_blank" rel="noopener noreferrer" class="yt-menu-button">YouTube</a>
+    </div>
+  </div>
+
+
+  {# TABS CONTENT #}
+
+  <div class="pie-tabs-container">
+
+    {% if item.webinars|length > 0 %}
+    <div data-tab="webinars" class="active">
+      <div class="rail --h-spread --v-start --space-i --space-b-2x pie-tabs-hide-on-desktop">
+        <h3 class="KGSolid font-2xl">
+          <span>Webinary powtórkowe </span>
+          <span>{{ item.past == true ? item.date|date("Y") : "" }}</span>
+        </h3>
+        <button data-tab-close="true">
+          <svg class="icon sm">
+            <use href="./templates/pistacja/images/icons/pie-icons-sprite.svg#ui-close" />
+          </svg>
+        </button>
+      </div>
+
+      <div class="pie-rounded-list webinars-list">
+        {% for webinar in item.webinars %}
+        <a class="webinars-list as-text pie-list-row --h-spread {{ item.past != true and webinar.date|date("U") < date|date("U")  ? " --opacity-05" : "" }}" href="{{ webinar.route }}">
+          <div class="rail">
+            <svg class="icon sm">
+              <use href="./templates/pistacja/images/icons/pie-icons-sprite.svg#pl-play-blue"/>
+            </svg>
+            <span>{{ webinar.title }}</span>
+          </div>
+          <div class="pie-badge {{ webinar.date|date("d.m.Y") != item.live.date|date("d.m.Y") ? " bg-gray-blue" : " bg-green text-white" }}">{{ webinar.date|date("U") < date|date("U") ? "ZAKOŃCZONY" : webinar.date|date("d.m.Y | H:i") }}</div>
+        </a>
+        {% endfor %}
+      </div>
+    </div>
+    {% endif %}
+
+
+    {% if item.pastExams|length > 0 %}
+    <div data-tab="archive">
+
+      <div class="rail --h-spread --v-start --space-i --space-b-2x pie-tabs-hide-on-desktop">
+        <h3 class="KGSolid font-2xl">Archiwalne arkusze i webinary</h3>    
+        <button data-tab-close="true">
+          <svg class="icon sm">
+            <use href="./templates/pistacja/images/icons/pie-icons-sprite.svg#ui-close" />
+          </svg>
+        </button>
+      </div>
+
+      <div class="pie-rounded-list">
+        {% for exam in item.pastExams %}
+        <a class="as-text pie-list-row --h-spread" href="{{ exam.route }}">
+          <div class="rail">
+            <svg class="icon md">
+              <use href="./templates/pistacja/images/icons/pie-icons-sprite.svg#ex-ex"/>
+            </svg>
+            <span>{{ exam.title }}</span>
+          </div>
+        </a>
+        {% endfor %}
+      </div>
+    </div>
+    {% endif %}
+
+    {% if item.cke|length > 0 and item.past == true %}
+    <div data-tab="cke">
+
+      <div class="rail --h-spread --v-start --space-i --space-b-2x pie-tabs-hide-on-desktop">
+        <h3 class="KGSolid font-2xl">Interaktywne arkusze</h3>    
+        <button data-tab-close="true">
+          <svg class="icon sm">
+            <use href="./templates/pistacja/images/icons/pie-icons-sprite.svg#ui-close" />
+          </svg>
+        </button>
+      </div>
+
+      <div class="pie-rounded-list">
+        {% for exercise in item.cke %}
+        <a class="as-text pie-list-row --h-spread pie-exams-prep-link" href="{{ exercise.route }}" target="_blank">
+          <div class="rail">
+            <svg class="icon md">
+              <use href="./templates/pistacja/images/icons/pie-icons-sprite.svg#ex-doc"/>
+            </svg>
+            <span>{{ exercise.title }}</span>
+          </div>
+        </a>
+        {% endfor %}
+      </div>
+    </div>
+    {% endif %}
+
+
+    {% if item.requirements|length %}
+    <div data-tab="prep">
+      <div class="rail --h-spread --v-start --space-i --space-b-2x pie-tabs-hide-on-desktop">
+        <h3 class="KGSolid font-2xl">Wymagania</h3>    
+        <button data-tab-close="true">
+          <svg class="icon sm">
+            <use href="./templates/pistacja/images/icons/pie-icons-sprite.svg#ui-close" />
+          </svg>
+        </button>
+      </div>
+
+      <div class="--space-i stack classic-list-style">
+        {{ item.requirements|raw }}
+      </div>
+
+    </div>
+    {% endif %}
+
+    {% if item.howToPrep|length > 0 and item.past == false %}
+    <div data-tab="prep">
+      <div class="rail --h-spread --v-start --space-i --space-b-2x pie-tabs-hide-on-desktop">
+        <h3 class="KGSolid font-2xl">Jak się przygotować?</h3>    
+        <button data-tab-close="true">
+          <svg class="icon sm">
+            <use href="./templates/pistacja/images/icons/pie-icons-sprite.svg#ui-close" />
+          </svg>
+        </button>
+      </div>
+
+      <div class="--space-i stack classic-list-style">
+        {{ item.howToPrep|raw }}
+      </div>
+
+    </div>
+    {% endif %}
+
+
+  </div>
+
+  <div class="pie-social-media">
+    <a href="https://www.facebook.com/PistacjaMatematyka/" target="_blank" rel="noopener noreferrer" class="fb-menu-button">Facebook</a>
+    <a href="https://www.youtube.com/c/pistacjamatematyka" target="_blank" rel="noopener noreferrer" class="yt-menu-button">YouTube</a>
+    <a href="https://pistacja.tv/podstawa-programowa/matematyka" class="matematyka subject-menu-button" title="Matematyka"></a>
+  </div>
+
+  <hr class="space medium">
+
+</div>
+
+{# <pre>
+{{ dump(item) }}
+</pre> #}

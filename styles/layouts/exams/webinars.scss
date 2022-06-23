@@ -1,0 +1,20 @@
+.pie-exams-webinar {
+
+  $webinar-mobile: 620px;
+
+  @include pie-tabs(    
+    $pie-tabs-mobile: $webinar-mobile,
+    $pie-tabs-active-btn-text: var(--pie-gray-100),  
+    $pie-tabs-active-btn: var(--exams-primary),
+    $pie-tabs-bg: var(--exams-secondary),
+  );
+
+  @include social-media-small ($webinar-mobile);
+
+  // ---- Overriders --------------------
+
+  & .pie-list-row {
+    --pie-row-hover: var(--exams-secondary);
+  }
+  
+}
