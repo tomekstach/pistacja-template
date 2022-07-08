@@ -2,394 +2,16 @@
 /******/ 	"use strict";
 /******/ 	var __webpack_modules__ = ({
 
-/***/ "./src/joomla/html/com_videos/item/default/player/modules/exercises/analytics.js":
-/*!***************************************************************************************!*\
-  !*** ./src/joomla/html/com_videos/item/default/player/modules/exercises/analytics.js ***!
-  \***************************************************************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => (/* binding */ analytics)
-/* harmony export */ });
-function analytics() {
-  var exercise;
-  var startTime;
-
-  function startRecording(exerciseTitle) {
-    startTime = Date.now();
-    exercise = exerciseTitle;
-  }
-
-  function stopRecording() {
-    var timeEllapsed = Date.now() - startTime;
-    window.dataLayer.push({
-      event: "player-exercise",
-      timeValue: humanTime(timeEllapsed),
-      customValue: exercise
-    });
-  }
-
-  document.addEventListener("click", function (_ref) {
-    var target = _ref.target;
-
-    if (target.matches("button.pie-player-playlist-button")) {
-      startRecording(target.dataset.exercise);
-    } else if (target.matches("div.pie-modal-root") || target.matches("button.pie-player-exercises-modal-close")) {
-      stopRecording();
-    }
-  });
-  return {
-    start: function start(title) {
-      return startRecording(title);
-    }
-  };
-} // ---- Helpers ----------------
-
-function humanTime(millis) {
-  var minutes = Math.floor(millis / 60000);
-  var seconds = (millis % 60000 / 1000).toFixed(0);
-  return "".concat(minutes < 10 ? "0" : "").concat(minutes, ":").concat(seconds < 10 ? "0" : "").concat(seconds);
-}
-
-/***/ }),
-
-/***/ "./src/joomla/html/com_videos/item/default/player/modules/exercises/cleaner.js":
-/*!*************************************************************************************!*\
-  !*** ./src/joomla/html/com_videos/item/default/player/modules/exercises/cleaner.js ***!
-  \*************************************************************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => (/* binding */ exerciseCleaner)
-/* harmony export */ });
-// Module that handles exercise popup close event and makes sure to reset iframe "src"
-// This is mainly for the video players to stop them form playing when modal is closed.
-// FIXME: This need to be changed. It can only handle the exercises assigned to the video
-//        it won't work with exercises in playlist that are interactive-video.
-//        Solution for that would be actualt acces the player instance and stop move
-//        instead forcing rsc reset.
-function exerciseCleaner(modals) {
-  modals && modals.listen(function (name, state, modal) {
-    if (name === "exercises" && state === "hide") {
-      var iframe = modal.querySelector("iframe");
-      if (iframe) iframe.src = "";
-    }
-  });
-}
-
-/***/ }),
-
-/***/ "./src/joomla/html/com_videos/item/default/player/modules/exercises/index.js":
-/*!***********************************************************************************!*\
-  !*** ./src/joomla/html/com_videos/item/default/player/modules/exercises/index.js ***!
-  \***********************************************************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => (/* binding */ Exercises)
-/* harmony export */ });
-/* harmony import */ var _babel_runtime_helpers_slicedToArray__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/helpers/slicedToArray */ "./node_modules/@babel/runtime/helpers/esm/slicedToArray.js");
-/* harmony import */ var travrs__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! travrs */ "./node_modules/travrs/dist/index.js");
-/* harmony import */ var travrs__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(travrs__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var utils__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! utils */ "./src/modules/utils/index.js");
-/* harmony import */ var pistacja_modals__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! pistacja/modals */ "./src/modules/pistacja/modals/index.js");
-/* harmony import */ var _analytics__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./analytics */ "./src/joomla/html/com_videos/item/default/player/modules/exercises/analytics.js");
-/* harmony import */ var _cleaner__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./cleaner */ "./src/joomla/html/com_videos/item/default/player/modules/exercises/cleaner.js");
-/* harmony import */ var _styles_scss__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./styles.scss */ "./src/joomla/html/com_videos/item/default/player/modules/exercises/styles.scss");
-
-
-
-
-
-
-
-function Exercises(modals) {
-  var _queryToObject = (0,utils__WEBPACK_IMPORTED_MODULE_2__.queryToObject)(window.location.search),
-      exercise = _queryToObject.exercise;
-
-  var modalController = (0,pistacja_modals__WEBPACK_IMPORTED_MODULE_3__.remoteModal)("exercises");
-  var model = window.pie_video_exercises;
-  delete window.pie_video_exercises; // Initialize Analytics for exercises.
-
-  var tracker = (0,_analytics__WEBPACK_IMPORTED_MODULE_4__["default"])(); // Install Exercise cleaner.
-
-  (0,_cleaner__WEBPACK_IMPORTED_MODULE_5__["default"])(modals); // For Exercises in playlist.
-
-  if (modalController.modal.dataset.exUrl) {
-    var _modalController$moda = modalController.modal.dataset,
-        exUrl = _modalController$moda.exUrl,
-        exTitle = _modalController$moda.exTitle;
-    modalController.modal.appendChild(videoExercise(exTitle, exUrl));
-    tracker.start(exTitle);
-  } // For Exercises in video (URL).
-  else if (exercise) {
-    var _model$exercise = model[exercise],
-        title = _model$exercise.title,
-        url = _model$exercise.url,
-        video = _model$exercise.video;
-    modalController.modal.appendChild(videoExercise(title, url, video));
-    modalController.on();
-    tracker.start(title);
-  }
-}
-
-function videoExercise(title, url, video) {
-  var _template = (0,travrs__WEBPACK_IMPORTED_MODULE_1__.template)("\n    div.pie-player-exercises-modal-container.stack.--medium\n      div.rail.--h-spread.--stretch\n        @header::h2.KGSolid.text-green.font-xl > \"Zadanie\"\n        div.rail.--zero\n          @fullscreen::button.pie-icon-fullscreen-18\n          button.pie-player-exercises-modal-close.pie-icon-close-18[data-pie-modal-close=\"true\"]\n      @video::div.subheader\n      @player::iframe[width=\"100%\" height=\"100%\" scrolling=\"yes\" frameborder=\"0\" allowfullscreen]\n    "),
-      _template2 = (0,_babel_runtime_helpers_slicedToArray__WEBPACK_IMPORTED_MODULE_0__["default"])(_template, 2),
-      content = _template2[0],
-      refs = _template2[1]; // Set content.
-
-
-  refs.player.src = url;
-  refs.header.textContent = title;
-  refs.fullscreen.addEventListener("click", function () {
-    if (content.parentNode.classList.toggle("fullscreen")) {
-      refs.fullscreen.classList.add("pie-icon-smallscreen-18");
-      refs.fullscreen.classList.remove("pie-icon-fullscreen-18");
-    } else {
-      refs.fullscreen.classList.add("pie-icon-fullscreen-18");
-      refs.fullscreen.classList.remove("pie-icon-smallscreen-18");
-    }
-  });
-
-  if (video) {
-    refs.video.textContent = "Zadanie do wideo: ".concat(video);
-  } else {
-    refs.video.remove();
-  }
-
-  return content;
-}
-
-/***/ }),
-
-/***/ "./src/joomla/html/com_videos/item/default/player/player.js":
-/*!******************************************************************!*\
-  !*** ./src/joomla/html/com_videos/item/default/player/player.js ***!
-  \******************************************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-__webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _babel_runtime_helpers_asyncToGenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/helpers/asyncToGenerator */ "./node_modules/@babel/runtime/helpers/esm/asyncToGenerator.js");
-/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @babel/runtime/regenerator */ "./node_modules/@babel/runtime/regenerator/index.js");
-/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var pistacja_plugin__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! pistacja/plugin */ "./src/modules/pistacja/plugin/index.js");
-/* harmony import */ var data_copy__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! data-copy */ "./src/modules/data-copy/index.js");
-/* harmony import */ var tabs_manager__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! tabs-manager */ "./src/modules/tabs-manager/index.js");
-/* harmony import */ var _modules_exercises__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./modules/exercises */ "./src/joomla/html/com_videos/item/default/player/modules/exercises/index.js");
-/* harmony import */ var pistacja_uspp_modal__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! pistacja/uspp-modal */ "./src/modules/pistacja/uspp-modal/index.js");
-/* harmony import */ var perfect_scrollbar__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! perfect-scrollbar */ "./node_modules/perfect-scrollbar/dist/perfect-scrollbar.esm.js");
-/* harmony import */ var perfect_scrollbar_css_perfect_scrollbar_css__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! perfect-scrollbar/css/perfect-scrollbar.css */ "./node_modules/perfect-scrollbar/css/perfect-scrollbar.css");
-
-
-
-
- // import YTPlayer from "./modules/yt-player";
-
-
- // import Transcript from "./modules/transcript";
-
- // Styles.
-
-
-pistacja_plugin__WEBPACK_IMPORTED_MODULE_2__["default"].plugin( /*#__PURE__*/function () {
-  var _Player = (0,_babel_runtime_helpers_asyncToGenerator__WEBPACK_IMPORTED_MODULE_0__["default"])( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_1___default().mark(function _callee(props) {
-    var domain, modals, mobileBreakpoint, playlist, activeItem, playlistHeader;
-    return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_1___default().wrap(function _callee$(_context) {
-      while (1) {
-        switch (_context.prev = _context.next) {
-          case 0:
-            domain = props.domain, modals = props.modals;
-            mobileBreakpoint = 990; // Manage Tabs.
-
-            (0,tabs_manager__WEBPACK_IMPORTED_MODULE_4__["default"])(mobileBreakpoint); // Handle USPP Modal.
-
-            (0,pistacja_uspp_modal__WEBPACK_IMPORTED_MODULE_6__["default"])(domain); // Handle player.
-            // const playerInstance = await YTPlayer("yt-video");
-            // Transcript(playerInstance);
-            // Handle exercises.
-
-            (0,_modules_exercises__WEBPACK_IMPORTED_MODULE_5__["default"])(modals); // Coopy links to clipboard.
-
-            (0,data_copy__WEBPACK_IMPORTED_MODULE_3__["default"])(); // Perfect scrollbar.
-
-            playlist = document.querySelector("#pie-player-playlist");
-            console.log(playlist);
-
-            if (playlist) {
-              new perfect_scrollbar__WEBPACK_IMPORTED_MODULE_7__["default"](playlist);
-              activeItem = playlist.querySelector("li.active");
-
-              if (activeItem) {
-                playlist.scrollTop = activeItem.offsetTop - 40;
-              }
-            } // Handle mobil playlist toggle.
-
-
-            playlistHeader = document.querySelector(".pie-player-playlist");
-            playlistHeader.addEventListener("click", function (event) {
-              if (window.innerWidth < mobileBreakpoint) {
-                playlistHeader.classList.toggle("mobile-playlist-open");
-              }
-            });
-
-          case 11:
-          case "end":
-            return _context.stop();
-        }
-      }
-    }, _callee);
-  }));
-
-  function Player(_x) {
-    return _Player.apply(this, arguments);
-  }
-
-  return Player;
-}());
-
-/***/ }),
-
-/***/ "./src/modules/data-copy/index.js":
-/*!****************************************!*\
-  !*** ./src/modules/data-copy/index.js ***!
-  \****************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => (/* binding */ dataCopy)
-/* harmony export */ });
-function dataCopy() {
-  var root = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : document;
-  // Handle links sharing.
-  root.addEventListener("click", function (event) {
-    if (event.target.matches("button[data-copy]")) {
-      navigator.clipboard.writeText(event.target.dataset.copy);
-      alert("SKOPIOWANO URL:\n".concat(event.target.dataset.copy, "\n\uD83D\uDE04\uD83D\uDC4D"));
-    }
-  });
-}
-
-/***/ }),
-
-/***/ "./src/modules/pistacja/modals/index.js":
-/*!**********************************************!*\
-  !*** ./src/modules/pistacja/modals/index.js ***!
-  \**********************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => (/* binding */ Modals),
-/* harmony export */   "remoteModal": () => (/* binding */ remoteModal)
-/* harmony export */ });
-/* harmony import */ var travrs__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! travrs */ "./node_modules/travrs/dist/index.js");
-/* harmony import */ var travrs__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(travrs__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var perfect_scrollbar__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! perfect-scrollbar */ "./node_modules/perfect-scrollbar/dist/perfect-scrollbar.esm.js");
-/* harmony import */ var perfect_scrollbar_css_perfect_scrollbar_css__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! perfect-scrollbar/css/perfect-scrollbar.css */ "./node_modules/perfect-scrollbar/css/perfect-scrollbar.css");
-/* harmony import */ var _styles_scss__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./styles.scss */ "./src/modules/pistacja/modals/styles.scss");
-
- // Styles.
-
-
- // Handles all pi-stacja modals.
-
-function Modals() {
-  var currentModal;
-  var listeners = [];
-  var root = document.querySelector("div.pie-modal-root") || (0,travrs__WEBPACK_IMPORTED_MODULE_0__.createElement)("div.pie-modal-root");
-  document.body.appendChild(root); // Get all modals from the page.
-
-  var modals = Array.from(document.querySelectorAll("*[data-pie-modal]")).reduce(function (acc, modal) {
-    acc[modal.dataset.pieModal] = modal;
-    var scrollContent = modal.querySelector(".scroll-content");
-
-    if (scrollContent) {
-      new perfect_scrollbar__WEBPACK_IMPORTED_MODULE_1__["default"](scrollContent);
-    }
-
-    root.appendChild(modal);
-    return acc;
-  }, {});
-  document.addEventListener("click", function (event) {
-    // Hide.
-    if (!event.target.dataset.pieModalTrigger) {
-      if (event.target === root || event.target.dataset.pieModalClose) {
-        root.classList.remove("root-open");
-
-        if (currentModal) {
-          currentModal.classList.remove("modal-open");
-          setTimeout(function () {
-            listeners.forEach(function (listener) {
-              return listener(currentModal.dataset.pieModal, "hide", currentModal);
-            });
-          }, 350);
-        }
-      }
-
-      return;
-    } // Select & show.
-
-
-    currentModal = modals[event.target.dataset.pieModalTrigger];
-
-    if (currentModal) {
-      currentModal.classList.add("modal-open");
-      root.classList.add("root-open");
-      listeners.forEach(function (listener) {
-        return listener(currentModal.dataset.pieModal, "show", currentModal);
-      });
-    }
-  });
-  return {
-    listen: function listen(callback) {
-      !listeners.includes(callback) && listeners.push(callback);
-      return function cleanup() {
-        var index = listeners.indexOf(callback);
-        listeners.splice(index, 1);
-      };
-    }
-  };
-} // Allows for remote controll of targeted modal from JS code.
-
-function remoteModal(modalName) {
-  var $ = document.querySelector.bind(document);
-  var selector = "button.remote-pie-modal-btn[data-pie-modal-trigger=\"".concat(modalName, "\"]");
-  var trigger = $(selector) || (0,travrs__WEBPACK_IMPORTED_MODULE_0__.createElement)(selector);
-  var modal = $("*[data-pie-modal=\"".concat(modalName, "\"]"));
-  var root = $("div.pie-modal-root");
-  if (!root || !modal) return;
-  document.body.appendChild(trigger);
-  return {
-    on: function on() {
-      return trigger.click();
-    },
-    off: function off() {
-      return root.click();
-    },
-    modal: modal
-  };
-}
-
-/***/ }),
-
-/***/ "./src/modules/pistacja/plugin/index.js":
-/*!**********************************************!*\
-  !*** ./src/modules/pistacja/plugin/index.js ***!
-  \**********************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
-/* harmony export */ });
-/* harmony import */ var _babel_runtime_helpers_asyncToGenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/helpers/asyncToGenerator */ "./node_modules/@babel/runtime/helpers/esm/asyncToGenerator.js");
-/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @babel/runtime/regenerator */ "./node_modules/@babel/runtime/regenerator/index.js");
-/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_1__);
+/***/ 77:
+/***/ ((__unused_webpack_module, __unused_webpack___webpack_exports__, __webpack_require__) => {
+
+
+// EXTERNAL MODULE: ./node_modules/@babel/runtime/helpers/esm/asyncToGenerator.js
+var asyncToGenerator = __webpack_require__(861);
+// EXTERNAL MODULE: ./node_modules/@babel/runtime/regenerator/index.js
+var regenerator = __webpack_require__(757);
+var regenerator_default = /*#__PURE__*/__webpack_require__.n(regenerator);
+;// CONCATENATED MODULE: ./src/modules/pistacja/plugin/index.js
 
 
 
@@ -411,8 +33,8 @@ var pie = function piePlugin() {
 
     window.piePlugins = window.piePlugins || [];
     window.piePlugins.forEach( /*#__PURE__*/function () {
-      var _ref = (0,_babel_runtime_helpers_asyncToGenerator__WEBPACK_IMPORTED_MODULE_0__["default"])( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_1___default().mark(function _callee(callPlugin) {
-        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_1___default().wrap(function _callee$(_context) {
+      var _ref = (0,asyncToGenerator/* default */.Z)( /*#__PURE__*/regenerator_default().mark(function _callee(callPlugin) {
+        return regenerator_default().wrap(function _callee$(_context) {
           while (1) {
             switch (_context.prev = _context.next) {
               case 0:
@@ -458,171 +80,21 @@ var pie = function piePlugin() {
   };
 }();
 
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (pie);
-
-/***/ }),
-
-/***/ "./src/modules/pistacja/uspp-modal/index.js":
-/*!**************************************************!*\
-  !*** ./src/modules/pistacja/uspp-modal/index.js ***!
-  \**************************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => (/* binding */ usppModal)
-/* harmony export */ });
-/* harmony import */ var _babel_runtime_helpers_slicedToArray__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/helpers/slicedToArray */ "./node_modules/@babel/runtime/helpers/esm/slicedToArray.js");
-/* harmony import */ var travrs__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! travrs */ "./node_modules/travrs/dist/index.js");
-/* harmony import */ var travrs__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(travrs__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var pistacja_modals__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! pistacja/modals */ "./src/modules/pistacja/modals/index.js");
-
-// Modules.
-
-
-function usppModal(domian) {
-  var requertConfig = {
-    mode: "cors",
-    method: "post",
-    cache: "default"
-  };
-  var modalController = (0,pistacja_modals__WEBPACK_IMPORTED_MODULE_2__.remoteModal)("uspp"); // No modal to display content.
-
-  if (!modalController || !modalController.modal) return;
-
-  var _template = (0,travrs__WEBPACK_IMPORTED_MODULE_1__.template)("\n    div.uspp-wrapper.stack\n      @content::div.uspp-content       \n      @link::a.bubble-button.green.KGSolid.--space-i > \"WSZYSTKIE ZASOBY DLA TEGO WYMAGANIA\"        \n  "),
-      _template2 = (0,_babel_runtime_helpers_slicedToArray__WEBPACK_IMPORTED_MODULE_0__["default"])(_template, 2),
-      content = _template2[0],
-      refs = _template2[1];
-
-  modalController.modal.appendChild(content);
-  document.addEventListener("click", function (event) {
-    if (!event.target.matches("button[data-uspp-id]")) return;
-    refs.link.href = "".concat(domian, "wyniki-wyszukiwania?q=").concat(event.target.innerText); // Show modal.
-
-    modalController.on(); // Display waiting msg. after 400ms.
-
-    var timer = setTimeout(function () {
-      refs.content.textContent = "Trwa ładowanie danych...";
-    }, 400);
-    fetch("".concat(domian, "cli/getpppname.php?code=").concat(event.target.dataset.usppId), requertConfig).then(function (r) {
-      return r.json();
-    }).then(function (_ref) {
-      var level = _ref.level,
-          name = _ref.name,
-          subject = _ref.subject,
-          section = _ref.section;
-      clearTimeout(timer);
-      refs.content.innerHTML = "\n          <div class=\"stack --medium\">\n            <h3 class=\"KGSolid text-green font-md rail --h-spread --v-start\">\n              <span>".concat(event.target.innerText, "</span>\n              <button class=\"ghost\" data-pie-modal-close=\"true\">\n                <svg class=\"icon sm\">\n                  <use href=\"").concat(domian, "/templates/pistacja/images/icons/pie-icons-sprite.svg#ui-close\">\n                </svg>\n              </button>\n            </h3>\n\n            <div class=\"text-gray\">").concat(name, "</div>\n          \n            <hr/>\n            <div>\n              <div>Przedmiot</div>\n              <strong class=\"text-green\">").concat(subject, "</strong>\n            </div>\n            <div>\n              <div>Poziom edukacyjny</div>\n              <strong class=\"text-green\">").concat(level, "</strong>\n            </div>\n            <div>\n              <div>Dzia\u0142</div>\n              <strong class=\"text-green\">").concat(section, "</strong>\n            </div>\n          </div>\n        "); // Redner MathML.
-
-      window.MathJax && window.MathJax.typeset();
-    })["catch"](function (err) {
-      console.error(err);
-      clearTimeout(timer);
-      refs.content.textContent = "Błąd danych USPP; Przepraszamy.";
-    });
-  });
-}
-
-/***/ }),
-
-/***/ "./src/modules/tabs-manager/index.js":
-/*!*******************************************!*\
-  !*** ./src/modules/tabs-manager/index.js ***!
-  \*******************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => (/* binding */ TabsManager)
-/* harmony export */ });
-/* harmony import */ var utils__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! utils */ "./src/modules/utils/index.js");
- // Switches tabs containers and applies active class.
-// USAGE:
-
-var css = function css(mobileBreakpoint) {
-  return "\n  \n  .pie-tabs-hide-on-desktop {\n    display: none;\n  }\n  \n  @media (max-width: ".concat(mobileBreakpoint, "px) {\n    .pie-tabs-container {\n      top: 100%;     \n      left: 0;\n      right: 0;\n      bottom: 0;\n      margin: 0;\n      z-index: 100;\n      position: fixed;\n      overflow-y: auto;\n      overflow-x: hidden;\n      background-color: white;\n      transition: top .5s ease;\n    }\n      \n    .pie-tabs-container.show {\n      top: 3.4rem;\n    } \n\n    .pie-tabs-hide-on-mobile {\n      display: none;\n    }\n\n    .pie-tabs-hide-on-desktop {\n      display: flex;\n    }\n  }\n\n  .pie-tabs-container > *[data-tab] {\n    display: none;\n  }\n\n  .pie-tabs-container > *[data-tab].active {\n    display: block;\n  }      \n");
-};
-
-function TabsManager() {
-  var mobileBreakpoint = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 860;
-  var tabs = Array.from(document.querySelectorAll("[data-tab]"));
-  var container = document.querySelector(".pie-tabs-container");
-  var currentTab = tabs.find(function (t) {
-    return t.classList.contains("active");
-  });
-  var currentButton = currentTab ? document.querySelector("button[data-tab-target].active") : null;
-  (0,utils__WEBPACK_IMPORTED_MODULE_0__.insertCSS)(css(mobileBreakpoint), "tabs-styles");
-  (0,utils__WEBPACK_IMPORTED_MODULE_0__.watchScreen)(function (width) {
-    return {
-      mobile: width < mobileBreakpoint
-    };
-  }, function (mode) {
-    return currentButton && (mode === "mobile" ? currentButton.classList.remove("active") : currentButton.classList.add("active"));
-  }, true);
-
-  function deselectTabs() {
-    container && container.classList.remove("show");
-    currentButton && currentButton.classList.remove("active");
-  }
-
-  function selectTab(targetName, button) {
-    currentButton && currentButton.classList.remove("active");
-    currentButton = button instanceof HTMLElement ? button : document.querySelector("button[data-tab-target=\"".concat(targetName, "\"]"));
-    currentTab && currentTab.classList.remove("active");
-    currentTab = tabs.find(function (t) {
-      return t.dataset.tab === targetName;
-    });
-
-    if (currentTab) {
-      currentTab.classList.add("active");
-      currentButton.classList.add("active");
-      container && container.classList.add("show");
-    }
-
-    return currentTab;
-  }
-
-  document.addEventListener("click", function (event) {
-    if (event.target.matches("button[data-tab-target]")) {
-      currentTab = selectTab(event.target.dataset.tabTarget, event.target);
-    } else if (event.target.matches("button[data-tab-close]")) {
-      deselectTabs();
-    }
-  });
-  return Object.freeze({
-    selectTab: selectTab,
-    getCurrentTab: function getCurrentTab() {
-      return currentTab;
-    },
-    getCurrentButton: function getCurrentButton() {
-      return currentButton;
+/* harmony default export */ const pistacja_plugin = (pie);
+;// CONCATENATED MODULE: ./src/modules/data-copy/index.js
+function dataCopy() {
+  var root = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : document;
+  // Handle links sharing.
+  root.addEventListener("click", function (event) {
+    if (event.target.matches("button[data-copy]")) {
+      navigator.clipboard.writeText(event.target.dataset.copy);
+      alert("SKOPIOWANO URL:\n".concat(event.target.dataset.copy, "\n\uD83D\uDE04\uD83D\uDC4D"));
     }
   });
 }
-
-/***/ }),
-
-/***/ "./src/modules/utils/index.js":
-/*!************************************!*\
-  !*** ./src/modules/utils/index.js ***!
-  \************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "debounce": () => (/* binding */ debounce),
-/* harmony export */   "queryToObject": () => (/* binding */ queryToObject),
-/* harmony export */   "uid": () => (/* binding */ uid),
-/* harmony export */   "memo": () => (/* binding */ memo),
-/* harmony export */   "isPrevious": () => (/* binding */ isPrevious),
-/* harmony export */   "timeToSeconds": () => (/* binding */ timeToSeconds),
-/* harmony export */   "insertCSS": () => (/* binding */ insertCSS),
-/* harmony export */   "PieError": () => (/* binding */ PieError),
-/* harmony export */   "memoElement": () => (/* binding */ memoElement),
-/* harmony export */   "watchScreen": () => (/* binding */ watchScreen)
-/* harmony export */ });
-/* harmony import */ var _babel_runtime_helpers_slicedToArray__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/helpers/slicedToArray */ "./node_modules/@babel/runtime/helpers/esm/slicedToArray.js");
+// EXTERNAL MODULE: ./node_modules/@babel/runtime/helpers/esm/slicedToArray.js
+var slicedToArray = __webpack_require__(324);
+;// CONCATENATED MODULE: ./src/modules/utils/index.js
 
 
 function _createForOfIteratorHelper(o, allowArrayLike) { var it = typeof Symbol !== "undefined" && o[Symbol.iterator] || o["@@iterator"]; if (!it) { if (Array.isArray(o) || (it = _unsupportedIterableToArray(o)) || allowArrayLike && o && typeof o.length === "number") { if (it) o = it; var i = 0; var F = function F() {}; return { s: F, n: function n() { if (i >= o.length) return { done: true }; return { done: false, value: o[i++] }; }, e: function e(_e) { throw _e; }, f: F }; } throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); } var normalCompletion = true, didErr = false, err; return { s: function s() { it = it.call(o); }, n: function n() { var step = it.next(); normalCompletion = step.done; return step; }, e: function e(_e2) { didErr = true; err = _e2; }, f: function f() { try { if (!normalCompletion && it["return"] != null) it["return"](); } finally { if (didErr) throw err; } } }; }
@@ -660,7 +132,7 @@ function queryToObject(url) {
 
   try {
     for (_iterator.s(); !(_step = _iterator.n()).done;) {
-      var _step$value = (0,_babel_runtime_helpers_slicedToArray__WEBPACK_IMPORTED_MODULE_0__["default"])(_step.value, 2),
+      var _step$value = (0,slicedToArray/* default */.Z)(_step.value, 2),
           key = _step$value[0],
           value = _step$value[1];
 
@@ -799,30 +271,576 @@ function watchScreen(predicate, callback) {
     return window.removeEventListener("resize", handler);
   };
 }
+;// CONCATENATED MODULE: ./src/modules/tabs-manager/index.js
+ // Switches tabs containers and applies active class.
+// USAGE:
 
-/***/ }),
+var css = function css(mobileBreakpoint) {
+  return "\n  \n  .pie-tabs-hide-on-desktop {\n    display: none;\n  }\n  \n  @media (max-width: ".concat(mobileBreakpoint, "px) {\n    .pie-tabs-container {\n      top: 100%;     \n      left: 0;\n      right: 0;\n      bottom: 0;\n      margin: 0;\n      z-index: 100;\n      position: fixed;\n      overflow-y: auto;\n      overflow-x: hidden;\n      background-color: white;\n      transition: top .5s ease;\n    }\n      \n    .pie-tabs-container.show {\n      top: 3.4rem;\n    } \n\n    .pie-tabs-hide-on-mobile {\n      display: none;\n    }\n\n    .pie-tabs-hide-on-desktop {\n      display: flex;\n    }\n  }\n\n  .pie-tabs-container > *[data-tab] {\n    display: none;\n  }\n\n  .pie-tabs-container > *[data-tab].active {\n    display: block;\n  }      \n");
+};
 
-/***/ "./src/joomla/html/com_videos/item/default/player/modules/exercises/styles.scss":
-/*!**************************************************************************************!*\
-  !*** ./src/joomla/html/com_videos/item/default/player/modules/exercises/styles.scss ***!
-  \**************************************************************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+function TabsManager() {
+  var mobileBreakpoint = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 860;
+  var tabs = Array.from(document.querySelectorAll("[data-tab]"));
+  var container = document.querySelector(".pie-tabs-container");
+  var currentTab = tabs.find(function (t) {
+    return t.classList.contains("active");
+  });
+  var currentButton = currentTab ? document.querySelector("button[data-tab-target].active") : null;
+  insertCSS(css(mobileBreakpoint), "tabs-styles");
+  watchScreen(function (width) {
+    return {
+      mobile: width < mobileBreakpoint
+    };
+  }, function (mode) {
+    return currentButton && (mode === "mobile" ? currentButton.classList.remove("active") : currentButton.classList.add("active"));
+  }, true);
 
-__webpack_require__.r(__webpack_exports__);
-// extracted by mini-css-extract-plugin
+  function deselectTabs() {
+    container && container.classList.remove("show");
+    currentButton && currentButton.classList.remove("active");
+  }
+
+  function selectTab(targetName, button) {
+    currentButton && currentButton.classList.remove("active");
+    currentButton = button instanceof HTMLElement ? button : document.querySelector("button[data-tab-target=\"".concat(targetName, "\"]"));
+    currentTab && currentTab.classList.remove("active");
+    currentTab = tabs.find(function (t) {
+      return t.dataset.tab === targetName;
+    });
+
+    if (currentTab) {
+      currentTab.classList.add("active");
+      currentButton.classList.add("active");
+      container && container.classList.add("show");
+    }
+
+    return currentTab;
+  }
+
+  document.addEventListener("click", function (event) {
+    if (event.target.matches("button[data-tab-target]")) {
+      currentTab = selectTab(event.target.dataset.tabTarget, event.target);
+    } else if (event.target.matches("button[data-tab-close]")) {
+      deselectTabs();
+    }
+  });
+  return Object.freeze({
+    selectTab: selectTab,
+    getCurrentTab: function getCurrentTab() {
+      return currentTab;
+    },
+    getCurrentButton: function getCurrentButton() {
+      return currentButton;
+    }
+  });
+}
+;// CONCATENATED MODULE: ./src/joomla/html/com_videos/item/default/player/modules/yt-player/index.js
+function YTPlayer(id) {
+  var width = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 560;
+  var height = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 315;
+  return new Promise(function (resolve, reject) {
+    var player;
+    var playCallback;
+    var stopCallback; // Run when YouTube player is ready.
+
+    window.onYouTubePlayerAPIReady = function YTPlayerReady() {
+      var container = document.getElementById(id);
+
+      if (!container) {
+        return reject("No container found for id: \"".concat(id, "\""));
+      } // eslint-disable-next-line
 
 
-/***/ }),
+      player = new YT.Player(id, {
+        width: width,
+        height: height,
+        videoId: container.dataset.videoid,
+        playerVars: {
+          rel: 0,
+          modestbranding: 1
+        },
+        events: {
+          onReady: playerIsReady,
+          onStateChange: playerStateChange
+        }
+      });
+    }; // sandbox="allow-forms allow-scripts allow-pointer-lock allow-same-origin allow-top-navigation"
+    // Remove pistacja loader.
 
-/***/ "./src/modules/pistacja/modals/styles.scss":
-/*!*************************************************!*\
-  !*** ./src/modules/pistacja/modals/styles.scss ***!
-  \*************************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
-__webpack_require__.r(__webpack_exports__);
-// extracted by mini-css-extract-plugin
+    function playerIsReady() {
+      var loader = document.querySelector(".pie-loader");
+      loader && loader.parentNode.removeChild(loader); // Attach handlers.
 
+      player.onStop = function (callback) {
+        stopCallback = callback;
+      };
+
+      player.onPlay = function (callback) {
+        playCallback = callback;
+      };
+
+      player.fullscreen = function () {
+        var requestFullScreen = iframe.requestFullScreen || iframe.mozRequestFullScreen || iframe.webkitRequestFullScreen;
+        requestFullScreen && requestFullScreen.bind(container)();
+      };
+
+      resolve(player);
+    } // Handle player's state change.
+
+
+    function playerStateChange(event) {
+      if (event.data === 1) {
+        playCallback && playCallback(event.target.getCurrentTime());
+      } else if (event.data === 2) {
+        stopCallback && stopCallback(event.target.getCurrentTime());
+      }
+    }
+  });
+}
+// EXTERNAL MODULE: ./node_modules/travrs/dist/index.js
+var dist = __webpack_require__(744);
+// EXTERNAL MODULE: ./node_modules/perfect-scrollbar/dist/perfect-scrollbar.esm.js
+var perfect_scrollbar_esm = __webpack_require__(772);
+;// CONCATENATED MODULE: ./src/modules/pistacja/modals/index.js
+
+ // Styles.
+
+
+ // Handles all pi-stacja modals.
+
+function Modals() {
+  var currentModal;
+  var listeners = [];
+  var root = document.querySelector("div.pie-modal-root") || createElement("div.pie-modal-root");
+  document.body.appendChild(root); // Get all modals from the page.
+
+  var modals = Array.from(document.querySelectorAll("*[data-pie-modal]")).reduce(function (acc, modal) {
+    acc[modal.dataset.pieModal] = modal;
+    var scrollContent = modal.querySelector(".scroll-content");
+
+    if (scrollContent) {
+      new PerfectScrollbar(scrollContent);
+    }
+
+    root.appendChild(modal);
+    return acc;
+  }, {});
+  document.addEventListener("click", function (event) {
+    // Hide.
+    if (!event.target.dataset.pieModalTrigger) {
+      if (event.target === root || event.target.dataset.pieModalClose) {
+        root.classList.remove("root-open");
+
+        if (currentModal) {
+          currentModal.classList.remove("modal-open");
+          setTimeout(function () {
+            listeners.forEach(function (listener) {
+              return listener(currentModal.dataset.pieModal, "hide", currentModal);
+            });
+          }, 350);
+        }
+      }
+
+      return;
+    } // Select & show.
+
+
+    currentModal = modals[event.target.dataset.pieModalTrigger];
+
+    if (currentModal) {
+      currentModal.classList.add("modal-open");
+      root.classList.add("root-open");
+      listeners.forEach(function (listener) {
+        return listener(currentModal.dataset.pieModal, "show", currentModal);
+      });
+    }
+  });
+  return {
+    listen: function listen(callback) {
+      !listeners.includes(callback) && listeners.push(callback);
+      return function cleanup() {
+        var index = listeners.indexOf(callback);
+        listeners.splice(index, 1);
+      };
+    }
+  };
+} // Allows for remote controll of targeted modal from JS code.
+
+function remoteModal(modalName) {
+  var $ = document.querySelector.bind(document);
+  var selector = "button.remote-pie-modal-btn[data-pie-modal-trigger=\"".concat(modalName, "\"]");
+  var trigger = $(selector) || (0,dist.createElement)(selector);
+  var modal = $("*[data-pie-modal=\"".concat(modalName, "\"]"));
+  var root = $("div.pie-modal-root");
+  if (!root || !modal) return;
+  document.body.appendChild(trigger);
+  return {
+    on: function on() {
+      return trigger.click();
+    },
+    off: function off() {
+      return root.click();
+    },
+    modal: modal
+  };
+}
+;// CONCATENATED MODULE: ./src/joomla/html/com_videos/item/default/player/modules/exercises/analytics.js
+function analytics() {
+  var exercise;
+  var startTime;
+
+  function startRecording(exerciseTitle) {
+    startTime = Date.now();
+    exercise = exerciseTitle;
+  }
+
+  function stopRecording() {
+    var timeEllapsed = Date.now() - startTime;
+    window.dataLayer.push({
+      event: "player-exercise",
+      timeValue: humanTime(timeEllapsed),
+      customValue: exercise
+    });
+  }
+
+  document.addEventListener("click", function (_ref) {
+    var target = _ref.target;
+
+    if (target.matches("button.pie-player-playlist-button")) {
+      startRecording(target.dataset.exercise);
+    } else if (target.matches("div.pie-modal-root") || target.matches("button.pie-player-exercises-modal-close")) {
+      stopRecording();
+    }
+  });
+  return {
+    start: function start(title) {
+      return startRecording(title);
+    }
+  };
+} // ---- Helpers ----------------
+
+function humanTime(millis) {
+  var minutes = Math.floor(millis / 60000);
+  var seconds = (millis % 60000 / 1000).toFixed(0);
+  return "".concat(minutes < 10 ? "0" : "").concat(minutes, ":").concat(seconds < 10 ? "0" : "").concat(seconds);
+}
+;// CONCATENATED MODULE: ./src/joomla/html/com_videos/item/default/player/modules/exercises/cleaner.js
+// Module that handles exercise popup close event and makes sure to reset iframe "src"
+// This is mainly for the video players to stop them form playing when modal is closed.
+// FIXME: This need to be changed. It can only handle the exercises assigned to the video
+//        it won't work with exercises in playlist that are interactive-video.
+//        Solution for that would be actualt acces the player instance and stop move
+//        instead forcing rsc reset.
+function exerciseCleaner(modals) {
+  modals && modals.listen(function (name, state, modal) {
+    if (name === "exercises" && state === "hide") {
+      var iframe = modal.querySelector("iframe");
+      if (iframe) iframe.src = "";
+    }
+  });
+}
+;// CONCATENATED MODULE: ./src/joomla/html/com_videos/item/default/player/modules/exercises/index.js
+
+
+
+
+
+
+
+function Exercises(modals) {
+  var _queryToObject = queryToObject(window.location.search),
+      exercise = _queryToObject.exercise;
+
+  var modalController = remoteModal("exercises");
+  var model = window.pie_video_exercises;
+  delete window.pie_video_exercises; // Initialize Analytics for exercises.
+
+  var tracker = analytics(); // Install Exercise cleaner.
+
+  exerciseCleaner(modals); // For Exercises in playlist.
+
+  if (modalController.modal.dataset.exUrl) {
+    var _modalController$moda = modalController.modal.dataset,
+        exUrl = _modalController$moda.exUrl,
+        exTitle = _modalController$moda.exTitle;
+    modalController.modal.appendChild(videoExercise(exTitle, exUrl));
+    tracker.start(exTitle);
+  } // For Exercises in video (URL).
+  else if (exercise) {
+    var _model$exercise = model[exercise],
+        title = _model$exercise.title,
+        url = _model$exercise.url,
+        video = _model$exercise.video;
+    modalController.modal.appendChild(videoExercise(title, url, video));
+    modalController.on();
+    tracker.start(title);
+  }
+}
+
+function videoExercise(title, url, video) {
+  var _template = (0,dist.template)("\n    div.pie-player-exercises-modal-container.stack.--medium\n      div.rail.--h-spread.--stretch\n        @header::h2.KGSolid.text-green.font-xl > \"Zadanie\"\n        div.rail.--zero\n          @fullscreen::button.pie-icon-fullscreen-18\n          button.pie-player-exercises-modal-close.pie-icon-close-18[data-pie-modal-close=\"true\"]\n      @video::div.subheader\n      @player::iframe[width=\"100%\" height=\"100%\" scrolling=\"yes\" frameborder=\"0\" allowfullscreen]\n    "),
+      _template2 = (0,slicedToArray/* default */.Z)(_template, 2),
+      content = _template2[0],
+      refs = _template2[1]; // Set content.
+
+
+  refs.player.src = url;
+  refs.header.textContent = title;
+  refs.fullscreen.addEventListener("click", function () {
+    if (content.parentNode.classList.toggle("fullscreen")) {
+      refs.fullscreen.classList.add("pie-icon-smallscreen-18");
+      refs.fullscreen.classList.remove("pie-icon-fullscreen-18");
+    } else {
+      refs.fullscreen.classList.add("pie-icon-fullscreen-18");
+      refs.fullscreen.classList.remove("pie-icon-smallscreen-18");
+    }
+  });
+
+  if (video) {
+    refs.video.textContent = "Zadanie do wideo: ".concat(video);
+  } else {
+    refs.video.remove();
+  }
+
+  return content;
+}
+;// CONCATENATED MODULE: ./src/modules/pistacja/uspp-modal/index.js
+
+// Modules.
+
+
+function usppModal(domian) {
+  var requertConfig = {
+    mode: "cors",
+    method: "post",
+    cache: "default"
+  };
+  var modalController = remoteModal("uspp"); // No modal to display content.
+
+  if (!modalController || !modalController.modal) return;
+
+  var _template = (0,dist.template)("\n    div.uspp-wrapper.stack\n      @content::div.uspp-content       \n      @link::a.bubble-button.green.KGSolid.--space-i > \"WSZYSTKIE ZASOBY DLA TEGO WYMAGANIA\"        \n  "),
+      _template2 = (0,slicedToArray/* default */.Z)(_template, 2),
+      content = _template2[0],
+      refs = _template2[1];
+
+  modalController.modal.appendChild(content);
+  document.addEventListener("click", function (event) {
+    if (!event.target.matches("button[data-uspp-id]")) return;
+    refs.link.href = "".concat(domian, "wyniki-wyszukiwania?q=").concat(event.target.innerText); // Show modal.
+
+    modalController.on(); // Display waiting msg. after 400ms.
+
+    var timer = setTimeout(function () {
+      refs.content.textContent = "Trwa ładowanie danych...";
+    }, 400);
+    fetch("".concat(domian, "cli/getpppname.php?code=").concat(event.target.dataset.usppId), requertConfig).then(function (r) {
+      return r.json();
+    }).then(function (_ref) {
+      var level = _ref.level,
+          name = _ref.name,
+          subject = _ref.subject,
+          section = _ref.section;
+      clearTimeout(timer);
+      refs.content.innerHTML = "\n          <div class=\"stack --medium\">\n            <h3 class=\"KGSolid text-green font-md rail --h-spread --v-start\">\n              <span>".concat(event.target.innerText, "</span>\n              <button class=\"ghost\" data-pie-modal-close=\"true\">\n                <svg class=\"icon sm\">\n                  <use href=\"").concat(domian, "/templates/pistacja/images/icons/pie-icons-sprite.svg#ui-close\">\n                </svg>\n              </button>\n            </h3>\n\n            <div class=\"text-gray\">").concat(name, "</div>\n          \n            <hr/>\n            <div>\n              <div>Przedmiot</div>\n              <strong class=\"text-green\">").concat(subject, "</strong>\n            </div>\n            <div>\n              <div>Poziom edukacyjny</div>\n              <strong class=\"text-green\">").concat(level, "</strong>\n            </div>\n            <div>\n              <div>Dzia\u0142</div>\n              <strong class=\"text-green\">").concat(section, "</strong>\n            </div>\n          </div>\n        "); // Redner MathML.
+
+      window.MathJax && window.MathJax.typeset();
+    })["catch"](function (err) {
+      console.error(err);
+      clearTimeout(timer);
+      refs.content.textContent = "Błąd danych USPP; Przepraszamy.";
+    });
+  });
+}
+;// CONCATENATED MODULE: ./src/modules/anchor-catch/index.js
+
+// Helpers.
+ // Allows to use <a/> tags as active-buttons with parameters in "href" attribute.
+//
+// USAGE:
+//
+// <a href="#subject?option1=A&option2=B">MyLink</a>
+//
+// const ac = anchorCatch("selector");
+//
+// ac.catch("subject", (options, element) => {
+//   console.log(options); // {option1: "A", option2: "B"}
+// });
+//
+
+function anchorCatch(selector) {
+  var root = selector instanceof HTMLElement ? selector : document.querySelector(selector);
+  var handlers = {};
+
+  function intercept(event) {
+    if (!isValidAnchor(event.target)) return;
+
+    var _extractSubjectAndOpt = extractSubjectAndOptions(event.target.href),
+        _extractSubjectAndOpt2 = (0,slicedToArray/* default */.Z)(_extractSubjectAndOpt, 2),
+        subject = _extractSubjectAndOpt2[0],
+        options = _extractSubjectAndOpt2[1];
+
+    handlers[subject] && handlers[subject](options, event.target);
+    event.preventDefault();
+  }
+
+  root && root.addEventListener("click", intercept);
+  return {
+    "catch": function _catch(subject, callback) {
+      if (typeof subject === "string", typeof callback === "function") {
+        handlers[subject] = callback;
+      }
+    },
+    destroy: function destroy() {
+      root && root.removeEventListener("click", intercept);
+      Object.keys(handlers).forEach(function (key) {
+        return delete handlers[key];
+      });
+    }
+  };
+} // ---- Helpers ----------------
+
+function isValidAnchor(element) {
+  return element.nodeName === "A" && element.href && element.href.includes("#");
+}
+
+function extractSubjectAndOptions(href) {
+  var index = href.indexOf("#");
+  var params = href.slice(index + 1).split("?");
+  var options = params[1] ? queryToObject("?".concat(params[1])) : undefined;
+  return [params[0], options];
+}
+;// CONCATENATED MODULE: ./src/joomla/html/com_videos/item/default/player/modules/transcript/index.js
+
+ // Higlihghts video's subtitles accordign to display time and allows to jump
+// to specific moment in the video by cllicking on the subtitle link.
+
+function Transcript(player) {
+  var transcriptContent = document.querySelector(".pie-tabs-transcript"); // Exit if no transcript.
+
+  if (!player || !transcriptContent) {
+    return;
+  }
+
+  var videoTranscript = anchorCatch(transcriptContent);
+  var clock = createClock(collectTranscriptiom(transcriptContent), transcriptContent); // Catch click event on a subtitle link.
+
+  videoTranscript["catch"]("seek", function (options) {
+    player.seekTo(timeToSeconds(options.time));
+    player.playVideo();
+  });
+  player.onStop(function () {
+    return clock.stop();
+  });
+  player.onPlay(function (time) {
+    return clock.play(Math.floor(time));
+  }); // Create map object from all transcription links.
+
+  function collectTranscriptiom(root) {
+    return Array.from(root.querySelectorAll("a")).reduce(function (acc, link) {
+      var time = timeToSeconds(link.href.slice(-8));
+      acc[time] = link;
+      return acc;
+    }, {});
+  } // Timing mechanism.
+
+
+  function createClock(timetable, content) {
+    var timer; // NOTE:
+    // This will activate fiest element if it starts at 00:00:00
+    // For better experience "time" in play() method need to be updated before selecting
+    // transcription link - this will however exclude link with time: 00:00:00.
+
+    var active = timetable[0];
+    active && active.classList.add("active"); // API.
+
+    return {
+      play: function play(playTime) {
+        var time = playTime;
+        active && time !== 0 && active.classList.remove("active");
+        timer && clearInterval(timer);
+        timer = setInterval(function () {
+          time += 1;
+
+          if (timetable[time]) {
+            active && active.classList.remove("active");
+            active = timetable[time];
+            active.classList.add("active");
+            content.scrollTop = active.offsetTop;
+          }
+        }, 1000);
+      },
+      stop: function stop() {
+        timer && clearInterval(timer);
+      }
+    };
+  }
+
+  ;
+}
+;// CONCATENATED MODULE: ./src/joomla/html/com_videos/item/default/player/player.js
+
+
+
+
+
+
+
+
+
+ // Styles.
+
+
+pistacja_plugin.plugin( /*#__PURE__*/function () {
+  var _Player = (0,asyncToGenerator/* default */.Z)( /*#__PURE__*/regenerator_default().mark(function _callee(props) {
+    var domain, modals, playerInstance, playlist, activeItem;
+    return regenerator_default().wrap(function _callee$(_context) {
+      while (1) {
+        switch (_context.prev = _context.next) {
+          case 0:
+            domain = props.domain, modals = props.modals; // Manage Tabs.
+
+            TabsManager(990); // Handle USPP Modal.
+
+            usppModal(domain); // Handle player.
+
+            _context.next = 5;
+            return YTPlayer("yt-video")["catch"](function () {
+              return false;
+            });
+
+          case 5:
+            playerInstance = _context.sent;
+            Transcript(playerInstance); // Handle exercises.
+
+            Exercises(modals); // Coopy links to clipboard.
+
+            dataCopy(); // Perfect scrollbar.
+
+            playlist = document.querySelector("#pie-player-playlist");
+
+            if (playlist) {
+              new perfect_scrollbar_esm/* default */.Z(playlist);
+              activeItem = playlist.querySelector("li.active");
+              activeItem && (playlist.scrollTop = activeItem.offsetTop - 40);
+            }
+
+          case 11:
+          case "end":
+            return _context.stop();
+        }
+      }
+    }, _callee);
+  }));
+
+  function Player(_x) {
+    return _Player.apply(this, arguments);
+  }
+
+  return Player;
+}());
 
 /***/ })
 
@@ -917,15 +935,9 @@ __webpack_require__.r(__webpack_exports__);
 /******/ 		__webpack_require__.o = (obj, prop) => (Object.prototype.hasOwnProperty.call(obj, prop))
 /******/ 	})();
 /******/ 	
-/******/ 	/* webpack/runtime/make namespace object */
+/******/ 	/* webpack/runtime/runtimeId */
 /******/ 	(() => {
-/******/ 		// define __esModule on exports
-/******/ 		__webpack_require__.r = (exports) => {
-/******/ 			if(typeof Symbol !== 'undefined' && Symbol.toStringTag) {
-/******/ 				Object.defineProperty(exports, Symbol.toStringTag, { value: 'Module' });
-/******/ 			}
-/******/ 			Object.defineProperty(exports, '__esModule', { value: true });
-/******/ 		};
+/******/ 		__webpack_require__.j = 397;
 /******/ 	})();
 /******/ 	
 /******/ 	/* webpack/runtime/jsonp chunk loading */
@@ -936,7 +948,7 @@ __webpack_require__.r(__webpack_exports__);
 /******/ 		// undefined = chunk not loaded, null = chunk preloaded/prefetched
 /******/ 		// [resolve, reject, Promise] = chunk loading, 0 = chunk loaded
 /******/ 		var installedChunks = {
-/******/ 			"./player": 0
+/******/ 			397: 0
 /******/ 		};
 /******/ 		
 /******/ 		// no chunk on demand loading
@@ -986,8 +998,9 @@ __webpack_require__.r(__webpack_exports__);
 /******/ 	// startup
 /******/ 	// Load entry module and return exports
 /******/ 	// This entry module depends on other loaded chunks and execution need to be delayed
-/******/ 	var __webpack_exports__ = __webpack_require__.O(undefined, ["vendor"], () => (__webpack_require__("./src/joomla/html/com_videos/item/default/player/player.js")))
+/******/ 	var __webpack_exports__ = __webpack_require__.O(undefined, [736], () => (__webpack_require__(77)))
 /******/ 	__webpack_exports__ = __webpack_require__.O(__webpack_exports__);
 /******/ 	
 /******/ })()
 ;
+//# sourceMappingURL=player.js.map

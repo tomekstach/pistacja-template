@@ -2,14 +2,26 @@
 <!DOCTYPE install PUBLIC "-//Joomla! 2.5//DTD template 1.0//EN" "http://www.joomla.org/xml/dtd/2.5/template-install.dtd">
 <extension version="3.1" type="template" client="site" method="upgrade">
 	<name>pistacja</name>
-	<version><!-- %_VERSION_% --></version>
-	<creationDate><!-- %_CREATION_DATE_% --></creationDate>
+	<version>2.14.0</version>
+	<creationDate>23/06/2022</creationDate>
 	<author>Wojciech Ludwin, Tomasz Stach</author>
 	<authorEmail>kontakt@katalysteducation.org</authorEmail>
 	<authorUrl>http://katalysteducation.org</authorUrl>
 	<copyright>Copyright (C) Katalyst Education 2015. Wszystkie prawa zastrzeżone.</copyright>
 	<description>TPL_PISTACJA_XML_DESCRIPTION</description>
-	<files><!-- %_FILES_% --></files>
+	<files>	<filename>component.php</filename>
+	<filename>error.php</filename>
+	<filename>favicon.ico</filename>
+	<filename>index.php</filename>
+	<filename>template.scss</filename>
+	<filename>templateDetails.xml</filename>
+	<folder>css</folder>
+	<folder>fonts</folder>
+	<folder>html</folder>
+	<folder>images</folder>
+	<folder>language</folder>
+	<folder>modules</folder>
+	<folder>styles</folder></files>
 	<positions>
 		<position>navigation-menu</position>
 		<position>navigation-search</position>

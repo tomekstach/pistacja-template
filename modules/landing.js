@@ -2,38 +2,16 @@
 /******/ 	"use strict";
 /******/ 	var __webpack_modules__ = ({
 
-/***/ "./src/joomla/html/com_content/article/landing/landing.js":
-/*!****************************************************************!*\
-  !*** ./src/joomla/html/com_content/article/landing/landing.js ***!
-  \****************************************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+/***/ 478:
+/***/ ((__unused_webpack_module, __unused_webpack___webpack_exports__, __webpack_require__) => {
 
-__webpack_require__.r(__webpack_exports__);
-/* harmony import */ var pistacja_plugin__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! pistacja/plugin */ "./src/modules/pistacja/plugin/index.js");
-/* harmony import */ var typewriter__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! typewriter */ "./src/modules/typewriter/index.js");
-// Modules.
 
- // Install Landing plugin.
-
-pistacja_plugin__WEBPACK_IMPORTED_MODULE_0__["default"].plugin(function () {
-  return (0,typewriter__WEBPACK_IMPORTED_MODULE_1__["default"])(document.querySelector("[data-typewriter]"));
-});
-
-/***/ }),
-
-/***/ "./src/modules/pistacja/plugin/index.js":
-/*!**********************************************!*\
-  !*** ./src/modules/pistacja/plugin/index.js ***!
-  \**********************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
-/* harmony export */ });
-/* harmony import */ var _babel_runtime_helpers_asyncToGenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/helpers/asyncToGenerator */ "./node_modules/@babel/runtime/helpers/esm/asyncToGenerator.js");
-/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @babel/runtime/regenerator */ "./node_modules/@babel/runtime/regenerator/index.js");
-/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_1__);
+// EXTERNAL MODULE: ./node_modules/@babel/runtime/helpers/esm/asyncToGenerator.js
+var asyncToGenerator = __webpack_require__(861);
+// EXTERNAL MODULE: ./node_modules/@babel/runtime/regenerator/index.js
+var regenerator = __webpack_require__(757);
+var regenerator_default = /*#__PURE__*/__webpack_require__.n(regenerator);
+;// CONCATENATED MODULE: ./src/modules/pistacja/plugin/index.js
 
 
 
@@ -55,8 +33,8 @@ var pie = function piePlugin() {
 
     window.piePlugins = window.piePlugins || [];
     window.piePlugins.forEach( /*#__PURE__*/function () {
-      var _ref = (0,_babel_runtime_helpers_asyncToGenerator__WEBPACK_IMPORTED_MODULE_0__["default"])( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_1___default().mark(function _callee(callPlugin) {
-        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_1___default().wrap(function _callee$(_context) {
+      var _ref = (0,asyncToGenerator/* default */.Z)( /*#__PURE__*/regenerator_default().mark(function _callee(callPlugin) {
+        return regenerator_default().wrap(function _callee$(_context) {
           while (1) {
             switch (_context.prev = _context.next) {
               case 0:
@@ -102,20 +80,8 @@ var pie = function piePlugin() {
   };
 }();
 
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (pie);
-
-/***/ }),
-
-/***/ "./src/modules/typewriter/index.js":
-/*!*****************************************!*\
-  !*** ./src/modules/typewriter/index.js ***!
-  \*****************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => (/* binding */ Typewriter)
-/* harmony export */ });
+/* harmony default export */ const pistacja_plugin = (pie);
+;// CONCATENATED MODULE: ./src/modules/typewriter/index.js
 function Typewriter(root) {
   var delay = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 0;
   if (!root) return;
@@ -161,6 +127,14 @@ function Typewriter(root) {
   setTimeout(tick, delay);
   document.head.appendChild(document.createElement("style")).textContent = "\n    [data-typewriter] > span {\n      border-right: 0.08em solid;\n      padding-right: 0.05em;\n      animation: blinkingCaret .8s steps(44) infinite normal;\n    }\n    @keyframes blinkingCaret {\n      from {\n        border-right-color: rgba(60,60,60, 1);\n      }\n      to{\n        border-right-color: rgba(60,60,60, 0);\n      }\n    }\n  ";
 }
+;// CONCATENATED MODULE: ./src/joomla/html/com_content/article/landing/landing.js
+// Modules.
+
+ // Install Landing plugin.
+
+pistacja_plugin.plugin(function () {
+  return Typewriter(document.querySelector("[data-typewriter]"));
+});
 
 /***/ })
 
@@ -255,15 +229,9 @@ function Typewriter(root) {
 /******/ 		__webpack_require__.o = (obj, prop) => (Object.prototype.hasOwnProperty.call(obj, prop))
 /******/ 	})();
 /******/ 	
-/******/ 	/* webpack/runtime/make namespace object */
+/******/ 	/* webpack/runtime/runtimeId */
 /******/ 	(() => {
-/******/ 		// define __esModule on exports
-/******/ 		__webpack_require__.r = (exports) => {
-/******/ 			if(typeof Symbol !== 'undefined' && Symbol.toStringTag) {
-/******/ 				Object.defineProperty(exports, Symbol.toStringTag, { value: 'Module' });
-/******/ 			}
-/******/ 			Object.defineProperty(exports, '__esModule', { value: true });
-/******/ 		};
+/******/ 		__webpack_require__.j = 742;
 /******/ 	})();
 /******/ 	
 /******/ 	/* webpack/runtime/jsonp chunk loading */
@@ -274,7 +242,7 @@ function Typewriter(root) {
 /******/ 		// undefined = chunk not loaded, null = chunk preloaded/prefetched
 /******/ 		// [resolve, reject, Promise] = chunk loading, 0 = chunk loaded
 /******/ 		var installedChunks = {
-/******/ 			"./landing": 0
+/******/ 			742: 0
 /******/ 		};
 /******/ 		
 /******/ 		// no chunk on demand loading
@@ -324,8 +292,9 @@ function Typewriter(root) {
 /******/ 	// startup
 /******/ 	// Load entry module and return exports
 /******/ 	// This entry module depends on other loaded chunks and execution need to be delayed
-/******/ 	var __webpack_exports__ = __webpack_require__.O(undefined, ["vendor"], () => (__webpack_require__("./src/joomla/html/com_content/article/landing/landing.js")))
+/******/ 	var __webpack_exports__ = __webpack_require__.O(undefined, [736], () => (__webpack_require__(478)))
 /******/ 	__webpack_exports__ = __webpack_require__.O(__webpack_exports__);
 /******/ 	
 /******/ })()
 ;
+//# sourceMappingURL=landing.js.map

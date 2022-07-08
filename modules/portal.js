@@ -2,466 +2,16 @@
 /******/ 	"use strict";
 /******/ 	var __webpack_modules__ = ({
 
-/***/ "./src/joomla/html/mod_menu/portal/modules/user-portals/components/level-search.js":
-/*!*****************************************************************************************!*\
-  !*** ./src/joomla/html/mod_menu/portal/modules/user-portals/components/level-search.js ***!
-  \*****************************************************************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => (/* binding */ levelSearch)
-/* harmony export */ });
-/* harmony import */ var _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/helpers/defineProperty */ "./node_modules/@babel/runtime/helpers/esm/defineProperty.js");
-/* harmony import */ var _babel_runtime_helpers_slicedToArray__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @babel/runtime/helpers/slicedToArray */ "./node_modules/@babel/runtime/helpers/esm/slicedToArray.js");
-/* harmony import */ var travrs__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! travrs */ "./node_modules/travrs/dist/index.js");
-/* harmony import */ var travrs__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(travrs__WEBPACK_IMPORTED_MODULE_2__);
-
-
-
-function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); enumerableOnly && (symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; })), keys.push.apply(keys, symbols); } return keys; }
-
-function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = null != arguments[i] ? arguments[i] : {}; i % 2 ? ownKeys(Object(source), !0).forEach(function (key) { (0,_babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_0__["default"])(target, key, source[key]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)) : ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } return target; }
-
-// Components.
- // Search by Education Level.
-
-function levelSearch() {
-  var metadata = {
-    searchType: "level",
-    userType: undefined
-  };
-
-  var _template = (0,travrs__WEBPACK_IMPORTED_MODULE_2__.template)("\n    div.pie-search-popup\n      @header::div.pie-search-popup-searchbox[data-header=\"Wyszukaj dla poziomu edukacyjnego\"]\n        @form::form[method=\"GET\" action=\"./wyniki-wyszukiwania\"]\n          @input::input[type=\"text\" name=\"q\" placeholder=\"np: u\u0142amki\"]\n          @options::div.pie-search-popup-select[data-custom-select=\"tsubject\" value=\"0\" data-title=\"Przedmiot\"]\n          button.btn.searchbtn.pie-icon-right-arrow-18\n        button.btn.close-search\n  "),
-      _template2 = (0,_babel_runtime_helpers_slicedToArray__WEBPACK_IMPORTED_MODULE_1__["default"])(_template, 2),
-      root = _template2[0],
-      refs = _template2[1];
-
-  var c = Array.from(document.querySelectorAll("div.pie-chalk-select[data-custom-select=\"tsubject\"] button")).forEach(function (option) {
-    var clone = option.cloneNode(true);
-    clone.className = "";
-    refs.options.appendChild(clone);
-  });
-  document.body.appendChild(root);
-
-  root.onclick = function (event) {
-    event.target === root && root.classList.remove("open");
-  };
-
-  function updateHeader(content) {
-    refs.header.dataset.header = "Wyszukaj w: ".concat(content);
-  }
-
-  refs.input.onkeydown = function (event) {
-    if (event.code === "Enter") {
-      event.preventDefault();
-      refs.form.submit();
-    }
-  }; // Analytics tracking.
-
-
-  refs.form.onsubmit = function (event) {
-    var form = new FormData(event.target);
-    var query = form.get("q");
-    window.dataLayer.push(_objectSpread({
-      event: "context-search",
-      searchPhrase: query
-    }, metadata));
-  };
-
-  return {
-    show: function show(level, user) {
-      metadata.userType = user;
-      updateHeader(level);
-      root.classList.add("open");
-      refs.input.focus();
-    }
-  };
-}
-
-/***/ }),
-
-/***/ "./src/joomla/html/mod_menu/portal/modules/user-portals/components/phrase-search.js":
-/*!******************************************************************************************!*\
-  !*** ./src/joomla/html/mod_menu/portal/modules/user-portals/components/phrase-search.js ***!
-  \******************************************************************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => (/* binding */ phraseSearch)
-/* harmony export */ });
-/* harmony import */ var _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/helpers/defineProperty */ "./node_modules/@babel/runtime/helpers/esm/defineProperty.js");
-/* harmony import */ var _babel_runtime_helpers_slicedToArray__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @babel/runtime/helpers/slicedToArray */ "./node_modules/@babel/runtime/helpers/esm/slicedToArray.js");
-/* harmony import */ var travrs__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! travrs */ "./node_modules/travrs/dist/index.js");
-/* harmony import */ var travrs__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(travrs__WEBPACK_IMPORTED_MODULE_2__);
-
-
-
-function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); enumerableOnly && (symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; })), keys.push.apply(keys, symbols); } return keys; }
-
-function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = null != arguments[i] ? arguments[i] : {}; i % 2 ? ownKeys(Object(source), !0).forEach(function (key) { (0,_babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_0__["default"])(target, key, source[key]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)) : ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } return target; }
-
-// Components.
- // Search phrase.
-
-function phraseSearch() {
-  var metadata = {
-    searchType: "phrase",
-    userType: undefined
-  };
-
-  var _template = (0,travrs__WEBPACK_IMPORTED_MODULE_2__.template)("\n    div.pie-search-popup\n      div.pie-search-popup-searchbox[data-header=\"Szukaj po s\u0142owie kluczowym\"]\n        @form::form[method=\"GET\" action=\"./wyniki-wyszukiwania\"]\n          @input::input[type=\"text\" name=\"q\" placeholder=\"np: u\u0142amki\"]\n          button.searchbtn.pie-icon-right-arrow-18\n        button.close-search\n  "),
-      _template2 = (0,_babel_runtime_helpers_slicedToArray__WEBPACK_IMPORTED_MODULE_1__["default"])(_template, 2),
-      root = _template2[0],
-      refs = _template2[1];
-
-  document.body.appendChild(root);
-
-  root.onclick = function (event) {
-    event.target === root && root.classList.remove("open");
-  }; // Analytics tracking.
-
-
-  refs.form.onsubmit = function (event) {
-    var form = new FormData(event.target);
-    var query = form.get("q");
-    window.dataLayer.push(_objectSpread({
-      event: "context-search",
-      searchPhrase: query
-    }, metadata));
-  };
-
-  return {
-    show: function show(user) {
-      metadata.userType = user;
-      root.classList.add("open");
-      refs.input.focus();
-    }
-  };
-}
-
-/***/ }),
-
-/***/ "./src/joomla/html/mod_menu/portal/modules/user-portals/components/subject-search.js":
-/*!*******************************************************************************************!*\
-  !*** ./src/joomla/html/mod_menu/portal/modules/user-portals/components/subject-search.js ***!
-  \*******************************************************************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => (/* binding */ subjectSearch)
-/* harmony export */ });
-/* harmony import */ var _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/helpers/defineProperty */ "./node_modules/@babel/runtime/helpers/esm/defineProperty.js");
-/* harmony import */ var _babel_runtime_helpers_slicedToArray__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @babel/runtime/helpers/slicedToArray */ "./node_modules/@babel/runtime/helpers/esm/slicedToArray.js");
-/* harmony import */ var highlight__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! highlight */ "./src/modules/highlight/index.js");
-/* harmony import */ var travrs__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! travrs */ "./node_modules/travrs/dist/index.js");
-/* harmony import */ var travrs__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(travrs__WEBPACK_IMPORTED_MODULE_3__);
-
-
-
-function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); enumerableOnly && (symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; })), keys.push.apply(keys, symbols); } return keys; }
-
-function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = null != arguments[i] ? arguments[i] : {}; i % 2 ? ownKeys(Object(source), !0).forEach(function (key) { (0,_babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_0__["default"])(target, key, source[key]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)) : ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } return target; }
-
-// Components.
-
- // Search within subject list.
-
-function subjectSearch() {
-  var metadata = {
-    searchType: "subject",
-    userType: undefined
-  };
-  var subjectList = Array.from(document.querySelectorAll(".search-subject")).map(function (element) {
-    var anchor = element.querySelector("a");
-    return {
-      ui: anchor,
-      ref: element,
-      topic: anchor.textContent
-    };
-  });
-
-  var _template = (0,travrs__WEBPACK_IMPORTED_MODULE_3__.template)("\n    div.pie-search-popup\n      @popup::div.pie-search-popup-searchbox[data-header=\"Wyszukaj temat na li\u015Bcie\"]\n        form[autocomplete=\"off\" onSubmit=\"return false\"]\n          @input::input[type=\"text\" placeholder=\"Zacznij pisa\u0107, aby rozpocz\u0105\u0107 wyszukiwanie np: liczby\"]\n        @results::div.pie-search-popup-filter-results\n        button.close-search\n  "),
-      _template2 = (0,_babel_runtime_helpers_slicedToArray__WEBPACK_IMPORTED_MODULE_1__["default"])(_template, 2),
-      root = _template2[0],
-      refs = _template2[1];
-
-  subjectList.forEach(function (entry) {
-    return refs.results.appendChild(entry.ref);
-  });
-  document.body.appendChild(root);
-  refs.input.addEventListener("input", filterSubjects, false);
-
-  function filterSubjects(event) {
-    if (event.keyCode === 13) {
-      event.preventDefault();
-      return false;
-    }
-
-    var phrase = event.target.value.toLowerCase();
-    subjectList.forEach(function (entry) {
-      if (phrase.length && entry.topic.toLowerCase().includes(phrase)) {
-        entry.ref.classList.add("filter-visible");
-        entry.ui.innerHTML = (0,highlight__WEBPACK_IMPORTED_MODULE_2__["default"])(entry.topic, phrase);
-      } else entry.ref.classList.remove("filter-visible");
-    });
-  }
-
-  root.onclick = function (event) {
-    if (event.target === root) {
-      root.classList.remove("open"); // Clear results list when it's hidden.
-
-      setTimeout(function () {
-        filterSubjects({
-          target: {
-            value: ""
-          }
-        });
-        refs.input.value = "";
-      }, 300);
-    }
-  }; // Analytics.
-
-
-  refs.results.addEventListener("click", function (event) {
-    if (event.target.nodeName === "A") {
-      window.dataLayer.push(_objectSpread({
-        event: "context-search",
-        searchPhrase: event.target.textContent
-      }, metadata));
-    }
-  });
-  return {
-    show: function show(user) {
-      metadata.userType = user;
-      root.classList.add("open");
-      refs.input.focus();
-    }
-  };
-}
-
-/***/ }),
-
-/***/ "./src/joomla/html/mod_menu/portal/modules/user-portals/index.js":
-/*!***********************************************************************!*\
-  !*** ./src/joomla/html/mod_menu/portal/modules/user-portals/index.js ***!
-  \***********************************************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => (/* binding */ UserPortals)
-/* harmony export */ });
-/* harmony import */ var anchor_catch__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! anchor-catch */ "./src/modules/anchor-catch/index.js");
-/* harmony import */ var _components_level_search__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./components/level-search */ "./src/joomla/html/mod_menu/portal/modules/user-portals/components/level-search.js");
-/* harmony import */ var _components_phrase_search__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./components/phrase-search */ "./src/joomla/html/mod_menu/portal/modules/user-portals/components/phrase-search.js");
-/* harmony import */ var _components_subject_search__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./components/subject-search */ "./src/joomla/html/mod_menu/portal/modules/user-portals/components/subject-search.js");
-/* harmony import */ var _styles_scss__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./styles.scss */ "./src/joomla/html/mod_menu/portal/modules/user-portals/styles.scss");
-// Modules.
-
-
-
- // Styles.
-
- // NOTE:
-// Modules handles the interactions in user-portals: Dla ucznia, DLa nauczyciela, Dla rodzica
-// along with searchboxe popups for different types of search.
-
-function UserPortals() {
-  var userPortals = (0,anchor_catch__WEBPACK_IMPORTED_MODULE_0__["default"])(".pie-content"); // Context Searchboxes.
-
-  var levelContextSearch = (0,_components_level_search__WEBPACK_IMPORTED_MODULE_1__["default"])();
-  var phraseContextSearch = (0,_components_phrase_search__WEBPACK_IMPORTED_MODULE_2__["default"])();
-  var subjectContextSearch = (0,_components_subject_search__WEBPACK_IMPORTED_MODULE_3__["default"])();
-  var levelMap = ["Szkoła podstawowa kl. IV-VI", "Szkoła podstawowa kl. VII-VIII", "Szkoła ponadpodstawowa"]; // Catch Collapse Menus.
-
-  userPortals["catch"]("collapse", function (_, target) {
-    // Set height.
-    target.nextElementSibling.style.maxHeight = target.dataset.open !== "true" ? "300px" : "0px"; // Toggle open flag.
-
-    target.dataset.open = !target.dataset.open || target.dataset.open === "false" ? "true" : "false";
-  }); // Show Context Searchbox.
-
-  userPortals["catch"]("search", function (options) {
-    var index = options.index,
-        type = options.type,
-        user = options.user;
-
-    switch (type) {
-      case "levels":
-        levelContextSearch.show(levelMap[+index], user);
-        break;
-
-      case "phrase":
-        phraseContextSearch.show(user);
-        break;
-
-      case "subjects":
-        return subjectContextSearch.show(user);
-
-      default:
-        throw new Error("Unknow context search type");
-    }
-  });
-}
-
-/***/ }),
-
-/***/ "./src/joomla/html/mod_menu/portal/portal.js":
-/*!***************************************************!*\
-  !*** ./src/joomla/html/mod_menu/portal/portal.js ***!
-  \***************************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-__webpack_require__.r(__webpack_exports__);
-/* harmony import */ var pistacja_plugin__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! pistacja/plugin */ "./src/modules/pistacja/plugin/index.js");
-/* harmony import */ var _modules_user_portals__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./modules/user-portals */ "./src/joomla/html/mod_menu/portal/modules/user-portals/index.js");
-// Modules.
- // Local modules.
-
- // Install Portal plugin.
-
-pistacja_plugin__WEBPACK_IMPORTED_MODULE_0__["default"].plugin(_modules_user_portals__WEBPACK_IMPORTED_MODULE_1__["default"]);
-
-/***/ }),
-
-/***/ "./src/modules/anchor-catch/index.js":
-/*!*******************************************!*\
-  !*** ./src/modules/anchor-catch/index.js ***!
-  \*******************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => (/* binding */ anchorCatch)
-/* harmony export */ });
-/* harmony import */ var _babel_runtime_helpers_slicedToArray__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/helpers/slicedToArray */ "./node_modules/@babel/runtime/helpers/esm/slicedToArray.js");
-/* harmony import */ var utils__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! utils */ "./src/modules/utils/index.js");
-
-// Helpers.
- // Allows to use <a/> tags as active-buttons with parameters in "href" attribute.
-//
-// USAGE:
-//
-// <a href="#subject?option1=A&option2=B">MyLink</a>
-//
-// const ac = anchorCatch("selector");
-//
-// ac.catch("subject", (options, element) => {
-//   console.log(options); // {option1: "A", option2: "B"}
-// });
-//
-
-function anchorCatch(selector) {
-  var root = selector instanceof HTMLElement ? selector : document.querySelector(selector);
-  var handlers = {};
-
-  function intercept(event) {
-    if (!isValidAnchor(event.target)) return;
-
-    var _extractSubjectAndOpt = extractSubjectAndOptions(event.target.href),
-        _extractSubjectAndOpt2 = (0,_babel_runtime_helpers_slicedToArray__WEBPACK_IMPORTED_MODULE_0__["default"])(_extractSubjectAndOpt, 2),
-        subject = _extractSubjectAndOpt2[0],
-        options = _extractSubjectAndOpt2[1];
-
-    handlers[subject] && handlers[subject](options, event.target);
-    event.preventDefault();
-  }
-
-  root && root.addEventListener("click", intercept);
-  return {
-    "catch": function _catch(subject, callback) {
-      if (typeof subject === "string", typeof callback === "function") {
-        handlers[subject] = callback;
-      }
-    },
-    destroy: function destroy() {
-      root && root.removeEventListener("click", intercept);
-      Object.keys(handlers).forEach(function (key) {
-        return delete handlers[key];
-      });
-    }
-  };
-} // ---- Helpers ----------------
-
-function isValidAnchor(element) {
-  return element.nodeName === "A" && element.href && element.href.includes("#");
-}
-
-function extractSubjectAndOptions(href) {
-  var index = href.indexOf("#");
-  var params = href.slice(index + 1).split("?");
-  var options = params[1] ? (0,utils__WEBPACK_IMPORTED_MODULE_1__.queryToObject)("?".concat(params[1])) : undefined;
-  return [params[0], options];
-}
-
-/***/ }),
-
-/***/ "./src/modules/highlight/index.js":
-/*!****************************************!*\
-  !*** ./src/modules/highlight/index.js ***!
-  \****************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => (/* binding */ highlight)
-/* harmony export */ });
-/* harmony import */ var _babel_runtime_helpers_slicedToArray__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/helpers/slicedToArray */ "./node_modules/@babel/runtime/helpers/esm/slicedToArray.js");
-
-// Wrap parts of @text with <em> tags that matches with given @phrases.
-//
-// USAGE:
-//
-// const result = highlight("Good and goofy", "go, fy");
-// console.log(result); // <em>Go</em>od and <em>go</em>o<em>fy</em>
-//
-function highlight(text, phrases) {
-  if (!phrases.length) return text;
-  var result;
-  var matches = [];
-  var regexp = phrasesToRegex(phrases); // eslint-disable-next-line no-cond-assign
-
-  while (result = regexp.exec(text)) {
-    matches.push([result.index, result.index + result[0].length]);
-  }
-
-  var hlight = matches.reverse().reduce(function (acc, _ref) {
-    var _ref2 = (0,_babel_runtime_helpers_slicedToArray__WEBPACK_IMPORTED_MODULE_0__["default"])(_ref, 2),
-        start = _ref2[0],
-        end = _ref2[1];
-
-    return "".concat(acc.slice(0, start), "<em>").concat(acc.slice(start, end), "</em>").concat(acc.slice(end));
-  }, text);
-  return hlight;
-}
-
-function phrasesToRegex(phrases) {
-  var words = phrases.split(",");
-  var regex = words.length > 1 ? words.reduce(function (acc, ph) {
-    var trimmed = ph.trim();
-    return trimmed.length ? "".concat(acc).concat(trimmed, "|") : acc;
-  }, "") : "".concat(words[0], "|");
-  return new RegExp(regex.slice(0, -1), "gi");
-}
-
-/***/ }),
-
-/***/ "./src/modules/pistacja/plugin/index.js":
-/*!**********************************************!*\
-  !*** ./src/modules/pistacja/plugin/index.js ***!
-  \**********************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
-/* harmony export */ });
-/* harmony import */ var _babel_runtime_helpers_asyncToGenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/helpers/asyncToGenerator */ "./node_modules/@babel/runtime/helpers/esm/asyncToGenerator.js");
-/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @babel/runtime/regenerator */ "./node_modules/@babel/runtime/regenerator/index.js");
-/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_1__);
+/***/ 587:
+/***/ ((__unused_webpack_module, __unused_webpack___webpack_exports__, __webpack_require__) => {
+
+
+// EXTERNAL MODULE: ./node_modules/@babel/runtime/helpers/esm/asyncToGenerator.js
+var asyncToGenerator = __webpack_require__(861);
+// EXTERNAL MODULE: ./node_modules/@babel/runtime/regenerator/index.js
+var regenerator = __webpack_require__(757);
+var regenerator_default = /*#__PURE__*/__webpack_require__.n(regenerator);
+;// CONCATENATED MODULE: ./src/modules/pistacja/plugin/index.js
 
 
 
@@ -483,8 +33,8 @@ var pie = function piePlugin() {
 
     window.piePlugins = window.piePlugins || [];
     window.piePlugins.forEach( /*#__PURE__*/function () {
-      var _ref = (0,_babel_runtime_helpers_asyncToGenerator__WEBPACK_IMPORTED_MODULE_0__["default"])( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_1___default().mark(function _callee(callPlugin) {
-        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_1___default().wrap(function _callee$(_context) {
+      var _ref = (0,asyncToGenerator/* default */.Z)( /*#__PURE__*/regenerator_default().mark(function _callee(callPlugin) {
+        return regenerator_default().wrap(function _callee$(_context) {
           while (1) {
             switch (_context.prev = _context.next) {
               case 0:
@@ -530,30 +80,10 @@ var pie = function piePlugin() {
   };
 }();
 
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (pie);
-
-/***/ }),
-
-/***/ "./src/modules/utils/index.js":
-/*!************************************!*\
-  !*** ./src/modules/utils/index.js ***!
-  \************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "debounce": () => (/* binding */ debounce),
-/* harmony export */   "queryToObject": () => (/* binding */ queryToObject),
-/* harmony export */   "uid": () => (/* binding */ uid),
-/* harmony export */   "memo": () => (/* binding */ memo),
-/* harmony export */   "isPrevious": () => (/* binding */ isPrevious),
-/* harmony export */   "timeToSeconds": () => (/* binding */ timeToSeconds),
-/* harmony export */   "insertCSS": () => (/* binding */ insertCSS),
-/* harmony export */   "PieError": () => (/* binding */ PieError),
-/* harmony export */   "memoElement": () => (/* binding */ memoElement),
-/* harmony export */   "watchScreen": () => (/* binding */ watchScreen)
-/* harmony export */ });
-/* harmony import */ var _babel_runtime_helpers_slicedToArray__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/helpers/slicedToArray */ "./node_modules/@babel/runtime/helpers/esm/slicedToArray.js");
+/* harmony default export */ const pistacja_plugin = (pie);
+// EXTERNAL MODULE: ./node_modules/@babel/runtime/helpers/esm/slicedToArray.js
+var slicedToArray = __webpack_require__(324);
+;// CONCATENATED MODULE: ./src/modules/utils/index.js
 
 
 function _createForOfIteratorHelper(o, allowArrayLike) { var it = typeof Symbol !== "undefined" && o[Symbol.iterator] || o["@@iterator"]; if (!it) { if (Array.isArray(o) || (it = _unsupportedIterableToArray(o)) || allowArrayLike && o && typeof o.length === "number") { if (it) o = it; var i = 0; var F = function F() {}; return { s: F, n: function n() { if (i >= o.length) return { done: true }; return { done: false, value: o[i++] }; }, e: function e(_e) { throw _e; }, f: F }; } throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); } var normalCompletion = true, didErr = false, err; return { s: function s() { it = it.call(o); }, n: function n() { var step = it.next(); normalCompletion = step.done; return step; }, e: function e(_e2) { didErr = true; err = _e2; }, f: function f() { try { if (!normalCompletion && it["return"] != null) it["return"](); } finally { if (didErr) throw err; } } }; }
@@ -591,7 +121,7 @@ function queryToObject(url) {
 
   try {
     for (_iterator.s(); !(_step = _iterator.n()).done;) {
-      var _step$value = (0,_babel_runtime_helpers_slicedToArray__WEBPACK_IMPORTED_MODULE_0__["default"])(_step.value, 2),
+      var _step$value = (0,slicedToArray/* default */.Z)(_step.value, 2),
           key = _step$value[0],
           value = _step$value[1];
 
@@ -730,18 +260,353 @@ function watchScreen(predicate, callback) {
     return window.removeEventListener("resize", handler);
   };
 }
+;// CONCATENATED MODULE: ./src/modules/anchor-catch/index.js
 
-/***/ }),
+// Helpers.
+ // Allows to use <a/> tags as active-buttons with parameters in "href" attribute.
+//
+// USAGE:
+//
+// <a href="#subject?option1=A&option2=B">MyLink</a>
+//
+// const ac = anchorCatch("selector");
+//
+// ac.catch("subject", (options, element) => {
+//   console.log(options); // {option1: "A", option2: "B"}
+// });
+//
 
-/***/ "./src/joomla/html/mod_menu/portal/modules/user-portals/styles.scss":
-/*!**************************************************************************!*\
-  !*** ./src/joomla/html/mod_menu/portal/modules/user-portals/styles.scss ***!
-  \**************************************************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+function anchorCatch(selector) {
+  var root = selector instanceof HTMLElement ? selector : document.querySelector(selector);
+  var handlers = {};
 
-__webpack_require__.r(__webpack_exports__);
-// extracted by mini-css-extract-plugin
+  function intercept(event) {
+    if (!isValidAnchor(event.target)) return;
 
+    var _extractSubjectAndOpt = extractSubjectAndOptions(event.target.href),
+        _extractSubjectAndOpt2 = (0,slicedToArray/* default */.Z)(_extractSubjectAndOpt, 2),
+        subject = _extractSubjectAndOpt2[0],
+        options = _extractSubjectAndOpt2[1];
+
+    handlers[subject] && handlers[subject](options, event.target);
+    event.preventDefault();
+  }
+
+  root && root.addEventListener("click", intercept);
+  return {
+    "catch": function _catch(subject, callback) {
+      if (typeof subject === "string", typeof callback === "function") {
+        handlers[subject] = callback;
+      }
+    },
+    destroy: function destroy() {
+      root && root.removeEventListener("click", intercept);
+      Object.keys(handlers).forEach(function (key) {
+        return delete handlers[key];
+      });
+    }
+  };
+} // ---- Helpers ----------------
+
+function isValidAnchor(element) {
+  return element.nodeName === "A" && element.href && element.href.includes("#");
+}
+
+function extractSubjectAndOptions(href) {
+  var index = href.indexOf("#");
+  var params = href.slice(index + 1).split("?");
+  var options = params[1] ? queryToObject("?".concat(params[1])) : undefined;
+  return [params[0], options];
+}
+// EXTERNAL MODULE: ./node_modules/@babel/runtime/helpers/esm/defineProperty.js
+var defineProperty = __webpack_require__(942);
+// EXTERNAL MODULE: ./node_modules/travrs/dist/index.js
+var dist = __webpack_require__(744);
+;// CONCATENATED MODULE: ./src/joomla/html/mod_menu/portal/modules/user-portals/components/level-search.js
+
+
+
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); enumerableOnly && (symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; })), keys.push.apply(keys, symbols); } return keys; }
+
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = null != arguments[i] ? arguments[i] : {}; i % 2 ? ownKeys(Object(source), !0).forEach(function (key) { (0,defineProperty/* default */.Z)(target, key, source[key]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)) : ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } return target; }
+
+// Components.
+ // Search by Education Level.
+
+function levelSearch() {
+  var metadata = {
+    searchType: "level",
+    userType: undefined
+  };
+
+  var _template = (0,dist.template)("\n    div.pie-search-popup\n      @header::div.pie-search-popup-searchbox[data-header=\"Wyszukaj dla poziomu edukacyjnego\"]\n        @form::form[method=\"GET\" action=\"./wyniki-wyszukiwania\"]\n          @input::input[type=\"text\" name=\"q\" placeholder=\"np: u\u0142amki\"]\n          @options::div.pie-search-popup-select[data-custom-select=\"tsubject\" value=\"0\" data-title=\"Przedmiot\"]\n          button.btn.searchbtn.pie-icon-right-arrow-18\n        button.btn.close-search\n  "),
+      _template2 = (0,slicedToArray/* default */.Z)(_template, 2),
+      root = _template2[0],
+      refs = _template2[1];
+
+  var c = Array.from(document.querySelectorAll("div.pie-chalk-select[data-custom-select=\"tsubject\"] button")).forEach(function (option) {
+    var clone = option.cloneNode(true);
+    clone.className = "";
+    refs.options.appendChild(clone);
+  });
+  document.body.appendChild(root);
+
+  root.onclick = function (event) {
+    event.target === root && root.classList.remove("open");
+  };
+
+  function updateHeader(content) {
+    refs.header.dataset.header = "Wyszukaj w: ".concat(content);
+  }
+
+  refs.input.onkeydown = function (event) {
+    if (event.code === "Enter") {
+      event.preventDefault();
+      refs.form.submit();
+    }
+  }; // Analytics tracking.
+
+
+  refs.form.onsubmit = function (event) {
+    var form = new FormData(event.target);
+    var query = form.get("q");
+    window.dataLayer.push(_objectSpread({
+      event: "context-search",
+      searchPhrase: query
+    }, metadata));
+  };
+
+  return {
+    show: function show(level, user) {
+      metadata.userType = user;
+      updateHeader(level);
+      root.classList.add("open");
+      refs.input.focus();
+    }
+  };
+}
+;// CONCATENATED MODULE: ./src/joomla/html/mod_menu/portal/modules/user-portals/components/phrase-search.js
+
+
+
+function phrase_search_ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); enumerableOnly && (symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; })), keys.push.apply(keys, symbols); } return keys; }
+
+function phrase_search_objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = null != arguments[i] ? arguments[i] : {}; i % 2 ? phrase_search_ownKeys(Object(source), !0).forEach(function (key) { (0,defineProperty/* default */.Z)(target, key, source[key]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)) : phrase_search_ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } return target; }
+
+// Components.
+ // Search phrase.
+
+function phraseSearch() {
+  var metadata = {
+    searchType: "phrase",
+    userType: undefined
+  };
+
+  var _template = (0,dist.template)("\n    div.pie-search-popup\n      div.pie-search-popup-searchbox[data-header=\"Szukaj po s\u0142owie kluczowym\"]\n        @form::form[method=\"GET\" action=\"./wyniki-wyszukiwania\"]\n          @input::input[type=\"text\" name=\"q\" placeholder=\"np: u\u0142amki\"]\n          button.searchbtn.pie-icon-right-arrow-18\n        button.close-search\n  "),
+      _template2 = (0,slicedToArray/* default */.Z)(_template, 2),
+      root = _template2[0],
+      refs = _template2[1];
+
+  document.body.appendChild(root);
+
+  root.onclick = function (event) {
+    event.target === root && root.classList.remove("open");
+  }; // Analytics tracking.
+
+
+  refs.form.onsubmit = function (event) {
+    var form = new FormData(event.target);
+    var query = form.get("q");
+    window.dataLayer.push(phrase_search_objectSpread({
+      event: "context-search",
+      searchPhrase: query
+    }, metadata));
+  };
+
+  return {
+    show: function show(user) {
+      metadata.userType = user;
+      root.classList.add("open");
+      refs.input.focus();
+    }
+  };
+}
+;// CONCATENATED MODULE: ./src/modules/highlight/index.js
+
+// Wrap parts of @text with <em> tags that matches with given @phrases.
+//
+// USAGE:
+//
+// const result = highlight("Good and goofy", "go, fy");
+// console.log(result); // <em>Go</em>od and <em>go</em>o<em>fy</em>
+//
+function highlight(text, phrases) {
+  if (!phrases.length) return text;
+  var result;
+  var matches = [];
+  var regexp = phrasesToRegex(phrases); // eslint-disable-next-line no-cond-assign
+
+  while (result = regexp.exec(text)) {
+    matches.push([result.index, result.index + result[0].length]);
+  }
+
+  var hlight = matches.reverse().reduce(function (acc, _ref) {
+    var _ref2 = (0,slicedToArray/* default */.Z)(_ref, 2),
+        start = _ref2[0],
+        end = _ref2[1];
+
+    return "".concat(acc.slice(0, start), "<em>").concat(acc.slice(start, end), "</em>").concat(acc.slice(end));
+  }, text);
+  return hlight;
+}
+
+function phrasesToRegex(phrases) {
+  var words = phrases.split(",");
+  var regex = words.length > 1 ? words.reduce(function (acc, ph) {
+    var trimmed = ph.trim();
+    return trimmed.length ? "".concat(acc).concat(trimmed, "|") : acc;
+  }, "") : "".concat(words[0], "|");
+  return new RegExp(regex.slice(0, -1), "gi");
+}
+;// CONCATENATED MODULE: ./src/joomla/html/mod_menu/portal/modules/user-portals/components/subject-search.js
+
+
+
+function subject_search_ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); enumerableOnly && (symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; })), keys.push.apply(keys, symbols); } return keys; }
+
+function subject_search_objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = null != arguments[i] ? arguments[i] : {}; i % 2 ? subject_search_ownKeys(Object(source), !0).forEach(function (key) { (0,defineProperty/* default */.Z)(target, key, source[key]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)) : subject_search_ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } return target; }
+
+// Components.
+
+ // Search within subject list.
+
+function subjectSearch() {
+  var metadata = {
+    searchType: "subject",
+    userType: undefined
+  };
+  var subjectList = Array.from(document.querySelectorAll(".search-subject")).map(function (element) {
+    var anchor = element.querySelector("a");
+    return {
+      ui: anchor,
+      ref: element,
+      topic: anchor.textContent
+    };
+  });
+
+  var _template = (0,dist.template)("\n    div.pie-search-popup\n      @popup::div.pie-search-popup-searchbox[data-header=\"Wyszukaj temat na li\u015Bcie\"]\n        form[autocomplete=\"off\" onSubmit=\"return false\"]\n          @input::input[type=\"text\" placeholder=\"Zacznij pisa\u0107, aby rozpocz\u0105\u0107 wyszukiwanie np: liczby\"]\n        @results::div.pie-search-popup-filter-results\n        button.close-search\n  "),
+      _template2 = (0,slicedToArray/* default */.Z)(_template, 2),
+      root = _template2[0],
+      refs = _template2[1];
+
+  subjectList.forEach(function (entry) {
+    return refs.results.appendChild(entry.ref);
+  });
+  document.body.appendChild(root);
+  refs.input.addEventListener("input", filterSubjects, false);
+
+  function filterSubjects(event) {
+    if (event.keyCode === 13) {
+      event.preventDefault();
+      return false;
+    }
+
+    var phrase = event.target.value.toLowerCase();
+    subjectList.forEach(function (entry) {
+      if (phrase.length && entry.topic.toLowerCase().includes(phrase)) {
+        entry.ref.classList.add("filter-visible");
+        entry.ui.innerHTML = highlight(entry.topic, phrase);
+      } else entry.ref.classList.remove("filter-visible");
+    });
+  }
+
+  root.onclick = function (event) {
+    if (event.target === root) {
+      root.classList.remove("open"); // Clear results list when it's hidden.
+
+      setTimeout(function () {
+        filterSubjects({
+          target: {
+            value: ""
+          }
+        });
+        refs.input.value = "";
+      }, 300);
+    }
+  }; // Analytics.
+
+
+  refs.results.addEventListener("click", function (event) {
+    if (event.target.nodeName === "A") {
+      window.dataLayer.push(subject_search_objectSpread({
+        event: "context-search",
+        searchPhrase: event.target.textContent
+      }, metadata));
+    }
+  });
+  return {
+    show: function show(user) {
+      metadata.userType = user;
+      root.classList.add("open");
+      refs.input.focus();
+    }
+  };
+}
+;// CONCATENATED MODULE: ./src/joomla/html/mod_menu/portal/modules/user-portals/index.js
+// Modules.
+
+
+
+ // Styles.
+
+ // NOTE:
+// Modules handles the interactions in user-portals: Dla ucznia, DLa nauczyciela, Dla rodzica
+// along with searchboxe popups for different types of search.
+
+function UserPortals() {
+  var userPortals = anchorCatch(".pie-content"); // Context Searchboxes.
+
+  var levelContextSearch = levelSearch();
+  var phraseContextSearch = phraseSearch();
+  var subjectContextSearch = subjectSearch();
+  var levelMap = ["Szkoła podstawowa kl. IV-VI", "Szkoła podstawowa kl. VII-VIII", "Szkoła ponadpodstawowa"]; // Catch Collapse Menus.
+
+  userPortals["catch"]("collapse", function (_, target) {
+    // Set height.
+    target.nextElementSibling.style.maxHeight = target.dataset.open !== "true" ? "300px" : "0px"; // Toggle open flag.
+
+    target.dataset.open = !target.dataset.open || target.dataset.open === "false" ? "true" : "false";
+  }); // Show Context Searchbox.
+
+  userPortals["catch"]("search", function (options) {
+    var index = options.index,
+        type = options.type,
+        user = options.user;
+
+    switch (type) {
+      case "levels":
+        levelContextSearch.show(levelMap[+index], user);
+        break;
+
+      case "phrase":
+        phraseContextSearch.show(user);
+        break;
+
+      case "subjects":
+        return subjectContextSearch.show(user);
+
+      default:
+        throw new Error("Unknow context search type");
+    }
+  });
+}
+;// CONCATENATED MODULE: ./src/joomla/html/mod_menu/portal/portal.js
+// Modules.
+ // Local modules.
+
+ // Install Portal plugin.
+
+pistacja_plugin.plugin(UserPortals);
 
 /***/ })
 
@@ -836,15 +701,9 @@ __webpack_require__.r(__webpack_exports__);
 /******/ 		__webpack_require__.o = (obj, prop) => (Object.prototype.hasOwnProperty.call(obj, prop))
 /******/ 	})();
 /******/ 	
-/******/ 	/* webpack/runtime/make namespace object */
+/******/ 	/* webpack/runtime/runtimeId */
 /******/ 	(() => {
-/******/ 		// define __esModule on exports
-/******/ 		__webpack_require__.r = (exports) => {
-/******/ 			if(typeof Symbol !== 'undefined' && Symbol.toStringTag) {
-/******/ 				Object.defineProperty(exports, Symbol.toStringTag, { value: 'Module' });
-/******/ 			}
-/******/ 			Object.defineProperty(exports, '__esModule', { value: true });
-/******/ 		};
+/******/ 		__webpack_require__.j = 827;
 /******/ 	})();
 /******/ 	
 /******/ 	/* webpack/runtime/jsonp chunk loading */
@@ -855,7 +714,7 @@ __webpack_require__.r(__webpack_exports__);
 /******/ 		// undefined = chunk not loaded, null = chunk preloaded/prefetched
 /******/ 		// [resolve, reject, Promise] = chunk loading, 0 = chunk loaded
 /******/ 		var installedChunks = {
-/******/ 			"./portal": 0
+/******/ 			827: 0
 /******/ 		};
 /******/ 		
 /******/ 		// no chunk on demand loading
@@ -905,8 +764,9 @@ __webpack_require__.r(__webpack_exports__);
 /******/ 	// startup
 /******/ 	// Load entry module and return exports
 /******/ 	// This entry module depends on other loaded chunks and execution need to be delayed
-/******/ 	var __webpack_exports__ = __webpack_require__.O(undefined, ["vendor"], () => (__webpack_require__("./src/joomla/html/mod_menu/portal/portal.js")))
+/******/ 	var __webpack_exports__ = __webpack_require__.O(undefined, [736], () => (__webpack_require__(587)))
 /******/ 	__webpack_exports__ = __webpack_require__.O(__webpack_exports__);
 /******/ 	
 /******/ })()
 ;
+//# sourceMappingURL=portal.js.map

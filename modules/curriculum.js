@@ -2,82 +2,16 @@
 /******/ 	"use strict";
 /******/ 	var __webpack_modules__ = ({
 
-/***/ "./src/joomla/html/mod_menu/curriculum/curriculum.js":
-/*!***********************************************************!*\
-  !*** ./src/joomla/html/mod_menu/curriculum/curriculum.js ***!
-  \***********************************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-__webpack_require__.r(__webpack_exports__);
-/* harmony import */ var pistacja_plugin__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! pistacja/plugin */ "./src/modules/pistacja/plugin/index.js");
-/* harmony import */ var accordion__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! accordion */ "./src/modules/accordion/index.js");
+/***/ 13:
+/***/ ((__unused_webpack_module, __unused_webpack___webpack_exports__, __webpack_require__) => {
 
 
-pistacja_plugin__WEBPACK_IMPORTED_MODULE_0__["default"].plugin(function Curriculum() {
-  (0,accordion__WEBPACK_IMPORTED_MODULE_1__["default"])(".collapse", 500);
-});
-
-/***/ }),
-
-/***/ "./src/modules/accordion/index.js":
-/*!****************************************!*\
-  !*** ./src/modules/accordion/index.js ***!
-  \****************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => (/* binding */ Accordion)
-/* harmony export */ });
-function Accordion(triggerSelector) {
-  var animationDuration = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 300;
-  var pending = [];
-  document.addEventListener("click", function (event) {
-    if (event.target.matches(triggerSelector)) {
-      event.preventDefault();
-      var target = event.target;
-      var next = target.nextElementSibling;
-
-      if (!pending.includes(target)) {
-        pending.push(target); // Set height.
-
-        if (target.dataset.open !== "true") {
-          next.style.height = "".concat(next.scrollHeight, "px");
-          setTimeout(function () {
-            next.style.height = "auto";
-            pending.splice(pending.indexOf(target), 1);
-          }, animationDuration);
-        } // So the annimation can occure we need to have "height" set to px value rather than "auto";
-        else {
-          next.style.height = "".concat(next.scrollHeight, "px");
-          setTimeout(function () {
-            next.style.height = "0px";
-            pending.splice(pending.indexOf(target), 1);
-          }, 50);
-        } // Toggle open flag.
-
-
-        target.dataset.open = !target.dataset.open || target.dataset.open === "false" ? "true" : "false";
-      }
-    }
-  });
-}
-
-/***/ }),
-
-/***/ "./src/modules/pistacja/plugin/index.js":
-/*!**********************************************!*\
-  !*** ./src/modules/pistacja/plugin/index.js ***!
-  \**********************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
-/* harmony export */ });
-/* harmony import */ var _babel_runtime_helpers_asyncToGenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/helpers/asyncToGenerator */ "./node_modules/@babel/runtime/helpers/esm/asyncToGenerator.js");
-/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @babel/runtime/regenerator */ "./node_modules/@babel/runtime/regenerator/index.js");
-/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_1__);
+// EXTERNAL MODULE: ./node_modules/@babel/runtime/helpers/esm/asyncToGenerator.js
+var asyncToGenerator = __webpack_require__(861);
+// EXTERNAL MODULE: ./node_modules/@babel/runtime/regenerator/index.js
+var regenerator = __webpack_require__(757);
+var regenerator_default = /*#__PURE__*/__webpack_require__.n(regenerator);
+;// CONCATENATED MODULE: ./src/modules/pistacja/plugin/index.js
 
 
 
@@ -99,8 +33,8 @@ var pie = function piePlugin() {
 
     window.piePlugins = window.piePlugins || [];
     window.piePlugins.forEach( /*#__PURE__*/function () {
-      var _ref = (0,_babel_runtime_helpers_asyncToGenerator__WEBPACK_IMPORTED_MODULE_0__["default"])( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_1___default().mark(function _callee(callPlugin) {
-        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_1___default().wrap(function _callee$(_context) {
+      var _ref = (0,asyncToGenerator/* default */.Z)( /*#__PURE__*/regenerator_default().mark(function _callee(callPlugin) {
+        return regenerator_default().wrap(function _callee$(_context) {
           while (1) {
             switch (_context.prev = _context.next) {
               case 0:
@@ -146,7 +80,47 @@ var pie = function piePlugin() {
   };
 }();
 
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (pie);
+/* harmony default export */ const pistacja_plugin = (pie);
+;// CONCATENATED MODULE: ./src/modules/accordion/index.js
+function Accordion(triggerSelector) {
+  var animationDuration = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 300;
+  var pending = [];
+  document.addEventListener("click", function (event) {
+    if (event.target.matches(triggerSelector)) {
+      event.preventDefault();
+      var target = event.target;
+      var next = target.nextElementSibling;
+
+      if (!pending.includes(target)) {
+        pending.push(target); // Set height.
+
+        if (target.dataset.open !== "true") {
+          next.style.height = "".concat(next.scrollHeight, "px");
+          setTimeout(function () {
+            next.style.height = "auto";
+            pending.splice(pending.indexOf(target), 1);
+          }, animationDuration);
+        } // So the annimation can occure we need to have "height" set to px value rather than "auto";
+        else {
+          next.style.height = "".concat(next.scrollHeight, "px");
+          setTimeout(function () {
+            next.style.height = "0px";
+            pending.splice(pending.indexOf(target), 1);
+          }, 50);
+        } // Toggle open flag.
+
+
+        target.dataset.open = !target.dataset.open || target.dataset.open === "false" ? "true" : "false";
+      }
+    }
+  });
+}
+;// CONCATENATED MODULE: ./src/joomla/html/mod_menu/curriculum/curriculum.js
+
+
+pistacja_plugin.plugin(function Curriculum() {
+  Accordion(".collapse", 500);
+});
 
 /***/ })
 
@@ -241,15 +215,9 @@ var pie = function piePlugin() {
 /******/ 		__webpack_require__.o = (obj, prop) => (Object.prototype.hasOwnProperty.call(obj, prop))
 /******/ 	})();
 /******/ 	
-/******/ 	/* webpack/runtime/make namespace object */
+/******/ 	/* webpack/runtime/runtimeId */
 /******/ 	(() => {
-/******/ 		// define __esModule on exports
-/******/ 		__webpack_require__.r = (exports) => {
-/******/ 			if(typeof Symbol !== 'undefined' && Symbol.toStringTag) {
-/******/ 				Object.defineProperty(exports, Symbol.toStringTag, { value: 'Module' });
-/******/ 			}
-/******/ 			Object.defineProperty(exports, '__esModule', { value: true });
-/******/ 		};
+/******/ 		__webpack_require__.j = 562;
 /******/ 	})();
 /******/ 	
 /******/ 	/* webpack/runtime/jsonp chunk loading */
@@ -260,7 +228,7 @@ var pie = function piePlugin() {
 /******/ 		// undefined = chunk not loaded, null = chunk preloaded/prefetched
 /******/ 		// [resolve, reject, Promise] = chunk loading, 0 = chunk loaded
 /******/ 		var installedChunks = {
-/******/ 			"./curriculum": 0
+/******/ 			562: 0
 /******/ 		};
 /******/ 		
 /******/ 		// no chunk on demand loading
@@ -310,8 +278,9 @@ var pie = function piePlugin() {
 /******/ 	// startup
 /******/ 	// Load entry module and return exports
 /******/ 	// This entry module depends on other loaded chunks and execution need to be delayed
-/******/ 	var __webpack_exports__ = __webpack_require__.O(undefined, ["vendor"], () => (__webpack_require__("./src/joomla/html/mod_menu/curriculum/curriculum.js")))
+/******/ 	var __webpack_exports__ = __webpack_require__.O(undefined, [736], () => (__webpack_require__(13)))
 /******/ 	__webpack_exports__ = __webpack_require__.O(__webpack_exports__);
 /******/ 	
 /******/ })()
 ;
+//# sourceMappingURL=curriculum.js.map

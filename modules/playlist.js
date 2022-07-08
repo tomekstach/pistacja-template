@@ -2,155 +2,16 @@
 /******/ 	"use strict";
 /******/ 	var __webpack_modules__ = ({
 
-/***/ "./src/joomla/html/com_videos/items/default/playlist.js":
-/*!**************************************************************!*\
-  !*** ./src/joomla/html/com_videos/items/default/playlist.js ***!
-  \**************************************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-__webpack_require__.r(__webpack_exports__);
-/* harmony import */ var pistacja_plugin__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! pistacja/plugin */ "./src/modules/pistacja/plugin/index.js");
-/* harmony import */ var utils__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! utils */ "./src/modules/utils/index.js");
-/* harmony import */ var tabs_manager__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! tabs-manager */ "./src/modules/tabs-manager/index.js");
-/* harmony import */ var reveal_content__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! reveal-content */ "./src/modules/reveal-content/index.js");
-/* harmony import */ var pistacja_uspp_modal__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! pistacja/uspp-modal */ "./src/modules/pistacja/uspp-modal/index.js");
-// Modules.
+/***/ 616:
+/***/ ((__unused_webpack_module, __unused_webpack___webpack_exports__, __webpack_require__) => {
 
 
-
-
-
-pistacja_plugin__WEBPACK_IMPORTED_MODULE_0__["default"].plugin(function Playlist(_ref) {
-  var domain = _ref.domain;
-  // Handle Tabs.
-  (0,tabs_manager__WEBPACK_IMPORTED_MODULE_2__["default"])(690); // Playlist description.
-
-  var reveal; // For some reason on load ".text" height is measured incorectly thus setTimeout.
-
-  setTimeout(function () {
-    return reveal = (0,reveal_content__WEBPACK_IMPORTED_MODULE_3__["default"])(".pie-playlist-preview-description .text", 92);
-  }, 50);
-  reveal && window.addEventListener("resize", (0,utils__WEBPACK_IMPORTED_MODULE_1__.debounce)(reveal.reset, 400)); // Initialize USPP modal.
-
-  (0,pistacja_uspp_modal__WEBPACK_IMPORTED_MODULE_4__["default"])(domain);
-});
-
-/***/ }),
-
-/***/ "./src/modules/pistacja/modals/index.js":
-/*!**********************************************!*\
-  !*** ./src/modules/pistacja/modals/index.js ***!
-  \**********************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => (/* binding */ Modals),
-/* harmony export */   "remoteModal": () => (/* binding */ remoteModal)
-/* harmony export */ });
-/* harmony import */ var travrs__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! travrs */ "./node_modules/travrs/dist/index.js");
-/* harmony import */ var travrs__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(travrs__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var perfect_scrollbar__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! perfect-scrollbar */ "./node_modules/perfect-scrollbar/dist/perfect-scrollbar.esm.js");
-/* harmony import */ var perfect_scrollbar_css_perfect_scrollbar_css__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! perfect-scrollbar/css/perfect-scrollbar.css */ "./node_modules/perfect-scrollbar/css/perfect-scrollbar.css");
-/* harmony import */ var _styles_scss__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./styles.scss */ "./src/modules/pistacja/modals/styles.scss");
-
- // Styles.
-
-
- // Handles all pi-stacja modals.
-
-function Modals() {
-  var currentModal;
-  var listeners = [];
-  var root = document.querySelector("div.pie-modal-root") || (0,travrs__WEBPACK_IMPORTED_MODULE_0__.createElement)("div.pie-modal-root");
-  document.body.appendChild(root); // Get all modals from the page.
-
-  var modals = Array.from(document.querySelectorAll("*[data-pie-modal]")).reduce(function (acc, modal) {
-    acc[modal.dataset.pieModal] = modal;
-    var scrollContent = modal.querySelector(".scroll-content");
-
-    if (scrollContent) {
-      new perfect_scrollbar__WEBPACK_IMPORTED_MODULE_1__["default"](scrollContent);
-    }
-
-    root.appendChild(modal);
-    return acc;
-  }, {});
-  document.addEventListener("click", function (event) {
-    // Hide.
-    if (!event.target.dataset.pieModalTrigger) {
-      if (event.target === root || event.target.dataset.pieModalClose) {
-        root.classList.remove("root-open");
-
-        if (currentModal) {
-          currentModal.classList.remove("modal-open");
-          setTimeout(function () {
-            listeners.forEach(function (listener) {
-              return listener(currentModal.dataset.pieModal, "hide", currentModal);
-            });
-          }, 350);
-        }
-      }
-
-      return;
-    } // Select & show.
-
-
-    currentModal = modals[event.target.dataset.pieModalTrigger];
-
-    if (currentModal) {
-      currentModal.classList.add("modal-open");
-      root.classList.add("root-open");
-      listeners.forEach(function (listener) {
-        return listener(currentModal.dataset.pieModal, "show", currentModal);
-      });
-    }
-  });
-  return {
-    listen: function listen(callback) {
-      !listeners.includes(callback) && listeners.push(callback);
-      return function cleanup() {
-        var index = listeners.indexOf(callback);
-        listeners.splice(index, 1);
-      };
-    }
-  };
-} // Allows for remote controll of targeted modal from JS code.
-
-function remoteModal(modalName) {
-  var $ = document.querySelector.bind(document);
-  var selector = "button.remote-pie-modal-btn[data-pie-modal-trigger=\"".concat(modalName, "\"]");
-  var trigger = $(selector) || (0,travrs__WEBPACK_IMPORTED_MODULE_0__.createElement)(selector);
-  var modal = $("*[data-pie-modal=\"".concat(modalName, "\"]"));
-  var root = $("div.pie-modal-root");
-  if (!root || !modal) return;
-  document.body.appendChild(trigger);
-  return {
-    on: function on() {
-      return trigger.click();
-    },
-    off: function off() {
-      return root.click();
-    },
-    modal: modal
-  };
-}
-
-/***/ }),
-
-/***/ "./src/modules/pistacja/plugin/index.js":
-/*!**********************************************!*\
-  !*** ./src/modules/pistacja/plugin/index.js ***!
-  \**********************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
-/* harmony export */ });
-/* harmony import */ var _babel_runtime_helpers_asyncToGenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/helpers/asyncToGenerator */ "./node_modules/@babel/runtime/helpers/esm/asyncToGenerator.js");
-/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @babel/runtime/regenerator */ "./node_modules/@babel/runtime/regenerator/index.js");
-/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_1__);
+// EXTERNAL MODULE: ./node_modules/@babel/runtime/helpers/esm/asyncToGenerator.js
+var asyncToGenerator = __webpack_require__(861);
+// EXTERNAL MODULE: ./node_modules/@babel/runtime/regenerator/index.js
+var regenerator = __webpack_require__(757);
+var regenerator_default = /*#__PURE__*/__webpack_require__.n(regenerator);
+;// CONCATENATED MODULE: ./src/modules/pistacja/plugin/index.js
 
 
 
@@ -172,8 +33,8 @@ var pie = function piePlugin() {
 
     window.piePlugins = window.piePlugins || [];
     window.piePlugins.forEach( /*#__PURE__*/function () {
-      var _ref = (0,_babel_runtime_helpers_asyncToGenerator__WEBPACK_IMPORTED_MODULE_0__["default"])( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_1___default().mark(function _callee(callPlugin) {
-        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_1___default().wrap(function _callee$(_context) {
+      var _ref = (0,asyncToGenerator/* default */.Z)( /*#__PURE__*/regenerator_default().mark(function _callee(callPlugin) {
+        return regenerator_default().wrap(function _callee$(_context) {
           while (1) {
             switch (_context.prev = _context.next) {
               case 0:
@@ -219,266 +80,8 @@ var pie = function piePlugin() {
   };
 }();
 
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (pie);
-
-/***/ }),
-
-/***/ "./src/modules/pistacja/uspp-modal/index.js":
-/*!**************************************************!*\
-  !*** ./src/modules/pistacja/uspp-modal/index.js ***!
-  \**************************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => (/* binding */ usppModal)
-/* harmony export */ });
-/* harmony import */ var _babel_runtime_helpers_slicedToArray__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/helpers/slicedToArray */ "./node_modules/@babel/runtime/helpers/esm/slicedToArray.js");
-/* harmony import */ var travrs__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! travrs */ "./node_modules/travrs/dist/index.js");
-/* harmony import */ var travrs__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(travrs__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var pistacja_modals__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! pistacja/modals */ "./src/modules/pistacja/modals/index.js");
-
-// Modules.
-
-
-function usppModal(domian) {
-  var requertConfig = {
-    mode: "cors",
-    method: "post",
-    cache: "default"
-  };
-  var modalController = (0,pistacja_modals__WEBPACK_IMPORTED_MODULE_2__.remoteModal)("uspp"); // No modal to display content.
-
-  if (!modalController || !modalController.modal) return;
-
-  var _template = (0,travrs__WEBPACK_IMPORTED_MODULE_1__.template)("\n    div.uspp-wrapper.stack\n      @content::div.uspp-content       \n      @link::a.bubble-button.green.KGSolid.--space-i > \"WSZYSTKIE ZASOBY DLA TEGO WYMAGANIA\"        \n  "),
-      _template2 = (0,_babel_runtime_helpers_slicedToArray__WEBPACK_IMPORTED_MODULE_0__["default"])(_template, 2),
-      content = _template2[0],
-      refs = _template2[1];
-
-  modalController.modal.appendChild(content);
-  document.addEventListener("click", function (event) {
-    if (!event.target.matches("button[data-uspp-id]")) return;
-    refs.link.href = "".concat(domian, "wyniki-wyszukiwania?q=").concat(event.target.innerText); // Show modal.
-
-    modalController.on(); // Display waiting msg. after 400ms.
-
-    var timer = setTimeout(function () {
-      refs.content.textContent = "Trwa ładowanie danych...";
-    }, 400);
-    fetch("".concat(domian, "cli/getpppname.php?code=").concat(event.target.dataset.usppId), requertConfig).then(function (r) {
-      return r.json();
-    }).then(function (_ref) {
-      var level = _ref.level,
-          name = _ref.name,
-          subject = _ref.subject,
-          section = _ref.section;
-      clearTimeout(timer);
-      refs.content.innerHTML = "\n          <div class=\"stack --medium\">\n            <h3 class=\"KGSolid text-green font-md rail --h-spread --v-start\">\n              <span>".concat(event.target.innerText, "</span>\n              <button class=\"ghost\" data-pie-modal-close=\"true\">\n                <svg class=\"icon sm\">\n                  <use href=\"").concat(domian, "/templates/pistacja/images/icons/pie-icons-sprite.svg#ui-close\">\n                </svg>\n              </button>\n            </h3>\n\n            <div class=\"text-gray\">").concat(name, "</div>\n          \n            <hr/>\n            <div>\n              <div>Przedmiot</div>\n              <strong class=\"text-green\">").concat(subject, "</strong>\n            </div>\n            <div>\n              <div>Poziom edukacyjny</div>\n              <strong class=\"text-green\">").concat(level, "</strong>\n            </div>\n            <div>\n              <div>Dzia\u0142</div>\n              <strong class=\"text-green\">").concat(section, "</strong>\n            </div>\n          </div>\n        "); // Redner MathML.
-
-      window.MathJax && window.MathJax.typeset();
-    })["catch"](function (err) {
-      console.error(err);
-      clearTimeout(timer);
-      refs.content.textContent = "Błąd danych USPP; Przepraszamy.";
-    });
-  });
-}
-
-/***/ }),
-
-/***/ "./src/modules/reveal-content/index.js":
-/*!*********************************************!*\
-  !*** ./src/modules/reveal-content/index.js ***!
-  \*********************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => (/* binding */ revealContent)
-/* harmony export */ });
-/* harmony import */ var utils__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! utils */ "./src/modules/utils/index.js");
-/* harmony import */ var travrs__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! travrs */ "./node_modules/travrs/dist/index.js");
-/* harmony import */ var travrs__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(travrs__WEBPACK_IMPORTED_MODULE_1__);
-
-
-
-var applyStyles = function applyStyles() {
-  var color = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : "white";
-  (0,utils__WEBPACK_IMPORTED_MODULE_0__.insertCSS)("\n    button.reveal-content-open.active,\n    button.reveal-content-close.active {\n      right: 0;\n    }\n\n    button.reveal-content-open {\n      padding: 11px 0 0 40px;\n      line-height: 9px;\n    }\n\n    button.reveal-content-close {\n      padding: 0 0 0 40px;\n    }\n\n    button.reveal-content-open,\n    button.reveal-content-close {\n      margin: 0;\n      bottom: 0;\n      right: -60px;\n      outline: none;\n      display: block;\n      color: inherit;\n      user-select: none;\n      position: absolute;\n      transition: right 0.3s ease;\n      background: -moz-linear-gradient(left,  rgba(255,255,255,0) 0%, ".concat(color, " 70%);\n      background: -webkit-linear-gradient(left,  rgba(255,255,255,0) 0%, ").concat(color, " 70%);\n      background: linear-gradient(to right,   rgba(255,255,255,0) 0%, ").concat(color, " 70%);\n    };\n\n\n  "));
-};
-
-function revealContent(selector, displayHeight, bgColor) {
-  if (!displayHeight) return;
-  applyStyles(bgColor);
-  var reveals = collectItems();
-
-  function collectItems() {
-    var collection = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
-    Array.from(document.querySelectorAll(selector)).forEach(function (item) {
-      var id = (0,utils__WEBPACK_IMPORTED_MODULE_0__.uid)();
-      var scroll = item.scrollHeight;
-
-      if (scroll > displayHeight) {
-        var openButton = (0,travrs__WEBPACK_IMPORTED_MODULE_1__.createElement)("button.reveal-content-open.active[data-reveal=\"".concat(id, "\"]"), "•••");
-        var closeButton = (0,travrs__WEBPACK_IMPORTED_MODULE_1__.createElement)("button.reveal-content-close[data-reveal=\"".concat(id, "\"]"), "×");
-        item.style.position = "relative";
-        item.style.overflow = "hidden";
-        item.style.height = "".concat(displayHeight, "px");
-        item.style.transition = "height .3s ease";
-        item.appendChild(openButton);
-        item.appendChild(closeButton);
-        collection[id] = {
-          ref: item,
-          open: openButton,
-          close: closeButton,
-          initHeight: item.offsetHeight
-        };
-      }
-    });
-    return collection;
-  }
-
-  document.addEventListener("click", function (event) {
-    if (event.target.dataset && event.target.dataset.reveal) {
-      var reveal = reveals[event.target.dataset.reveal];
-
-      if (event.target.matches("button.reveal-content-open")) {
-        reveal.ref.style.height = "".concat(reveal.ref.scrollHeight + 20, "px");
-        reveal.open.classList.remove("active");
-        reveal.close.classList.add("active");
-        reveal.open.blur();
-      } else if (event.target.matches("button.reveal-content-close")) {
-        reveal.ref.style.height = "".concat(displayHeight, "px");
-        reveal.open.classList.add("active");
-        reveal.close.classList.remove("active");
-        reveal.close.blur();
-      }
-    }
-  });
-
-  function reset() {
-    Object.keys(reveals).forEach(function (key) {
-      var reveal = reveals[key];
-      reveal.open.remove();
-      reveal.close.remove();
-      reveal.ref.style.height = "auto";
-      delete reveal[key];
-    });
-    reveals = collectItems(reveals);
-  }
-
-  function getReveals() {
-    return Object.values(reveals).map(function (r) {
-      return r.ref;
-    });
-  }
-
-  return {
-    reset: reset,
-    getReveals: getReveals
-  };
-}
-
-/***/ }),
-
-/***/ "./src/modules/tabs-manager/index.js":
-/*!*******************************************!*\
-  !*** ./src/modules/tabs-manager/index.js ***!
-  \*******************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => (/* binding */ TabsManager)
-/* harmony export */ });
-/* harmony import */ var utils__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! utils */ "./src/modules/utils/index.js");
- // Switches tabs containers and applies active class.
-// USAGE:
-
-var css = function css(mobileBreakpoint) {
-  return "\n  \n  .pie-tabs-hide-on-desktop {\n    display: none;\n  }\n  \n  @media (max-width: ".concat(mobileBreakpoint, "px) {\n    .pie-tabs-container {\n      top: 100%;     \n      left: 0;\n      right: 0;\n      bottom: 0;\n      margin: 0;\n      z-index: 100;\n      position: fixed;\n      overflow-y: auto;\n      overflow-x: hidden;\n      background-color: white;\n      transition: top .5s ease;\n    }\n      \n    .pie-tabs-container.show {\n      top: 3.4rem;\n    } \n\n    .pie-tabs-hide-on-mobile {\n      display: none;\n    }\n\n    .pie-tabs-hide-on-desktop {\n      display: flex;\n    }\n  }\n\n  .pie-tabs-container > *[data-tab] {\n    display: none;\n  }\n\n  .pie-tabs-container > *[data-tab].active {\n    display: block;\n  }      \n");
-};
-
-function TabsManager() {
-  var mobileBreakpoint = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 860;
-  var tabs = Array.from(document.querySelectorAll("[data-tab]"));
-  var container = document.querySelector(".pie-tabs-container");
-  var currentTab = tabs.find(function (t) {
-    return t.classList.contains("active");
-  });
-  var currentButton = currentTab ? document.querySelector("button[data-tab-target].active") : null;
-  (0,utils__WEBPACK_IMPORTED_MODULE_0__.insertCSS)(css(mobileBreakpoint), "tabs-styles");
-  (0,utils__WEBPACK_IMPORTED_MODULE_0__.watchScreen)(function (width) {
-    return {
-      mobile: width < mobileBreakpoint
-    };
-  }, function (mode) {
-    return currentButton && (mode === "mobile" ? currentButton.classList.remove("active") : currentButton.classList.add("active"));
-  }, true);
-
-  function deselectTabs() {
-    container && container.classList.remove("show");
-    currentButton && currentButton.classList.remove("active");
-  }
-
-  function selectTab(targetName, button) {
-    currentButton && currentButton.classList.remove("active");
-    currentButton = button instanceof HTMLElement ? button : document.querySelector("button[data-tab-target=\"".concat(targetName, "\"]"));
-    currentTab && currentTab.classList.remove("active");
-    currentTab = tabs.find(function (t) {
-      return t.dataset.tab === targetName;
-    });
-
-    if (currentTab) {
-      currentTab.classList.add("active");
-      currentButton.classList.add("active");
-      container && container.classList.add("show");
-    }
-
-    return currentTab;
-  }
-
-  document.addEventListener("click", function (event) {
-    if (event.target.matches("button[data-tab-target]")) {
-      currentTab = selectTab(event.target.dataset.tabTarget, event.target);
-    } else if (event.target.matches("button[data-tab-close]")) {
-      deselectTabs();
-    }
-  });
-  return Object.freeze({
-    selectTab: selectTab,
-    getCurrentTab: function getCurrentTab() {
-      return currentTab;
-    },
-    getCurrentButton: function getCurrentButton() {
-      return currentButton;
-    }
-  });
-}
-
-/***/ }),
-
-/***/ "./src/modules/utils/index.js":
-/*!************************************!*\
-  !*** ./src/modules/utils/index.js ***!
-  \************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "debounce": () => (/* binding */ debounce),
-/* harmony export */   "queryToObject": () => (/* binding */ queryToObject),
-/* harmony export */   "uid": () => (/* binding */ uid),
-/* harmony export */   "memo": () => (/* binding */ memo),
-/* harmony export */   "isPrevious": () => (/* binding */ isPrevious),
-/* harmony export */   "timeToSeconds": () => (/* binding */ timeToSeconds),
-/* harmony export */   "insertCSS": () => (/* binding */ insertCSS),
-/* harmony export */   "PieError": () => (/* binding */ PieError),
-/* harmony export */   "memoElement": () => (/* binding */ memoElement),
-/* harmony export */   "watchScreen": () => (/* binding */ watchScreen)
-/* harmony export */ });
-/* harmony import */ var _babel_runtime_helpers_slicedToArray__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/helpers/slicedToArray */ "./node_modules/@babel/runtime/helpers/esm/slicedToArray.js");
+/* harmony default export */ const pistacja_plugin = (pie);
+;// CONCATENATED MODULE: ./src/modules/utils/index.js
 
 
 function _createForOfIteratorHelper(o, allowArrayLike) { var it = typeof Symbol !== "undefined" && o[Symbol.iterator] || o["@@iterator"]; if (!it) { if (Array.isArray(o) || (it = _unsupportedIterableToArray(o)) || allowArrayLike && o && typeof o.length === "number") { if (it) o = it; var i = 0; var F = function F() {}; return { s: F, n: function n() { if (i >= o.length) return { done: true }; return { done: false, value: o[i++] }; }, e: function e(_e) { throw _e; }, f: F }; } throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); } var normalCompletion = true, didErr = false, err; return { s: function s() { it = it.call(o); }, n: function n() { var step = it.next(); normalCompletion = step.done; return step; }, e: function e(_e2) { didErr = true; err = _e2; }, f: function f() { try { if (!normalCompletion && it["return"] != null) it["return"](); } finally { if (didErr) throw err; } } }; }
@@ -516,7 +119,7 @@ function queryToObject(url) {
 
   try {
     for (_iterator.s(); !(_step = _iterator.n()).done;) {
-      var _step$value = (0,_babel_runtime_helpers_slicedToArray__WEBPACK_IMPORTED_MODULE_0__["default"])(_step.value, 2),
+      var _step$value = _slicedToArray(_step.value, 2),
           key = _step$value[0],
           value = _step$value[1];
 
@@ -655,18 +258,308 @@ function watchScreen(predicate, callback) {
     return window.removeEventListener("resize", handler);
   };
 }
+;// CONCATENATED MODULE: ./src/modules/tabs-manager/index.js
+ // Switches tabs containers and applies active class.
+// USAGE:
 
-/***/ }),
+var css = function css(mobileBreakpoint) {
+  return "\n  \n  .pie-tabs-hide-on-desktop {\n    display: none;\n  }\n  \n  @media (max-width: ".concat(mobileBreakpoint, "px) {\n    .pie-tabs-container {\n      top: 100%;     \n      left: 0;\n      right: 0;\n      bottom: 0;\n      margin: 0;\n      z-index: 100;\n      position: fixed;\n      overflow-y: auto;\n      overflow-x: hidden;\n      background-color: white;\n      transition: top .5s ease;\n    }\n      \n    .pie-tabs-container.show {\n      top: 3.4rem;\n    } \n\n    .pie-tabs-hide-on-mobile {\n      display: none;\n    }\n\n    .pie-tabs-hide-on-desktop {\n      display: flex;\n    }\n  }\n\n  .pie-tabs-container > *[data-tab] {\n    display: none;\n  }\n\n  .pie-tabs-container > *[data-tab].active {\n    display: block;\n  }      \n");
+};
 
-/***/ "./src/modules/pistacja/modals/styles.scss":
-/*!*************************************************!*\
-  !*** ./src/modules/pistacja/modals/styles.scss ***!
-  \*************************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+function TabsManager() {
+  var mobileBreakpoint = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 860;
+  var tabs = Array.from(document.querySelectorAll("[data-tab]"));
+  var container = document.querySelector(".pie-tabs-container");
+  var currentTab = tabs.find(function (t) {
+    return t.classList.contains("active");
+  });
+  var currentButton = currentTab ? document.querySelector("button[data-tab-target].active") : null;
+  insertCSS(css(mobileBreakpoint), "tabs-styles");
+  watchScreen(function (width) {
+    return {
+      mobile: width < mobileBreakpoint
+    };
+  }, function (mode) {
+    return currentButton && (mode === "mobile" ? currentButton.classList.remove("active") : currentButton.classList.add("active"));
+  }, true);
 
-__webpack_require__.r(__webpack_exports__);
-// extracted by mini-css-extract-plugin
+  function deselectTabs() {
+    container && container.classList.remove("show");
+    currentButton && currentButton.classList.remove("active");
+  }
 
+  function selectTab(targetName, button) {
+    currentButton && currentButton.classList.remove("active");
+    currentButton = button instanceof HTMLElement ? button : document.querySelector("button[data-tab-target=\"".concat(targetName, "\"]"));
+    currentTab && currentTab.classList.remove("active");
+    currentTab = tabs.find(function (t) {
+      return t.dataset.tab === targetName;
+    });
+
+    if (currentTab) {
+      currentTab.classList.add("active");
+      currentButton.classList.add("active");
+      container && container.classList.add("show");
+    }
+
+    return currentTab;
+  }
+
+  document.addEventListener("click", function (event) {
+    if (event.target.matches("button[data-tab-target]")) {
+      currentTab = selectTab(event.target.dataset.tabTarget, event.target);
+    } else if (event.target.matches("button[data-tab-close]")) {
+      deselectTabs();
+    }
+  });
+  return Object.freeze({
+    selectTab: selectTab,
+    getCurrentTab: function getCurrentTab() {
+      return currentTab;
+    },
+    getCurrentButton: function getCurrentButton() {
+      return currentButton;
+    }
+  });
+}
+// EXTERNAL MODULE: ./node_modules/travrs/dist/index.js
+var dist = __webpack_require__(744);
+;// CONCATENATED MODULE: ./src/modules/reveal-content/index.js
+
+
+
+var applyStyles = function applyStyles() {
+  var color = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : "white";
+  insertCSS("\n    button.reveal-content-open.active,\n    button.reveal-content-close.active {\n      right: 0;\n    }\n\n    button.reveal-content-open {\n      padding: 11px 0 0 40px;\n      line-height: 9px;\n    }\n\n    button.reveal-content-close {\n      padding: 0 0 0 40px;\n    }\n\n    button.reveal-content-open,\n    button.reveal-content-close {\n      margin: 0;\n      bottom: 0;\n      right: -60px;\n      outline: none;\n      display: block;\n      color: inherit;\n      user-select: none;\n      position: absolute;\n      transition: right 0.3s ease;\n      background: -moz-linear-gradient(left,  rgba(255,255,255,0) 0%, ".concat(color, " 70%);\n      background: -webkit-linear-gradient(left,  rgba(255,255,255,0) 0%, ").concat(color, " 70%);\n      background: linear-gradient(to right,   rgba(255,255,255,0) 0%, ").concat(color, " 70%);\n    };\n\n\n  "));
+};
+
+function revealContent(selector, displayHeight, bgColor) {
+  if (!displayHeight) return;
+  applyStyles(bgColor);
+  var reveals = collectItems();
+
+  function collectItems() {
+    var collection = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
+    Array.from(document.querySelectorAll(selector)).forEach(function (item) {
+      var id = uid();
+      var scroll = item.scrollHeight;
+
+      if (scroll > displayHeight) {
+        var openButton = (0,dist.createElement)("button.reveal-content-open.active[data-reveal=\"".concat(id, "\"]"), "•••");
+        var closeButton = (0,dist.createElement)("button.reveal-content-close[data-reveal=\"".concat(id, "\"]"), "×");
+        item.style.position = "relative";
+        item.style.overflow = "hidden";
+        item.style.height = "".concat(displayHeight, "px");
+        item.style.transition = "height .3s ease";
+        item.appendChild(openButton);
+        item.appendChild(closeButton);
+        collection[id] = {
+          ref: item,
+          open: openButton,
+          close: closeButton,
+          initHeight: item.offsetHeight
+        };
+      }
+    });
+    return collection;
+  }
+
+  document.addEventListener("click", function (event) {
+    if (event.target.dataset && event.target.dataset.reveal) {
+      var reveal = reveals[event.target.dataset.reveal];
+
+      if (event.target.matches("button.reveal-content-open")) {
+        reveal.ref.style.height = "".concat(reveal.ref.scrollHeight + 20, "px");
+        reveal.open.classList.remove("active");
+        reveal.close.classList.add("active");
+        reveal.open.blur();
+      } else if (event.target.matches("button.reveal-content-close")) {
+        reveal.ref.style.height = "".concat(displayHeight, "px");
+        reveal.open.classList.add("active");
+        reveal.close.classList.remove("active");
+        reveal.close.blur();
+      }
+    }
+  });
+
+  function reset() {
+    Object.keys(reveals).forEach(function (key) {
+      var reveal = reveals[key];
+      reveal.open.remove();
+      reveal.close.remove();
+      reveal.ref.style.height = "auto";
+      delete reveal[key];
+    });
+    reveals = collectItems(reveals);
+  }
+
+  function getReveals() {
+    return Object.values(reveals).map(function (r) {
+      return r.ref;
+    });
+  }
+
+  return {
+    reset: reset,
+    getReveals: getReveals
+  };
+}
+// EXTERNAL MODULE: ./node_modules/@babel/runtime/helpers/esm/slicedToArray.js
+var slicedToArray = __webpack_require__(324);
+// EXTERNAL MODULE: ./node_modules/perfect-scrollbar/dist/perfect-scrollbar.esm.js
+var perfect_scrollbar_esm = __webpack_require__(772);
+;// CONCATENATED MODULE: ./src/modules/pistacja/modals/index.js
+
+ // Styles.
+
+
+ // Handles all pi-stacja modals.
+
+function Modals() {
+  var currentModal;
+  var listeners = [];
+  var root = document.querySelector("div.pie-modal-root") || createElement("div.pie-modal-root");
+  document.body.appendChild(root); // Get all modals from the page.
+
+  var modals = Array.from(document.querySelectorAll("*[data-pie-modal]")).reduce(function (acc, modal) {
+    acc[modal.dataset.pieModal] = modal;
+    var scrollContent = modal.querySelector(".scroll-content");
+
+    if (scrollContent) {
+      new PerfectScrollbar(scrollContent);
+    }
+
+    root.appendChild(modal);
+    return acc;
+  }, {});
+  document.addEventListener("click", function (event) {
+    // Hide.
+    if (!event.target.dataset.pieModalTrigger) {
+      if (event.target === root || event.target.dataset.pieModalClose) {
+        root.classList.remove("root-open");
+
+        if (currentModal) {
+          currentModal.classList.remove("modal-open");
+          setTimeout(function () {
+            listeners.forEach(function (listener) {
+              return listener(currentModal.dataset.pieModal, "hide", currentModal);
+            });
+          }, 350);
+        }
+      }
+
+      return;
+    } // Select & show.
+
+
+    currentModal = modals[event.target.dataset.pieModalTrigger];
+
+    if (currentModal) {
+      currentModal.classList.add("modal-open");
+      root.classList.add("root-open");
+      listeners.forEach(function (listener) {
+        return listener(currentModal.dataset.pieModal, "show", currentModal);
+      });
+    }
+  });
+  return {
+    listen: function listen(callback) {
+      !listeners.includes(callback) && listeners.push(callback);
+      return function cleanup() {
+        var index = listeners.indexOf(callback);
+        listeners.splice(index, 1);
+      };
+    }
+  };
+} // Allows for remote controll of targeted modal from JS code.
+
+function remoteModal(modalName) {
+  var $ = document.querySelector.bind(document);
+  var selector = "button.remote-pie-modal-btn[data-pie-modal-trigger=\"".concat(modalName, "\"]");
+  var trigger = $(selector) || (0,dist.createElement)(selector);
+  var modal = $("*[data-pie-modal=\"".concat(modalName, "\"]"));
+  var root = $("div.pie-modal-root");
+  if (!root || !modal) return;
+  document.body.appendChild(trigger);
+  return {
+    on: function on() {
+      return trigger.click();
+    },
+    off: function off() {
+      return root.click();
+    },
+    modal: modal
+  };
+}
+;// CONCATENATED MODULE: ./src/modules/pistacja/uspp-modal/index.js
+
+// Modules.
+
+
+function usppModal(domian) {
+  var requertConfig = {
+    mode: "cors",
+    method: "post",
+    cache: "default"
+  };
+  var modalController = remoteModal("uspp"); // No modal to display content.
+
+  if (!modalController || !modalController.modal) return;
+
+  var _template = (0,dist.template)("\n    div.uspp-wrapper.stack\n      @content::div.uspp-content       \n      @link::a.bubble-button.green.KGSolid.--space-i > \"WSZYSTKIE ZASOBY DLA TEGO WYMAGANIA\"        \n  "),
+      _template2 = (0,slicedToArray/* default */.Z)(_template, 2),
+      content = _template2[0],
+      refs = _template2[1];
+
+  modalController.modal.appendChild(content);
+  document.addEventListener("click", function (event) {
+    if (!event.target.matches("button[data-uspp-id]")) return;
+    refs.link.href = "".concat(domian, "wyniki-wyszukiwania?q=").concat(event.target.innerText); // Show modal.
+
+    modalController.on(); // Display waiting msg. after 400ms.
+
+    var timer = setTimeout(function () {
+      refs.content.textContent = "Trwa ładowanie danych...";
+    }, 400);
+    fetch("".concat(domian, "cli/getpppname.php?code=").concat(event.target.dataset.usppId), requertConfig).then(function (r) {
+      return r.json();
+    }).then(function (_ref) {
+      var level = _ref.level,
+          name = _ref.name,
+          subject = _ref.subject,
+          section = _ref.section;
+      clearTimeout(timer);
+      refs.content.innerHTML = "\n          <div class=\"stack --medium\">\n            <h3 class=\"KGSolid text-green font-md rail --h-spread --v-start\">\n              <span>".concat(event.target.innerText, "</span>\n              <button class=\"ghost\" data-pie-modal-close=\"true\">\n                <svg class=\"icon sm\">\n                  <use href=\"").concat(domian, "/templates/pistacja/images/icons/pie-icons-sprite.svg#ui-close\">\n                </svg>\n              </button>\n            </h3>\n\n            <div class=\"text-gray\">").concat(name, "</div>\n          \n            <hr/>\n            <div>\n              <div>Przedmiot</div>\n              <strong class=\"text-green\">").concat(subject, "</strong>\n            </div>\n            <div>\n              <div>Poziom edukacyjny</div>\n              <strong class=\"text-green\">").concat(level, "</strong>\n            </div>\n            <div>\n              <div>Dzia\u0142</div>\n              <strong class=\"text-green\">").concat(section, "</strong>\n            </div>\n          </div>\n        "); // Redner MathML.
+
+      window.MathJax && window.MathJax.typeset();
+    })["catch"](function (err) {
+      console.error(err);
+      clearTimeout(timer);
+      refs.content.textContent = "Błąd danych USPP; Przepraszamy.";
+    });
+  });
+}
+;// CONCATENATED MODULE: ./src/joomla/html/com_videos/items/default/playlist.js
+// Modules.
+
+
+
+
+
+pistacja_plugin.plugin(function Playlist(_ref) {
+  var domain = _ref.domain;
+  // Handle Tabs.
+  TabsManager(690); // Playlist description.
+
+  var reveal; // For some reason on load ".text" height is measured incorectly thus setTimeout.
+
+  setTimeout(function () {
+    return reveal = revealContent(".pie-playlist-preview-description .text", 92);
+  }, 50);
+  reveal && window.addEventListener("resize", debounce(reveal.reset, 400)); // Initialize USPP modal.
+
+  usppModal(domain);
+});
 
 /***/ })
 
@@ -761,15 +654,9 @@ __webpack_require__.r(__webpack_exports__);
 /******/ 		__webpack_require__.o = (obj, prop) => (Object.prototype.hasOwnProperty.call(obj, prop))
 /******/ 	})();
 /******/ 	
-/******/ 	/* webpack/runtime/make namespace object */
+/******/ 	/* webpack/runtime/runtimeId */
 /******/ 	(() => {
-/******/ 		// define __esModule on exports
-/******/ 		__webpack_require__.r = (exports) => {
-/******/ 			if(typeof Symbol !== 'undefined' && Symbol.toStringTag) {
-/******/ 				Object.defineProperty(exports, Symbol.toStringTag, { value: 'Module' });
-/******/ 			}
-/******/ 			Object.defineProperty(exports, '__esModule', { value: true });
-/******/ 		};
+/******/ 		__webpack_require__.j = 630;
 /******/ 	})();
 /******/ 	
 /******/ 	/* webpack/runtime/jsonp chunk loading */
@@ -780,7 +667,7 @@ __webpack_require__.r(__webpack_exports__);
 /******/ 		// undefined = chunk not loaded, null = chunk preloaded/prefetched
 /******/ 		// [resolve, reject, Promise] = chunk loading, 0 = chunk loaded
 /******/ 		var installedChunks = {
-/******/ 			"./playlist": 0
+/******/ 			630: 0
 /******/ 		};
 /******/ 		
 /******/ 		// no chunk on demand loading
@@ -830,8 +717,9 @@ __webpack_require__.r(__webpack_exports__);
 /******/ 	// startup
 /******/ 	// Load entry module and return exports
 /******/ 	// This entry module depends on other loaded chunks and execution need to be delayed
-/******/ 	var __webpack_exports__ = __webpack_require__.O(undefined, ["vendor"], () => (__webpack_require__("./src/joomla/html/com_videos/items/default/playlist.js")))
+/******/ 	var __webpack_exports__ = __webpack_require__.O(undefined, [736], () => (__webpack_require__(616)))
 /******/ 	__webpack_exports__ = __webpack_require__.O(__webpack_exports__);
 /******/ 	
 /******/ })()
 ;
+//# sourceMappingURL=playlist.js.map
