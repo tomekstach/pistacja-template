@@ -1,0 +1,2 @@
+.search-sibling{opacity:1;transform:translateX(0);transition:transform .3s ease,opacity .3s ease}.search-sibling.hide-sibling{opacity:0;transform:translateX(-200%)}.on-top{background:#fff;z-index:2000}
+/*# sourceMappingURL=navigation.css.map*/

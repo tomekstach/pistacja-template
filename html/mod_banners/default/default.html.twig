@@ -1,0 +1,9 @@
+<div class="pie-banners">
+	<ul class="pie-content">
+	{% for item in data.list %}
+		<li>
+			{{ item.custombannercode|raw }}
+		</li>
+	{% endfor %}
+	</ul>
+</div>

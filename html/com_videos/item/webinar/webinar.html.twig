@@ -1,0 +1,283 @@
+{% do jdoc.addScript("https://www.youtube.com/player_api") %}
+{% do jdoc.addScript(jhash("templates/pistacja/modules/webinar.js")) %}
+
+{% set isEightGradeExam = item.level_title == "Egzamin ósmoklasisty" %}
+
+<div class="pie-content pie-exams-webinar {{ isEightGradeExam ? " eight-theme " : " mex-theme " }} stack">
+
+  {# INTRO #}
+  
+  <div class="stack --space-t-2x">
+   {% if item.past == true %}
+      <div>
+        <span class="pie-badge text-white bg-dark-blue">ARCHIWUM</span>
+      </div>
+      <div class="stack --small">
+      <h1 class="KGSolid font-3xl">{{ item.item_title }}</h1>        
+        <a href="{{ item.examURL }}" class="as-text">
+          <strong class="underline--animated green">{{ item.examTitle }}</strong>
+        </a>        
+    </div>   
+    {% else %}
+    <div class="stack --small">
+      <h1 class="KGSolid font-3xl text-dark-blue">{{ item.item_title }}</h1>        
+        <a href="{{ item.examURL }}" class="as-text">
+          <strong class="underline--animated green">{{ item.examTitle }}</strong>
+        </a>        
+    </div>      
+    {% endif %}
+  </div>
+  <hr class="space">
+
+  {# MEDIA CONTAINER #}
+
+  <div class="stack --small">
+    <div class="pie-player-wrapper">
+
+      {# PLAYER #}
+      
+      <div class="pie-new-player exams">
+        {% if item.yt_id|length > 0 %}
+          <iframe width="100%" height="100%" src="https://www.youtube.com/embed/{{ item.yt_id }}" title="{{ item.title }}" frameborder="0" allowfullscreen></iframe>
+        {% else %}
+          <div id="countdown-timer" data-time="{{ item.date }}"></div>
+        {% endif %}
+      </div>
+
+      {# SIDEBAR CURRENR #}
+
+      {% if item.past == false %}
+
+      <div class="stack">
+
+      {% if item.date|date("U") < date|date("U")  %}
+        <h3 class="font-2xl KGSolid">Zakończony</h3>
+      {% else %}
+        <h3 class="font-2xl KGSolid">
+          <span>Live: </span> 
+          <span>{{ item.date|date('d.m.Y / H:i') }}</span> 
+        </h3>
+      {% endif %}
+        
+
+        <ul class="no-style stack">
+          <li class="rail">
+            <svg class="icon" width="2em" height="2em">
+              <use href="./templates/pistacja/images/icons/pie-icons-sprite.svg#ex-doc"/>
+            </svg>
+            {% if item.item_file|length > 0 %}
+            <a href="{{ item.item_file }}" class="as-text underline--animated green">Pobierz zadania do webinaru (PDF)</a>
+            {% else %}
+            <span>Pobierz zadania do webinaru (wkrótce)</span>
+            {% endif %}
+          </li>     
+          
+          <li class="rail">
+            <svg class="icon" width="2em" height="2em">
+              <use href="./templates/pistacja/images/icons/pie-icons-sprite.svg#ex-ex"/>
+            </svg>
+            <button class="as-text underline--animated green" data-pie-modal-trigger="newsletter">Nie przegap webinaru! Zapisz się na Newsletter</button>
+          </li>     
+
+          <li class="rail">
+            <svg class="icon" width="2em" height="2em">
+              <use href="./templates/pistacja/images/icons/pie-icons-sprite.svg#ex-calendar"/>
+            </svg>
+            <a href="{{ item.calendar }}" class="as-text underline--animated green" target="_blank">Pobierz kalendarz powtórek (PDF)</a>
+          </li>
+
+           <li class="rail">
+            <svg class="icon" width="2.1em" height="2.1em">
+              <use href="./templates/pistacja/images/icons/pie-icons-sprite.svg#ex-share"></use>
+            </svg>
+
+            {# SHARE DROPDOWN #}
+
+            <div>
+              <button class="as-text underline--animated green" data-rct-trigger="share" data-rct-toggle="show">Udostępnij</button>  
+              <div class="pie-share-dropdown" data-rct-target="share">
+                <a class="share-button" href="https://classroom.google.com/share?url={{ item.route }}" target="_blank" >
+                  <svg class="icon xl">
+                    <use href="./templates/pistacja/images/icons/pie-icons-sprite.svg#sm-classroom" />
+                  </svg>
+                  <span>Google Classroom</span>
+                </a>
+
+                <a class="share-button" href="https://teams.microsoft.com/share?href={{ item.route }}" target="_blank">
+                  <svg class="icon xl">
+                    <use href="./templates/pistacja/images/icons/pie-icons-sprite.svg#sm-teams" />
+                  </svg>
+                  <span>Microsoft Teams</span>
+                </a>
+
+                <button class="share-button" data-copy="{{ item.route }}">
+                  <svg class="icon xl">
+                      <use href="./templates/pistacja/images/icons/pie-icons-sprite.svg#sm-copy" />
+                    </svg>
+                    <span>Link do tej strony</span>
+                  </button>	
+                  
+                  <button class="share-button" data-copy="https://www.youtube.com/embed/{{ item.yt_id }}">
+                    <svg class="icon xl">
+                      <use href="./templates/pistacja/images/icons/pie-icons-sprite.svg#sm-yt" />
+                    </svg>
+                    <span>Link do YouTube</span>
+                  </button>		
+              </div>
+            </div>
+          </li>
+        </ul>          
+      </div>
+
+       {# SIDEBAR ARCHIVE #}
+
+      {% else %}
+
+      <div class="stack">
+        <h3 class="font-2xl KGSolid">Materiały</h3>
+
+        <ul class="no-style stack">
+          
+          {% if item.item_file|length > 0 %}
+          <li class="rail">
+            <svg class="icon" width="2em" height="2em">
+              <use href="./templates/pistacja/images/icons/pie-icons-sprite.svg#ex-doc"/>
+            </svg>
+            <a href="{{ item.item_file }}" class="as-text underline--animated green" target="_blank">Pobierz zadania do webinaru (PDF)</a>
+          </li>     
+          {% endif %}
+       
+           <li class="rail">
+            <svg class="icon" width="2.1em" height="2.1em">
+              <use href="./templates/pistacja/images/icons/pie-icons-sprite.svg#ex-share"></use>
+            </svg>
+
+            {# SHARE DROPDOWN #}
+
+            <div>
+              <button class="as-text underline--animated green" data-rct-trigger="share" data-rct-toggle="show">Udostępnij</button>  
+              <div class="pie-share-dropdown" data-rct-target="share">
+                <a class="share-button" href="https://classroom.google.com/share?url={{ item.route }}" target="_blank" >
+                  <svg class="icon xl">
+                    <use href="./templates/pistacja/images/icons/pie-icons-sprite.svg#sm-classroom" />
+                  </svg>
+                  <span>Google Classroom</span>
+                </a>
+
+                <a class="share-button" href="https://teams.microsoft.com/share?href={{ item.route }}" target="_blank">
+                  <svg class="icon xl">
+                    <use href="./templates/pistacja/images/icons/pie-icons-sprite.svg#sm-teams" />
+                  </svg>
+                  <span>Microsoft Teams</span>
+                </a>
+
+                <button class="share-button" data-copy="{{ item.route }}">
+                  <svg class="icon xl">
+                      <use href="./templates/pistacja/images/icons/pie-icons-sprite.svg#sm-copy" />
+                    </svg>
+                    <span>Link do tej strony</span>
+                  </button>	
+                  
+                  <button class="share-button" data-copy="https://www.youtube.com/embed/{{ item.yt_id }}">
+                    <svg class="icon xl">
+                      <use href="./templates/pistacja/images/icons/pie-icons-sprite.svg#sm-yt" />
+                    </svg>
+                    <span>Link do YouTube</span>
+                  </button>		
+              </div>
+            </div>
+          </li>
+        </ul>          
+      </div>
+      {% endif %}
+    </div>
+  </div>
+  <hr class="space">
+
+
+  {# TABS NAVIGATION #}
+
+  {% if item.required|length > 0 %}
+  <div class="pie-tabs">            
+    <button data-tab-target="resources" class="active">Materiały przygotowujące</button>
+    
+    {% if item.past == false %}
+    <a href="{{ item.examURL }}" class="button pie-target-exam">Próbny egzamin 2022</a>      
+    {% endif %}
+
+    <div class="pie-social-media-tabs"> 
+      <a href="https://pistacja.tv/podstawa-programowa/matematyka" class="matematyka subject-menu-button" title="Matematyka"></a> 
+      <a href="https://www.facebook.com/PistacjaMatematyka/" target="_blank" rel="noopener noreferrer" class="fb-menu-button">Facebook</a>
+      <a href="https://www.youtube.com/c/pistacjamatematyka" target="_blank" rel="noopener noreferrer" class="yt-menu-button">YouTube</a>
+    </div>
+  </div>
+  {% endif %}
+
+
+  {# TABS CONTENT #}
+
+  {% if item.required|length > 0 %}
+  <div class="pie-tabs-container">
+    <div data-tab="resources" class="active">
+
+      <div class="rail --h-spread --v-start --space-i --space-b-2x pie-tabs-hide-on-desktop">
+        <h3 class="KGSolid font-2xl">Materiały przygotowujące</h3>    
+        <button data-tab-close="true">
+          <svg class="icon sm">
+            <use href="./templates/pistacja/images/icons/pie-icons-sprite.svg#ui-close" />
+          </svg>
+        </button>
+      </div>
+
+      <div class="pie-rounded-list">
+        {% for element in item.required %}
+        <a class="as-text pie-list-row --h-spread pie-exams-prep-link" href="{{ element.route }}">
+          <div class="rail">
+            <svg class="icon sm">
+              <use href="./templates/pistacja/images/icons/pie-icons-sprite.svg#pl-play-blue"/>
+            </svg>
+            <span>{{ element.item_title }}</span>
+          </div>
+        </a>
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+  {% endif %}
+
+  <div class="pie-social-media">
+    <a href="https://www.facebook.com/PistacjaMatematyka/" target="_blank" rel="noopener noreferrer" class="fb-menu-button">Facebook</a>
+    <a href="https://www.youtube.com/c/pistacjamatematyka" target="_blank" rel="noopener noreferrer" class="yt-menu-button">YouTube</a>
+    <a href="https://pistacja.tv/podstawa-programowa/matematyka" class="matematyka subject-menu-button" title="Matematyka"></a>
+  </div>
+
+  <hr class="space medium">
+
+</div>
+
+{# NEWSLETTER MODAL #}
+
+<div data-pie-modal="newsletter" class="pie-newsletter-modal">
+  <h3 class="KGSolid font-xl rail --h-spread --v-start">
+    <span>Zapis na newsletter</span>
+    <button class="ghost" data-pie-modal-close="true">
+      <svg class="icon sm --space-t">
+        <use href="./templates/pistacja/images/icons/pie-icons-sprite.svg#ui-close">
+      </svg>
+    </button>
+  </h3>
+  <hr class="space small">
+  <div class="scroll-content stack --medium">
+    {% if isEightGradeExam == true %}
+      {{ jposition("newsletter-modal") }}
+    {% else %}
+      {{ jposition("newsletter-modal-1") }}    
+    {% endif %}
+  </div>
+</div>
+
+{# <pre>
+{{ dump(item) }}
+</pre> #}
+
+

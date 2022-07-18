@@ -1,0 +1,58 @@
+.panel_cookie {
+  bottom: 0;
+  color: white;
+  padding: 10px;
+  display: flex;
+  z-index: 3000;
+  position: fixed;
+  font-size: 14px;
+  max-width: 440px;
+  line-height: 20px;
+  flex-direction: row-reverse;
+  font-family: "Roboto", sans-serif;
+  @include var(background, font-color);
+
+  & input[type="button"] {
+    padding: 0;
+    width: 40px;
+    height: 40px;
+    border: none;
+    display: flex;
+    flex-shrink: 0;
+    cursor: pointer;
+    overflow: hidden;
+    position: relative;
+    color: transparent;
+    margin-right: 10px;
+    border-radius: 50%;
+    align-items: center;
+    justify-content: center;
+    transition: background .3s ease;
+    @include var(background, primary-color);
+
+    &:hover {
+      @include var(background, primary-color-dark);
+    }
+
+    &:focus {
+      outline: none;
+    }
+  }
+
+  &:before {
+    top: 20px;
+    left: 20px;
+    width: 20px;
+    height: 20px;
+    z-index: 3010;
+    flex-shrink: 0;
+    position: absolute;
+    content: "";
+    pointer-events: none;
+    display: inline-block;
+    background-image: url(~images/icons/close.svg);
+    background-repeat: no-repeat;
+    background-size: cover;
+  }
+
+}

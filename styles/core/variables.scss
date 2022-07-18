@@ -1,0 +1,110 @@
+// Pi-stacja Colors.
+
+$pie-green:       #80b742;
+$pie-red:         #ed7067;
+$pie-violet:      #aa7fb9;
+$pie-yellow:      #fbf094;
+
+$pie-dark-blue:   #01497C;
+$pie-gray-blue:   #D3DFE8;
+
+$pie-deep-blue:   #1e3656;
+$pie-soft-blue:   #D4DCDF;
+
+$opp-color:       #e96b04;
+$pie-pink:        #c4127c;
+$pie-blue:        #3770b4;
+$pie-light-blue:  #6565CC;
+$pie-deep-green:  #2E974C;
+
+$pie-gray-700:    #262626;
+$pie-gray-600:    #3e3c3c;
+$pie-gray-500:    #666666;
+$pie-gray-400:    #999999;
+$pie-gray-200:    #cccccc;
+$pie-gray-300:    #e4e4e4;
+$pie-gray-100:    #e2e2e2;
+
+
+
+// Sizes.
+
+$player-mobile:   640px;
+$player-tablet:   990px;
+$results-mobile:  890px;
+
+
+// THEMES.
+
+$light-theme: (
+  
+  primary-color:          $pie-green,
+  primary-color-dark:     darken($pie-green, 10%),
+  primary-color-lite:     lighten($pie-green, 30%),
+
+  secondary-color:        $pie-violet,
+  secondary-color-dark:   darken($pie-violet, 10%),
+  secondary-color-lite:   lighten($pie-violet, 30%),
+
+  math-color:             $pie-pink,
+  math-color-dark:        darken($pie-pink, 10%),
+  math-color-lite:        lighten($pie-pink, 40%),
+
+  phis-color:             $pie-light-blue,
+  phis-color-dark:        darken($pie-light-blue, 10%),
+  phis-color-lite:        lighten($pie-light-blue, 25%),
+
+  chem-color:             $pie-blue,
+  chem-color-dark:        darken($pie-blue, 10%),
+  chem-color-lite:        lighten($pie-blue, 40%),
+  
+  biol-color:             $pie-deep-green,
+  biol-color-dark:        darken($pie-deep-green, 10%),
+  biol-color-lite:        lighten($pie-deep-green, 40%),
+
+  exams-eight-blue:        $pie-dark-blue,
+  exams-eight-gray:        $pie-gray-blue,
+ 
+  exams-mex-blue:          $pie-deep-blue,
+  exams-mex-gray:          $pie-soft-blue,
+
+  error-color:            $pie-red,
+  success-color:          $pie-green,
+  info-color:             $pie-violet,
+  warning-color:          $pie-yellow,
+  opp-color:              $opp-color,
+  
+  font-color:             $pie-gray-600,
+  subtext-color:          $pie-gray-500,
+  label-color:            $pie-gray-400,
+  border-color:           $pie-gray-300,
+  background-color:       $pie-gray-200,
+  tint-white:             $pie-gray-100,
+
+  pie-red:                $pie-red,
+  pie-green:              $pie-green,
+  pie-violet:             $pie-violet,
+  pie-yellow:             $pie-yellow,
+
+  pie-gray-700:           $pie-gray-700,
+  pie-gray-600:           $pie-gray-600,
+  pie-gray-500:           $pie-gray-500,
+  pie-gray-400:           $pie-gray-400,
+  pie-gray-300:           $pie-gray-300,
+  pie-gray-200:           $pie-gray-200,
+  pie-gray-100:           $pie-gray-100,
+);
+
+// Setup CSS variables.
+body {
+  // Light (default) theme + fallback for browsers doesn't support CSS variables.
+  @each $prop, $value in $light-theme {
+    --#{$prop}:#{$value};
+  }
+}
+
+// Varilables with fallback (mixin).
+@mixin var($property, $name) {
+  #{$property}: map-get($light-theme, $name);
+  #{$property}: var(--#{$name});
+}

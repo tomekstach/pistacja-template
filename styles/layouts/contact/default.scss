@@ -1,0 +1,104 @@
+.pie-contact {
+
+  @media (max-width: 990px) {
+    padding: 0 15px;
+  }
+
+  &-rodo {
+    display: flex;
+
+    @media (max-width: 480px) {
+      flex-direction: column-reverse;
+    }
+
+    & label {
+      margin: 8px 15px 0 0;
+    }
+  }
+
+  &-bubbles {
+    display: flex;
+    padding: 1.8em 0;
+
+    @media (max-width: 755px) {
+      flex-direction: column;
+      padding: 1.8em 0 0 0;
+
+      & > a {
+        width: 100%;
+        padding: 1em 0;
+        height: auto;
+        background-size: contain;
+
+        &:last-of-type {
+          margin-top: 1em;
+        }
+      }
+    }
+
+    & > a {
+      opacity: 0.5;
+      display: flex;
+      align-items: center;
+      font-family: "KGSolid";
+      font-size: 1.3em;
+      padding-left: 2.5em;
+      text-decoration: none;
+      transition: opacity .3s ease, padding-left .3s ease;
+      @include var(color, font-color);
+
+      &:hover, &.active {
+        opacity: 1;
+        padding-left: 3em;
+        @include var(color, font-color);
+      }
+    }
+
+    &-green {
+      width: 340px;
+      height: 160px;
+      background-position: left;
+      background-repeat: no-repeat;
+      background-image: url(~images/contact-bubble-green.svg);
+      margin-right: 3em;
+    }
+
+    &-yellow {
+      width: 350px;
+      height: 165px;
+      background-position: left;
+      background-repeat: no-repeat;
+      background-image: url(~images/contact-bubble-yellow.svg);
+    }
+  }
+
+  &-submit-button {
+    width: 220px;
+    font-size: 20px;
+    margin-top: 20px;
+    padding: 8px 10px;
+    justify-content: center;
+    border-bottom: 2px solid;
+    transition: border-color .3s ease;
+    @include var(color, primary-color);
+    font-family: "KGSolid", sans-serif;
+    @include var(border-color, primary-color-light);
+
+    @media (max-width: 480px) {
+      width: 100%;
+    }
+
+    &:disabled {
+      @include var(color, border-color);
+      @include var(border-color, border-color);
+
+      &:hover::after {
+        display: none;
+      }
+    }
+
+    &:hover {
+      border-color: transparent;
+    }
+  }
+}

@@ -1,0 +1,141 @@
+.system-messages {
+  position: relative;
+  @include var(background, pie-gray-100);
+
+  &-label {
+    color: white;
+    flex-shrink: 0;
+    display: block;
+    min-width: 75px;
+    font-size: 14px;
+    padding: 0 0.3em;
+    text-align: center;
+    margin-right: 0.8em;
+    border-radius: 0.2em;
+    background: rgba(0, 0, 0, 0.2);
+
+    &:first-letter {
+      text-transform: uppercase;
+    }
+  }
+
+  &-content {
+    display: flex;
+    padding: 0.8em;
+    position: relative;
+    padding-right: 50px;
+
+    @media (max-width: 990px) {
+      bottom: 0;
+      margin: 1em;
+      z-index: 300;
+      position: fixed;
+      border-radius: 0.3em;
+      flex-direction: column;
+      align-items: flex-start;
+    }
+
+    &.error {
+      @include var(background, error-color);
+    }
+
+    &.success {
+      @include var(background, success-color);
+    }
+
+    &.warning {
+      @include var(background, warning-color);
+    }
+
+    &.info {
+      @include var(background, info-color);
+    }
+  }
+
+  &-text p {
+    margin: 0;
+  }
+
+  &-close {
+    top: 0.8em;
+    padding: 0;
+    right: 0.8em;
+    width: 1.3em;
+    height: 1.3em;
+    display: flex;
+    border-radius: 50%;
+    position: absolute;
+    align-items: center;
+    justify-content: center;
+    background-color: rgba(0, 0, 0, 0);
+    transition: background-color 0.3s ease;
+
+    &>span {
+      display: block;
+      line-height: 0;
+    }
+
+    &:hover {
+      background-color: rgba(0, 0, 0, 0.2);
+    }
+
+    &:focus {
+      outline: none;
+    }
+  }
+}
+
+
+// ---- Notification Banner ----------------
+
+/* HTML MARKUP.
+
+  <div class="pie-notification-banner KGSolid" style="background-color: #fbf094;">
+    <a href="inspiracje/30-probne-egzaminy-z-pi-stacja" class="pie-ga-banner-handle"> 
+      <img src="./templates/pistacja/images/pencil.svg" /> 
+      <strong>Bezpłatne przygotowanie do egzaminów z matematyki 2022 z Pi-stacją!</strong>
+    </a> 
+    <button class="pie-icon-close-18" data-close="true"></button>
+  </div>
+
+  <script type="text/javascript">
+    window.pieLsmName = "random_name";
+  </script>
+  
+*/
+
+.pie-top-navigation-message {
+  display: none;
+}
+
+.pie-notification-banner {
+  display: flex;
+  align-items: center;
+  padding: 0.3em 0.5em 0.3em 1em;
+  justify-content: space-between;
+
+  & a {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+    color: var(--font-color);
+
+    &>img {
+      margin-right: 1em;
+    }
+  }
+
+  & buutton {
+    margin-left: 0.5em;
+  }
+
+  @media (max-width: 1170px) {
+    left: 1em;
+    right: 1em;
+    bottom: 1em;
+    position: fixed;
+    overflow: hidden;
+    border-radius: 0.4em;
+  }
+}

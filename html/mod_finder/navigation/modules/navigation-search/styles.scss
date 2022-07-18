@@ -1,0 +1,17 @@
+// Hide menu.
+.search-sibling {
+  opacity: 1;
+  transform: translateX(0);
+  transition: transform .3s ease, opacity .3s ease;
+
+  &.hide-sibling {
+    transform: translateX(-200%);
+    opacity: 0;
+  }
+}
+
+// Navbar bugfix styles.
+.on-top {
+  z-index: 2000;
+  background: white;
+}

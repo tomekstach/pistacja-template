@@ -1,0 +1,72 @@
+// Pi-stacja default image thumbnail.
+.pie-thumbnail {
+
+  padding: 0.2rem;
+  display: flex;
+  color: white;
+  flex-shrink: 0;
+  cursor: pointer;
+  overflow: hidden;
+  min-width: 220px;
+  min-height: 126px;
+  position: relative;
+  align-items: center;
+  justify-content: center;
+  border-radius: 0.8rem 1.5rem;
+  @include var(background-color, primary-color);
+
+  & > img {
+    width: 100%;
+    height: auto;
+    display: inherit;
+    border-radius: 0.7rem 1.4rem;
+  }
+
+  &[data-label]::before {
+    right: 0.2rem;
+    bottom: 0.5rem;
+    display: flex;
+    color: white;
+    padding: 1px 4px;
+    font-size: 0.9rem;
+    line-height: 1.3rem;
+    position: absolute;
+    align-items: center;
+    content: attr(data-label);
+    @include var(background-color, primary-color);
+  }
+
+  // Modifiers.
+
+  &.matematyka {
+    @include var(background-color, math-color);
+    &::before {
+      @include var(background-color, math-color);
+    }
+  }
+
+  &.fizyka {
+    @include var(background-color, phis-color);
+    &::before {
+      @include var(background-color, phis-color);
+    }
+  }
+
+  &.chemia {
+    @include var(background-color, chem-color);
+    &::before {
+      @include var(background-color, chem-color);
+    }
+  }
+
+  &.biologia {
+    @include var(background-color, biol-color);
+    &::before {
+      @include var(background-color, biol-color);
+    }
+  }
+
+  &--dead {
+    pointer-events: none;
+  }
+}

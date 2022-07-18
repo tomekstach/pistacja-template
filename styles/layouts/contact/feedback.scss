@@ -1,0 +1,56 @@
+.pie-feedback-form {
+
+  @media (max-width: 990px) {
+    padding: 0 15px;
+  }
+
+  &-columns {
+    display: flex;
+
+    @media (max-width: 640px) {
+      flex-direction: column;
+
+      & > div {
+        margin: 0;
+        align-items: center;
+      }
+    }
+
+    & > div:nth-child(1) {
+      width: 100%;
+      display: flex;
+      margin-right: 2em;
+      flex-direction: column;
+
+    }
+
+    & > div:nth-child(2) {
+      display: flex;
+      flex-direction: column;
+    }
+
+    &-hspace {
+      min-width: 254px;
+    }
+  }
+
+  &-dropdown {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 2em;
+
+    & label {
+      margin-bottom: 0.2em;
+    }
+  }
+
+  &-separator {
+    width: 100%;
+    height: 5px;
+    margin-top: 2em;
+    background-image: url(~images/underline-thin-light.svg);
+    background-repeat: repeat-x;
+    background-position: top;
+  }
+
+}

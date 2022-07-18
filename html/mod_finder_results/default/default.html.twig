@@ -1,0 +1,304 @@
+{% do jdoc.addScript(jhash("templates/pistacja/modules/results.js")) %}
+{% do jdoc.addStyleSheet(jhash("templates/pistacja/css/results.css")) %}
+
+{# VIEW: SEARCH RESULTS #}
+
+{% set ALL = 0 %}
+{% set VIDEO = 6 %}
+{% set PLAYLIST = 7 %}
+{% set EXERCISE = 8 %}
+{% set TRIVIAS = 9 %}
+
+<div class="pie-search-results stack">
+
+  {# Calculate total results counts #}
+  {% set total_results_count = 0 %}
+  {% for type in data.types %}
+    {% set total_results_count = total_results_count + type.total %}
+  {% endfor %}
+
+  {# Get name of active level #}
+  {% set activeLevel = null %}
+  {% for level in data.levels %}
+    {% if level.id == data.current_level  %}
+      {# {% set activeLevel = loop.index %} get index #}
+      {% set activeLevel = level.title %}
+    {% endif %}
+  {% endfor %}
+
+  {# Get name of active subject #}
+  {% set activeSubject = null %}
+  {% for subject in data.subjects %}
+    {% if subject.id == data.current_subject  %}
+      {% set activeSubject = subject.title %}
+    {% endif %}
+  {% endfor %}
+
+  {# Base URLs - append desired option to the end of the url #}
+  {% set tabs_base_url =  data.current_url ~ "tlevel=" ~ data.current_level ~ "&tsubject=" ~ data.current_subject %}
+  {% set levels_base_url =  data.current_url ~ "ttype=" ~ data.current_type ~ "&tsubject=" ~ data.current_subject %}
+  {% set subjects_base_url =  data.current_url ~ "tlevel=" ~ data.current_level ~ "&ttype=" ~ data.current_type %}
+  {% set subtitles_base_url =  data.current_url ~ "tlevel=" ~ data.current_level ~ "&ttype=" ~ data.current_type ~ "&tsubject=" ~ data.current_subject %}
+
+  {# Reset URLs #}
+  {% set no_levels_url = levels_base_url ~ "&tlevel=0" %}
+  {% set no_subjects_url = subjects_base_url ~ "&tsubject=0" %}
+  
+    
+  <h1 class="KGSolid font-2xl text-green">Wyniki wyszukiwania</h1>
+  
+  <div class="stack">
+
+    {# SEARCHBOX #}
+
+    <form class="pie-search-results-search" action="{{ jroute(data.route) }}" method="get" autocomplete="off">
+      <label for="pie-search-results-search-input">Fraza:</label>
+      <input id="pie-search-results-search-input" type="text" name="q" value="{{ data.query }}" placeholder="szukaj..." >
+      <input type="hidden" name="tlevel" value="{{ data.current_level }}"/>
+      <input type="hidden" name="ttype" value="{{ data.current_type }}"/>
+      <input type="hidden" name="tsubject" value="{{ data.current_subject }}"/>      
+      <button class="pie-navigation-search-button pie-icon-right-arrow-18" type="submit"></button>
+      <span class="pie-search-results-search-focus"></span>
+    </form>   
+    
+    {# FILTER BAR #}
+
+    
+    {% if activeLevel or activeSubject %}
+    <div class="pie-search-results-filters">
+      <span class="label">Filtry:</span>       
+      <div class="chips">
+        {% if activeSubject %}
+          <span class="pie-chip">{{ activeSubject }}
+            <a href="{{ no_subjects_url }}" >
+              <svg class="icon">
+                <use xlink:href="./templates/pistacja/images/icons/pie-icons-sprite.svg#ui-close" />
+              </svg>
+            </a>
+          </span>
+        {% endif %}
+        {% if activeLevel %}
+          <span class="pie-chip">{{ activeLevel }}
+            <a href="{{ no_levels_url }}">
+              <svg class="icon">
+                <use xlink:href="./templates/pistacja/images/icons/pie-icons-sprite.svg#ui-close" />
+              </svg>
+            </a>
+          </span>
+        {% endif %}        
+      </div>
+    </div>
+    {% endif %}  
+  </div>
+  
+
+  <!-- TABS - Mobile Button -->
+
+  <div class="pie-search-results-tabs-mobile rail --h-spread --space-i --space-r-2x-i" data-rct-trigger="filter-tab filter-btn" data-rct-target="filter-btn" data-rct-toggle="active">
+    <span class="rail"> 
+      <strong>Znaleziono</strong> 
+      <span class="pie-badge">{{ total_results_count }}</span>
+    </span>
+    <svg class="icon sm rotate no-click">
+      <use xlink:href="./templates/pistacja/images/icons/pie-icons-sprite.svg#ui-chevron" />
+    </svg>
+  </div>
+
+  <!-- TABS -->
+  <div class="pie-search-results-tabs rail --h-spread" data-rct-target="filter-tab">
+    <div class="rail --small">
+      {% for type in data.types %}        
+        {% set active = "" ~ type.id ~ "" == data.current_type ? " active" : "" %}
+        {% set url = tabs_base_url ~ "&ttype=" ~ type.id %}
+
+        <a href="{{ url }}" class="tab rail underline--animated green thick --space-i {{ active }}">
+          <span>{{ type.tab_name }}</span>
+          <strong class="pie-badge">{{ type.total }}</strong>
+        </a>
+      {% endfor %}    
+    </div>
+
+    <div class="rail --h-space-around">
+      <button class="chalk-button small font-sm {{ activeLevel ? " active" : "" }}" data-pie-modal-trigger="levelsFilterModal">Poziom</button>
+      <button class="chalk-button small font-sm {{ activeSubject ? " active" : "" }}" data-pie-modal-trigger="subjectsFilterModal">Przedmiot</button>
+    </div>
+  </div>
+
+  {# LEVEL MODAL #}
+
+  <div data-pie-modal="levelsFilterModal">
+    <h3 class="pie-search-results-filters-header">
+      <span>Wybierz poziom edukacyjny</span>
+      <button class="pie-icon-close-18" data-pie-modal-close="true"></button>
+    </h3>
+    <hr class="space small">
+    <div class="pie-stack">
+      <a href="{{ no_levels_url }}" class="bubble-button slim rail {{ data.current_level == 0 ? " active" : "" }}">
+        <i class="pie-icon-seed{{ data.current_level == 0 ? "" : "-gray" }}-18" style="display:flex;"></i>
+        <span>Wszystkie</span>
+      </a>
+      {% for level in data.levels %}
+        {% set active = level.id == data.current_level ? " active" : "" %}
+        {% set url = levels_base_url ~ "&tlevel=" ~ level.id %}
+
+        <a href="{{ url }}" class="bubble-button slim rail {{ active }}">
+          <i class="pie-icon-seed{{ active|length > 0 ? "" : "-gray" }}-18" style="display:flex;"></i>
+          <span>{{ level.title }}</span>
+        </a>
+      {% endfor %}
+    </div>
+  </div>
+
+  {# SUBJECTS MODAL #}
+
+  <div data-pie-modal="subjectsFilterModal">
+    <h3 class="pie-search-results-filters-header">
+      <span>Wybierz przedmiot</span>
+      <button class="pie-icon-close-18" data-pie-modal-close="true"></button>
+    </h3>
+    <hr class="space small">
+    <div class="pie-stack">
+      <a href="{{ no_subjects_url }}" class="bubble-button slim rail {{ data.current_subject == 0 ? " active" : "" }}">
+        <i class="pie-icon-seed{{ data.current_subject == 0 ? "" : "-gray" }}-18" style="display:flex;"></i>
+        <span>Wszystkie</span>
+      </a>
+      {% for subject in data.subjects %}
+        {% set active = subject.id == data.current_subject ? " active" : "" %}
+        {% set url = subjects_base_url ~ "&tsubject=" ~ subject.id %}
+
+        <a href="{{ url }}" class="bubble-button slim rail {{ active }}">
+          <i class="pie-icon-seed{{ active|length > 0 ? "" : "-gray" }}-18" style="display:flex;"></i>
+          <span>{{ subject.title }}</span>
+        </a>
+      {% endfor %}
+    </div>
+  </div>
+
+
+  <!-- RESULTS LIST -->
+  
+  <div class="pie-search-results-list">
+
+    {% set active = "UA" in data.query ? " active" : "" %}  
+
+    {% 
+      set query = data.query|length > 0 
+        ? "UA" in data.query
+          ? data.query|replace({"UA": "", "UA ": ""})
+          : "UA+" ~ data.query
+        : "UA" 
+    %}
+
+    {% set query_url = query|length > 0  ? "?q=" ~ query ~ "&" : "?" %}      
+    {% set ua_url = data.baseUrl ~ query_url ~ "ttype=" ~ data.current_type ~ "&tlevel=" ~ data.current_level ~ "&tsubject=" ~ data.current_subject %}
+     
+    <a href="{{ ua_url }}" class="rail --h-spread as-text --space-t-3x --space-b ua-toggle-bar {{ active ? " active" : ""}}">    
+      <span class="rail --small --v-center text">
+        <img class="--space-l" src="https://pistacja.tv/templates/pistacja/images/icons/ua.svg">
+        <span>
+          <strong>Materiały w języku ukraińskim</strong> / <span>Українські матеріали</span>
+        </span>
+      </span>
+      <span class="pie-switch">
+        <input type="checkbox" {{ active ? "checked" : "" }}>
+        <span class="slider"></span>
+      </span>  
+    </a>
+
+
+    {% for item in data.list %}
+    <div class="pie-search-results-row">
+
+      <!-- TITLE -->
+      <h2 class="font-2xl" title="{{ item.title }}">
+        <a class="as-text underline--animated green rail --small" href="{{ jroute(item.route) }}">
+          <span>{{ item.title }}</span>
+          {% if item.UASubtitles.value == TRUE %}            
+            <img src="https://pistacja.tv/templates/pistacja/images/icons/ua.svg">
+          {% endif %}
+        </a>
+      </h2>
+
+      <!-- CONTENT -->
+      {% set label_content = item.type_id == VIDEO or item.type_id == EXERCISE ? item.duration : item.type_id == PLAYLIST ? item.items : "" %}	
+      {% set label = label_content ? "data-label=" ~ label_content : "" %}
+
+      <!-- THUMBNAIL -->
+      <div>
+        <a href="{{ jroute(item.route) }}" class="{{ item.subject.subject_title|lower }} pie-thumbnail" {{ label }}>
+          <img src="{{ item.image }}" alt="miniatura">
+        </a>
+      </div>
+
+      <!-- METADATA -->
+      <section>
+        <!-- DESCRIPTION -->
+        {% if item.description %}
+          {% if item.type_id == VIDEO %}
+            <div class="pie-results-result-row-description">
+              <strong>Dowiedz się:</strong>
+              <span>{{ item.description }}</span>
+            </div>
+          {% elseif item.type_id == EXERCISE %}
+            <div class="pie-results-result-row-description">
+              <strong>Przećwicz:</strong>
+              <span>{{ item.description }}</span>
+            </div>							
+          {% else %}
+            <div class="pie-results-result-row-description">
+              <strong>Opis:</strong>
+              <span>{{ item.description }}</span>
+            </div>
+          {% endif %}
+        {% endif %}
+
+        <!-- LEVEL -->
+        {% if item.subject and item.level_list|length > 0 %}
+          <div>
+            <strong>Poziom:</strong><br/>
+            {% for level in item.level_list %}
+              <span>{{ level }}</span>
+            {% endfor %}
+          </div>
+        {% endif %}
+
+        <!-- CURRICULUM CODES -->
+        {% if item.codes %}
+          <div>
+            <strong>Punkty podstawy:</strong><br/>
+            {% for code in item.codes %}
+              <button class="as-text underline--animated green" data-uspp-id="{{ code.id }}">{{ code.ppp_title }}</button>
+            {% endfor %}
+          </div>
+        {% endif %}
+      </section>      
+    </div>
+    {% endfor %}
+  </div>
+
+  {# EMPTY #}
+
+  {% if data.list|length == 0 %}
+  <div class="text-center">
+    <img class="--push-left --push-right --space-t-4x --space-b-4x" src="./templates/pistacja/images/empty.png" alt="brak wyników">
+    <h4>
+      <strong class="text-green">Oooops!</strong>
+      <span>Wygląda na to, że nie znaleźliśmy wyników dla tego zapytania.</span>
+    </h4>
+  </div>
+  {% endif %}
+
+  <!-- PAGINATION -->
+  
+  <hr class="space">
+  <div class="pie-pagination">
+    {{ data.pager.getPagesLinks() | raw }}
+  </div>
+</div>
+
+{# Uspp Modal #}
+<div id="uspp-modal" data-pie-modal="uspp" class="pie-player-modal"></div>
+
+<pre style="overflow:auto">
+{# {{dump(data)}} #}
+</pre>

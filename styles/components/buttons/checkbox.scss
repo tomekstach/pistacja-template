@@ -1,0 +1,51 @@
+.pie-checkbox {
+  width: 26px;
+  height: 26px;
+  z-index: 0;
+  flex-shrink: 0;
+  margin-bottom: 2px;
+  position: relative;
+  display: inline-block;
+
+  & > input {
+    z-index: 1;
+    opacity: 0;
+    width: 100%;
+    height: 100%;
+    cursor: pointer;
+    position: relative;
+  }
+
+  & > span.tick {
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: -1;
+    position: absolute;
+    background-position: 0;
+    background-repeat: no-repeat;
+    background-image: url(~images/checkbox.svg);
+
+    &::before {
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      opacity: 0;
+      z-index: -1;
+      content: "";
+      position: absolute;
+      transform: scale(0.5);
+      background-position: -26px;
+      background-repeat: no-repeat;
+      background-image: url(~images/checkbox.svg);
+      transition: transform .3s ease, opacity .3s ease;
+    }
+  }
+
+  & > input:checked + span.tick::before {
+    opacity: 1;
+    transform: scale(1);
+  }
+}

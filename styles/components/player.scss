@@ -1,0 +1,57 @@
+.pie-player-wrapper {
+  gap: 2rem;
+  display: grid;
+  // grid-template-columns: minmax(22rem, 38rem) max-content;
+  grid-template-columns: 34rem 1fr;
+  grid-template-rows: 306px;
+
+  @media (max-width: 990px) {
+    grid-template-columns: 1fr;
+    grid-template-rows: auto;
+  }
+}
+
+.pie-new-player {
+
+  --player-text: var(--font-color);
+  --player-bg: var(--secondary-color-lite);
+
+// Responsive iframe.
+  width: 100%;
+  overflow: hidden;
+  position: relative;
+  padding-top: 56.25%; 
+  
+  font-size: 2.5em;
+  font-family: "KGSolid", sans-serif;
+  border-radius: 0.8rem 1.5rem;
+    
+  color: var(--player-text);
+  background-color: var(--player-bg);
+   
+  & > * {
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    width: 100%;
+    height: 100%;
+    position: absolute;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;    
+  }
+
+  // ---- Modifiers ----------------
+
+  &.exams {
+    --player-text: var(--exams-primary);
+    --player-bg: var(--exams-secondary);
+    background-size: 70%;
+    background-repeat: no-repeat;
+    background-position: -120px 100px;
+    background-image: url(~images/bubble-eight.svg);
+  }
+
+}

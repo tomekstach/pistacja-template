@@ -1,0 +1,32 @@
+{% do jdoc.addScript(jhash("templates/pistacja/modules/portal.js")) %}
+{% do jdoc.addStyleSheet(jhash("templates/pistacja/css/portal.css")) %}
+
+{% set classes = "pie-user-portal " ~ params.moduleclass_sfx %}
+
+<div class="{{classes}}">
+  {% if data.module.showtitle %}
+    <h3>{{ data.module.title }}</h3>
+  {% endif %}
+
+  {% if data.list|length > 0 %}
+    <ul>
+      {% for item in data.list %}
+        <li>
+          {% if item.type == 'heading' %}
+            {{ item.title }}
+          {% else %}
+            <a href="{{ item.flink }}" class="{{ item.anchor_css }} {% if item.id in data.path or (item.type == 'alias' and data.path|length > 0 and item.params.get('aliasoptions') == data.path|last) %} active{% endif %}" title="{{ item.anchor_title }}">{{ item.title }}</a>
+          {% endif %}
+          {% if item.deeper %}
+            <ul class="pie-user-portal-collapse">
+            {% elseif item.shallower %}
+              {% for i in range(1, item.level_diff) %}
+              </ul>
+            </li>
+          {% endfor %}
+      {% else %}
+        </li>
+      {% endif %}
+    {% endfor %}
+  </ul>
+{% endif %}</div>

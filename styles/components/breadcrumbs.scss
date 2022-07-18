@@ -1,0 +1,29 @@
+.pie-breadcrumbs {
+  &-header {
+    padding-bottom: 1.25em;
+    border-bottom: 1px solid #cccccc;
+  }
+
+  & .breadcrumb {
+    list-style: none;
+    margin: 0;
+    padding: 5px 0;
+    font-size: 17px;
+
+    & li {
+      padding: 5px 0;
+    }
+
+    & li:last-child {
+      margin-left: 30px;
+    }
+
+    & .pathway {
+      text-decoration: none;
+    }
+
+    & .divider {
+      display: none;
+    }
+  }
+}

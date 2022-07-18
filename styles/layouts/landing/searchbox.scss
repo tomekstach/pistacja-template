@@ -1,0 +1,113 @@
+.pie-landing-search {
+  z-index: 1;
+  width: 100%;
+  position: relative;
+  margin-bottom: 80px;
+  padding: 50px 0 30px 0;
+  
+  @media (max-width: 960px) {
+    padding: 0 20px 30px;
+  }
+
+  @media (max-width: 880px) {
+    margin-bottom: 0;
+  }
+
+  h2 {
+    @include var(color, primary-color);
+
+    margin: 0;
+    font-size: 28px;
+    line-height: 1.2em;
+    font-family: "KGSolid", sans-serif;
+
+    @media (max-width: 620px) {
+      text-align: center;
+    }
+
+    & em {
+      font-style: normal;
+      @include var(color, font-color);
+    }
+  }
+
+  h4 {
+    font-family: "KGSolid";
+  }
+
+  &-box {
+    display: flex;
+    margin-top: 25px;
+    position: relative;
+
+    &::before {
+      top: 0;
+      left: 0;
+      z-index: 10;
+      content: "";
+      width: 100%;
+      height: 105%;
+      position: absolute;
+      pointer-events: none;
+      background-repeat: no-repeat;
+      background-image: url(~images/search-rim.svg);
+    }
+  }
+
+  &-input {
+    width: 100%;
+    display: flex;
+    overflow: hidden;    
+    position: relative;
+    border-radius: 30px;
+    background-color: rgba(0,0,0,0.1);
+
+    & > input {
+      @include var(color, font-color);
+
+      width: 100%;
+      border: none;
+      display: block;
+      font-size: 1em;
+      background: none;
+      padding: 14px 1.2em;
+      font-family: "Roboto", sans-serif;
+
+      &:focus {
+        outline: none;
+      }
+    }
+  }
+
+  &-button {
+    border-radius: 30px;
+    color:white !important;
+    @include var(background-color, primary-color);
+
+    font-size: 1.2em;
+    padding: 0 1.5em !important;
+    font-family: "KGSolid", sans-serif;
+  }
+
+  &-options {
+    display: flex;
+    margin-top: 15px;
+    padding-left: 10px;
+    justify-content: space-around;
+
+    & > * + * {
+      margin-left: 2em;
+    }
+
+    @media (max-width: 880px) {
+      display: flex;
+      align-items: center;
+      flex-direction: column;
+
+      & > * {
+        margin-left: 0;
+        margin-bottom: 1.5em;
+      }
+    }
+  }
+}

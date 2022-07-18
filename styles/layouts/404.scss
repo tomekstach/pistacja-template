@@ -1,0 +1,52 @@
+.pie-error {
+  width: 500px;
+  display: flex;
+  margin: 0 auto;
+  align-items: center;
+  flex-direction: column;
+  justify-content: center;
+
+  & h1 {
+    margin: 0;
+    display: flex;
+    font-size: 150px;
+    align-items: center;
+    justify-content: center;
+    font-family: "KGSolid", sans-serif;
+    @include var(color, primary-color);
+
+    & > img {
+      width: 130px;
+      flex-shrink: 0;
+    }
+  }
+
+  & h3 {
+    font-weight: 600;
+    text-align: center;
+  }
+
+  &-empty {
+    width: 280px;
+  }
+
+  &-links {
+    margin-top: 20px;
+
+    & a {
+      font-size: 16px;
+      font-family: "KGSolid", sans-serif;
+    }
+
+    & span {
+      margin: 0 10px;
+    }
+  }
+
+  &-bubble {
+    width: 90%;
+    z-index: -1;
+    opacity: .25;
+    position: fixed;
+  }
+}

@@ -1,0 +1,18 @@
+
+.eight-theme {
+  --exams-primary: var(--exams-eight-blue);
+  --exams-secondary: var(--exams-eight-gray);
+}
+
+.mex-theme {
+  --exams-primary: var(--exams-mex-blue);
+  --exams-secondary: var(--exams-mex-gray);
+
+  & .text-dark-blue {
+    color: var(--exams-mex-blue);
+  }
+
+  & .pie-new-player.exams {
+    background-image: url(~images/bubble-matura.svg);
+  }
+}

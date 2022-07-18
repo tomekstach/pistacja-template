@@ -1,0 +1,36 @@
+.pie-exams-exam {
+
+  $exam-mobile: 940px;
+
+  @include pie-tabs(    
+    $pie-tabs-mobile: $exam-mobile,
+    $pie-tabs-active-btn-text: var(--pie-gray-100),  
+    $pie-tabs-active-btn: var(--exams-primary),
+    $pie-tabs-bg: var(--exams-secondary),
+  );
+
+  @include social-media-small ($exam-mobile);
+
+  // Custom view mobile styles. 
+  
+  @media (max-width: $exam-mobile) {      
+    // Align date in webinars list.
+    & .webinars-list {
+      flex-direction: column;
+      align-items: flex-start;
+
+      & .pie-badge {
+        margin-left: 2.3em;
+        margin-top: 0.5em;
+      }
+    }  
+  }
+  
+
+  // ---- Overriders --------------------
+
+  & .pie-list-row {
+    --pie-row-hover: var(--exams-secondary);
+  }
+
+}

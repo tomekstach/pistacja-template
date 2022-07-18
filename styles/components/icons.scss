@@ -1,0 +1,68 @@
+/* SVG ICONS (New icons) */
+
+svg.icon {
+  flex-shrink: 0;
+
+  &.xs {
+    width: 0.7rem;
+    height: 0.7rem;
+  }
+  
+  &.sm {
+    width: 1rem;
+    height: 1rem;
+  }
+  
+  &.md {
+    width: 1.6rem;
+    height: 1.6rem;
+  }
+  
+  &.lg {
+    width: 2.5rem;
+    height: 2.5rem;
+  }
+  
+  &.xl {
+    width: 3rem;
+    height: 3rem;
+  }
+}
+
+
+/* PISTACJA ICON GENERATOR (Legacy icons) */
+
+// Icon names.
+$icon-names: close, down-arrow, circle-check, search, clock, seed, seed-white, seed-gray,
+  menu, search-green, right-arrow, cog, close-green, play, error, task, fullscreen, smallscreen;
+
+// Icons Sizes.
+$sizes: 18, 25, 35;
+
+// Icon Base styles.
+@mixin iconBase($name, $size) {
+  &::before {
+    width: $size + px;
+    height: $size + px;
+    content: "";
+    pointer-events: none;
+    display: inline-block;
+    background-image: url(~images/icons/#{$name}.svg);
+    background-repeat: no-repeat;
+    background-size: cover;
+  }
+}
+
+// Final calsses.
+.pie-icon {
+  @for $index from 1 through length($icon-names) {
+    $name: nth($icon-names, $index);
+    &-#{$name} {
+      @each $size in $sizes {
+        &-#{$size} {
+          @include iconBase($name, $size);
+        }
+      }
+    }
+  }
+}

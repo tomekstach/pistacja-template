@@ -1,0 +1,139 @@
+<h1>Info</h1>
+<pre>
+<strong>Component:</strong> com_contact
+
+<strong>View:</strong> contact
+
+<strong>Template:</strong> default
+
+<strong>Description:</strong> This is the view which we use to display contact form.
+</pre>
+
+<h2>Data</h2>
+
+<h3>view</h3>
+<pre>
+This is a main object for the view which contains all data and method.
+</pre>
+
+<h3>params</h3>
+<pre>
+It contains all params for this view.
+</pre>
+
+<h3>pageclass_sfx</h3>
+<pre>
+CSS class suffix.
+</pre>
+
+<h3>item</h3>
+<pre>
+Main object for this page.
+
+<strong>Tips:</strong>
+
+ - To display main image:
+</pre>
+ <!-- PISTACJA LOGO -->
+ <div class="contact__logo">
+   <img src="{{ baseUrl }}/templates/{{ templateName }}/images/pi-glodni-wiedzy.png" alt="" width="190">
+ </div>
+<pre>
+ - To display breadcrumbs:
+</pre>
+ {{ jposition("position-3") }}
+
+<h3>fieldsets</h3>
+<pre>
+Array which contains all fieldsets which contain all inputs/fields for the contact form.
+
+<strong>Tips</strong>
+
+ - To display main fields:
+</pre>
+ <!-- CONTACT FORM -->
+ <form class="contact__form" id="contact-form" action="{{ jroute('index.php') }}" method="post">
+   <ul>
+     <li class="contact__form__header">
+       {{ jtext('COM_CONTACT_FORM_LABEL') }}
+     </li>
+     <li class="contact__form__user">
+       <label for="jform_contact_name">{{ view.form.getLabel('contact_name')|raw }}</label>
+       <input id="jform_contact_name" name="jform[contact_name]" class="required" type="text" placeholder="Wpisz swoje imię i nazwisko">
+     </li>
+     <li class="contact__form__email">
+       <label for="jform_contact_email">{{ view.form.getLabel('contact_email')|raw }}</label>
+       <input id="jform_contact_email" name="jform[contact_email]" class="validate-email required" type="text" placeholder="Wpisz swój adres e-mail">
+     </li>
+     <li class="contact__form__topic">
+       <label for="jform_contact_emailmsg">{{ view.form.getLabel('contact_subject')|raw }}</label>
+       <input id="jform_contact_emailmsg" name="jform[contact_subject]" class="required" type="text" value = "{% if url %}Zgłoś uwagę do strony: {{ url }}{% endif %}">
+     </li>
+     <li class="contact__form__message">
+       <label for="jform_contact_message-lbl">{{ view.form.getLabel('contact_message')|raw }}</label>
+       <textarea name="jform[contact_message]" id="jform_contact_message" class="required" cols="30" rows="10"></textarea>
+     </li>
+<pre>
+ - To display fields from fieldsets:
+</pre>
+ {% for fieldset in fieldsets %}
+   {% for field in fieldset.fields %}
+     {% for item in field %}
+   <li>
+     <div class="control-group">
+       {% if item.hidden %}
+         <div class="controls">
+           {{ item.inputHTML|raw }}
+         </div>
+       {% else %}
+         <div class="control-label">
+           {{ item.labelHTML|raw }}
+           {% if item.required and item.type != 'Spacer' %}
+             <span class="optional">{{ jtext('COM_CONTACT_OPTIONAL') }}</span>
+           {% endif %}
+         </div>
+         <div class="controls">{{ item.inputHTML|raw }}</div>
+       {% endif %}
+     </div>
+   </li>
+     {% endfor %}
+   {% endfor %}
+ {% endfor %}
+<pre>
+ - To display RODO clause:
+</pre>
+ <li class="contact__form__text">
+   <p>{{ jtext('COM_CONTACT_RODO_TEXT')|raw }}</p>
+ </li>
+ <li class="contact__form__consent">
+   <input type="checkbox" name="consent" id="consent" class="required"> <label for="consent">{{ jtext('COM_CONTACT_CONSENT')|raw }}</label>
+ </li>
+<pre>
+ - To display submit button and end of the form:
+</pre>
+   <li class="contact__form__submit">
+     <button type="submit" disabled>{{ jtext('COM_CONTACT_CONTACT_SEND') }}</button>
+     <input type="hidden" name="option" value="com_contact" />
+     <input type="hidden" name="task" value="contact.submit" />
+     <input type="hidden" name="return" value="{{ view.return_page }}" />
+     <input type="hidden" name="id" value="{{ view.contact.slug }}" />
+     {{ jhtml('form.token') }}
+   </li>
+  </ul>
+  </form>
+  <!-- ./CONTACT FORM -->
+
+<h3>baseUrl</h3>
+<pre>
+Main url for the website.
+</pre>
+
+<h3>current</h3>
+<pre>
+Current url.
+</pre>
+
+<h3>templateName</h3>
+<pre>
+Name of the current template which is use for the website - this is very useful to create a path for the images which are inside the template.
+</pre>

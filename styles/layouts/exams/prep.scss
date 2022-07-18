@@ -1,0 +1,92 @@
+.pie-exams-prep {
+
+  $preparation-mobile: 990px;
+
+  @include pie-tabs($pie-tabs-mobile: $preparation-mobile,
+    $pie-tabs-active-btn-text: var(--pie-gray-100),
+    $pie-tabs-active-btn: var(--exams-primary),
+    $pie-tabs-bg: var(--exams-secondary),
+  );
+
+  @include social-media-small ($preparation-mobile);
+
+  // Custom view mobile styles. 
+  @media (max-width: $preparation-mobile) {
+
+    // Align date in webinars list.
+    & .webinars-list {
+      flex-direction: column;
+      align-items: flex-start;
+
+      & .pie-badge {
+        margin-left: 2.3em;
+        margin-top: 0.5em;
+      }
+    }
+  }
+
+
+  // ---- Overriders --------------------
+
+  & .pie-list-row {
+    --pie-row-hover: var(--exams-secondary);
+  }
+
+
+  // ---- Upcoming events ----------------
+
+  &-next {
+    gap: 2rem;
+    display: grid;
+    grid-template-columns: 22rem 1fr;
+
+    @media (max-width: 840px) {
+      grid-template-columns: 1fr;
+    }
+
+    &-end {
+      padding: 1em;
+      color: white;
+      border-radius: 0.6em;
+      background-color: #1e3656;
+    }
+  }
+
+
+
+  // ---- Exams bubble ----------------
+
+  & .pie-exams-bubble {
+    position: relative;
+    flex-shrink: 0;
+    width: 280px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 2em -4em 0 3em;
+    transition: transform .3s ease;
+
+    &:hover {
+      transform: scale(1.1);
+    }
+
+    @media (max-width: 1120px) {
+      display: none;
+    }
+
+    & .tagline {
+      font-size: 1.6em;
+      font-weight: bold;
+      position: absolute;
+      line-height: 1.3em;
+      text-align: center;
+      font-family: "KGSolid";
+      color: var(--exams-primary);
+    }
+
+    & img {
+      width: 100%;
+    }
+  }
+
+}

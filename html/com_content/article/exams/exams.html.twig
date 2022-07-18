@@ -1,0 +1,58 @@
+
+<div class="pie-content pie-exams-intro">
+  
+  {# ARTICLE #}
+
+  <div itemprop="articleBody" class="stack" itemtype="https://schema.org/Article">
+    <meta itemprop="inLanguage" content="pl-PL">
+    <h1 class="KGSolid text-dark-blue font-3xl" itemprop="name">{{ view.escape(item.title) }}</h1>
+    
+    <div class="stack classic-list-style">	
+      {{ item.text|raw }}
+
+      {# BUBBLES - This code shluld be placed in the article #}
+
+      {#
+      <div class="pie-exams-bubbles">        
+        <a class="pie-exams-bubble" href="./egzaminy/przygotowanie-do-egzaminu-osmoklasisty-2022">
+          <div class="tagline eight">Egzamin<br>ósmoklasisty 2022</div>
+          <img src="./templates/pistacja/images/bubble-eight.svg" alt="bubble">
+        </a>      
+        <a class="pie-exams-bubble" href="./egzaminy/przygotowanie-do-egzaminu-osmoklasisty-2022">
+          <div class="tagline matura">Egzamin<br>maturalny 2022</div>
+          <img src="./templates/pistacja/images/bubble-matura.svg" alt="bubble">
+        </a>
+      </div> 
+      #}
+    </div>
+   
+ 
+    {# STATISTICS #}
+
+    <div class="pie-infographics">
+      <div class="pie-exam-vawe"></div>
+      <div class="pie-infographics-yellow">
+        <img src="./templates/pistacja/images/yellow.svg" alt="filmy">
+        <div class="pie-infographics-text">
+          <h3><em>86 godzin</em></h3>
+          <h6>bezpłatnych powtórek</h6>
+        </div>
+      </div>
+      <div class="pie-infographics-pink">
+        <img src="./templates/pistacja/images/pink.svg" alt="wyświetlenia">
+        <div class="pie-infographics-text">
+          <h3><em>817 tys.</em></h3>
+          <h6>wyświetleń webinarów</h6>
+        </div>
+      </div>
+      <div class="pie-infographics-green">
+        <img src="./templates/pistacja/images/green.svg" alt="postęp">
+        <div class="pie-infographics-text">
+          <h3><em>135 tys.</em></h3>
+          <h6>pobrań próbnych egzaminów</h6>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
